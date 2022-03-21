@@ -15,12 +15,7 @@ export default function AddComment({
 }): JSX.Element {
     const [commentSent, setCommentSent] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const {
-        register,
-        handleSubmit,
-        reset,
-        formState: {errors},
-    } = useForm<IComment>();
+    const methods = useForm<IComment>();
 
     function sendData(data: IComment) {
         setIsLoading(true);
@@ -49,7 +44,7 @@ export default function AddComment({
                     // IComment was sent
                     setCommentSent(true);
                     setIsLoading(false);
-                    reset({username: "", email: undefined, content: ""});
+                    methods.reset({username: "", email: undefined, content: ""});
                 }
             })
             .catch(() => {
@@ -59,16 +54,19 @@ export default function AddComment({
             });
     }
 
-    const onSubmit: SubmitHandler<IComment> = (data) => sendData(data);
+    const onSubmit: SubmitHandler<IComment> = (data) => {
+        console.log("data: ",data)
+        sendData(data);
+    };
 
     return (
         <>
         {!isLoading && !commentSent && (
             <CommentForm
                 onSubmit={onSubmit}
-                register={register}
-                handleSubmit={handleSubmit}
-                errors={errors}
+                register={methods.register}
+                handleSubmit={methods.handleSubmit}
+                errors={methods.formState.errors}
             />
         )}
         {isLoading && (

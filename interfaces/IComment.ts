@@ -11,5 +11,5 @@ export default interface IComment {
     // These are optionals, based on one's needs
     username: string;
     date: Date;
-    email: Hash
+    email: string
 }

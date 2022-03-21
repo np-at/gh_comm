@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import React, {useState} from "react";
 import IComment from "@interfaces/IComment";
-import {getKey} from "@lib/utils/Utils";
+import styled from "styled-components"
 
 interface CommentBlockProps {
     slug: string,
@@ -18,12 +18,14 @@ const CommentBlock: React.FC<CommentBlockProps> = ({
     const [showAddComment, setShowAddComment] = useState(false);
 
     return (
-        <div>
-            <p>Comments</p>
+        <CommentsBlockWrapper>
+            <h2>Comments</h2>
             {comments ? (
-                comments.map((c) => (
-                    <Comment comment={c} key={getKey()} slug={slug}/>
-                ))
+                <ol>{
+                    comments.map((c) => (
+                        <Comment comment={c} key={c.id} slug={slug}/>
+                    ))}
+                </ol>
             ) : (
                 <p>
                     There are no comments.
@@ -41,8 +43,24 @@ const CommentBlock: React.FC<CommentBlockProps> = ({
                     </button>
                 </div>
             )}
-        </div>
+        </CommentsBlockWrapper>
     );
 };
 
 export default CommentBlock
+
+const CommentsBlockWrapper = styled.div`
+  display: block;
+  width: 100%;
+
+  & > div {
+    display: block;
+    width: 100%;
+
+    & > div {
+      display: inherit;
+      width: inherit;
+      margin-left: 2em;
+    }
+  }
+`
