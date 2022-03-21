@@ -48,7 +48,7 @@ const SaveComment: (req: NextApiRequest, res: NextApiResponse) => Promise<void> 
         console.warn("bad request received: comment content empty, rejecting")
         console.log(req.body)
         return new Promise<void>(resolve => {
-            res.status(401)
+            res.status(401).json({})
             resolve()
         })
     }
