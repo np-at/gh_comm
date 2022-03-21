@@ -63,6 +63,7 @@ export default function AddComment({
         <>
         {!isLoading && !commentSent && (
             <CommentForm
+                parentSlug={slug}
                 onSubmit={onSubmit}
                 register={methods.register}
                 handleSubmit={methods.handleSubmit}
