@@ -1,9 +1,7 @@
-import {request} from "@octokit/request";
 import {Octokit} from "@octokit/core"
 import {createAppAuth} from "@octokit/auth-app"
 import type {NextApiRequest, NextApiResponse} from "next";
 import IComment from "@interfaces/IComment";
-// import { encrypt } from "@lib/encryption/crypto";
 import {Endpoints, OctokitResponse} from "@octokit/types";
 import {getGithubParamsFromEnv} from "@components/Comments/utils";
 
@@ -145,7 +143,7 @@ const SaveComment: (req: NextApiRequest, res: NextApiResponse) => Promise<void> 
                 resolve();
             }
         } catch (e) {
-            res.status(500).json(e);
+            res.status(503).json(e);
             resolve();
         }
     });

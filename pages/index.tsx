@@ -1,7 +1,6 @@
 import type {NextPage} from 'next'
 import {GetStaticProps} from 'next'
 import Head from 'next/head'
- // import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import IComment from "@interfaces/IComment";
 import Link from 'next/link'
