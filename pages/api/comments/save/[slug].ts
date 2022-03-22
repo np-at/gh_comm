@@ -84,6 +84,7 @@ const SaveComment: (req: NextApiRequest, res: NextApiResponse) => Promise<void> 
 
                 }
             ).catch((e) => {
+                console.error(`error encountered while retrieving repo comments with path: comments/${slug}.json`, e)
                 if (e.status !== 404) throw new Error(e);
             });
 
@@ -143,6 +144,7 @@ const SaveComment: (req: NextApiRequest, res: NextApiResponse) => Promise<void> 
                 resolve();
             }
         } catch (e) {
+            console.error("generic error enountered from comment/save/[slug] handler", e)
             res.status(503).json(e);
             resolve();
         }
