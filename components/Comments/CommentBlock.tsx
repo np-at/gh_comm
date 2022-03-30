@@ -5,7 +5,7 @@ import styled from "styled-components"
 
 interface CommentBlockProps {
     slug: string,
-    comments?: Array<IComment> | null
+    comments: Array<IComment>
 }
 
 const CommentBlock: React.FC<CommentBlockProps> = ({
@@ -15,34 +15,33 @@ const CommentBlock: React.FC<CommentBlockProps> = ({
     // Dynamically import everything to reduce the first load of a page. Also, there might be no comments at all.
     const Comment = dynamic(() => import("@components/Comments/Comment"));
     const AddComment = dynamic(() => import("@components/Comments/AddComment"));
-    const [showAddComment, setShowAddComment] = useState(false);
+    // const [showAddComment, setShowAddComment] = useState(false);
 
     return (
         <CommentsBlockWrapper>
             <h2>Comments</h2>
-            {comments ? (
+            {
                 <ol>{
                     comments.map((c) => (
                         <Comment comment={c} key={c.id} slug={slug}/>
-                    ))}
-                </ol>
-            ) : (
-                <p>
-                    There are no comments.
-                </p>
-            )}
-            {showAddComment ? (
-                <AddComment slug={slug}/>
-            ) : (
-                <div>
-                    <button
-                        type="submit"
-                        onClick={() => setShowAddComment(true)}
-                    >
-                        Comment
-                    </button>
-                </div>
-            )}
+                    )) ?? <p>
+                        There are no comments.
+                    </p>
+                }</ol>
+            }
+            <AddComment slug={slug}/>
+            {/*{showAddComment ? (*/}
+            {/*    <AddComment slug={slug}/>*/}
+            {/*) : (*/}
+            {/*    <div>*/}
+            {/*        <button*/}
+            {/*            type="submit"*/}
+            {/*            onClick={() => setShowAddComment(true)}*/}
+            {/*        >*/}
+            {/*            Comment*/}
+            {/*        </button>*/}
+            {/*    </div>*/}
+            {/*)}*/}
         </CommentsBlockWrapper>
     );
 };

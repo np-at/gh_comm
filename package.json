@@ -20,25 +20,25 @@
     "imagemin-optipng": "^8.0.0",
     "imagemin-svgo": "^9.0.0",
     "lqip-loader": "^2.2.1",
-    "next": "12.1.0",
+    "next": "12.1.2",
     "next-compose-plugins": "^2.2.1",
     "next-optimized-images": "^2.6.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-hook-form": "^7.28.1",
-    "styled-components": "^5.3.3",
+    "react-hook-form": "^7.29.0",
+    "styled-components": "^5.3.5",
     "svg-sprite-loader": "^6.0.11",
     "uuid": "^8.3.2",
     "webp-loader": "^0.6.0"
   },
   "devDependencies": {
-    "@netlify/plugin-nextjs": "^4.2.5",
-    "@types/node": "17.0.21",
-    "@types/react": "17.0.41",
+    "@netlify/plugin-nextjs": "^4.3.1",
+    "@types/node": "17.0.23",
+    "@types/react": "17.0.43",
     "@types/styled-components": "^5.1.24",
     "@types/uuid": "^8.3.4",
-    "eslint": "8.11.0",
-    "eslint-config-next": "12.1.0",
-    "typescript": "4.6.2"
+    "eslint": "8.12.0",
+    "eslint-config-next": "12.1.2",
+    "typescript": "4.6.3"
   }
 }
