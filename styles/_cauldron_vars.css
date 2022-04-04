@@ -1,0 +1,122 @@
+
+:root {
+    /* color palette */
+    --white: #ffffff;
+    --dark-workspace-color: #53636e;
+    --gray-10: #fdfdfe;
+    --gray-20: #f2f2f2;
+    --gray-30: #e0e0e0;
+    --gray-40: #cccccc;
+    --gray-60: #666666;
+    --gray-70: #4d4d4d;
+    --gray-80: #4d4d4d;
+    --gray-90: #333333;
+    --accent-dark: #02101a;
+    --accent-medium: #283640;
+    --accent-light: #d4dde0;
+    --accent-success: #a5db75;
+    --accent-success-light: #d1ffa4;
+    --accent-error: #d93251;
+    --accent-error-active: #c92e40;
+    --accent-danger: #fe6d6b;
+    --accent-danger-light: #f7846c;
+    --accent-warning: #ffdd75;
+    --accent-warning-light: #ffa1a1;
+    --accent-caution: #ffe69f;
+    --accent-info: #6cdaf2;
+    --accent-info-light: #83e4fa;
+    --accent-primary: #3c7aae;
+    --accent-primary-active: #316091;
+    --accent-secondary: var(--gray-20);
+    --accent-secondary-active: var(--gray-30);
+    --focus-light: #c11bde;
+    --focus-dark: #eb94ff;
+
+    /* text colours */
+    --text-color-base: var(--gray-60);
+    --text-color-light: var(--white);
+    --text-color-light-disabled: rgba(255, 255, 255, 0.5);
+    --header-text-color: var(--gray-80);
+    --header-text-color-dark: var(--gray-90);
+
+    /* accents */
+    --error: var(--accent-error);
+    --disabled: var(--gray-40);
+    --focus: var(--focus-light);
+    --warning: var(--accent-caution);
+    --error-alt: var(--accent-warning-light);
+    --info: var(--accent-info-light);
+    --success: var(--accent-success-light);
+    --focus-active: rgba(215, 30, 247, 0.25);
+    --focus-glow: rgba(193, 27, 222, 0.75);
+    --metric-accent-low: var(--accent-danger-light);
+    --metric-accent-mid: #8ba6c5;
+    --metric-accent-full: var(--accent-success);
+
+    /* spacing (padding/margin) */
+    --space-smallest: 8px;
+    --space-small: 16px;
+    --space-medium: 18px;
+    --space-large: 24px;
+    --space-largest: 29px;
+    --space-half: 4px;
+    --space-three-quarters: 6px;
+    --space-quarter: 2px;
+    --space-large-with-underborder: 18px 24px;
+    --space-gutter: 40px;
+
+    /* text size */
+    --text-size-largest: 112px;
+    --text-size-larger: 56px;
+    --text-size-large: 45px;
+    --text-size-large-medium: 34px;
+    --text-size-medium: 24px;
+    --text-small-medium: 20px;
+    --text-size-normal: 18px;
+    --text-size-small: 15px;
+    --text-size-smaller: 13px;
+    --text-size-smallest: 12px;
+
+    /* font weight */
+    --font-weight-thin: 100;
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+    --font-weight-ultra-bold: 900;
+
+    /* dimensions */
+    --border-width: 6px;
+    --layout-padding: 9px;
+    --content-max-width: 1000px;
+
+    /* z-index */
+    --z-index-tooltip: 9;
+    --z-index-loader: 8;
+    --z-index-scrim: 7;
+    --z-index-dialog: 21;
+    --z-index-dialog-scrim: 20;
+    --z-index-scrim-action-needed: 23;
+    --z-index-top-nav: 9;
+    --z-index-side-bar: 9;
+    --z-index-toast: 8;
+    --z-index-toast-action-needed: 24;
+    --z-index-listbox: 6;
+    /* ensure this is a higher value than the rest (above)! */
+    --z-index-top-bar: 25;
+    /* ensure this is 1 higher than the top bar z-index */
+    --z-index-skip-container: calc(var(--z-index-top-bar) + 1);
+}
+
+.cauldron--theme-dark {
+    --focus: var(--focus-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --focus: var(--focus-dark);
+        --text-color-base: var(--white)
+    }
+
+
+}

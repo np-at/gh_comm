@@ -1,15 +1,14 @@
-import dynamic from "next/dynamic";
 import React, {useState} from "react";
 import IComment from "@interfaces/IComment";
+import AddComment from "@components/Comments/AddComment";
 // import {decrypt, Hash} from "@lib/encryption/crypto";
 
 const Comment: React.FC<{ comment: IComment, slug: string }> = ({
                                                                     comment,
                                                                     slug,
-
                                                                 }) => {
     const [reply, setReply] = useState(false); // This state will manage the reply form
-    const AddComment = dynamic(() => import("@components/Comments/AddComment")); // No need to import this component if the user won't click on "Reply"
+//    const AddComment = dynamic(() => import("@components/Comments/AddComment")); // No need to import this component if the user won't click on "Reply"
 
     return (
         <li
@@ -17,7 +16,7 @@ const Comment: React.FC<{ comment: IComment, slug: string }> = ({
             className={`${comment.parentCommentId ? "child" : ""}`}>
             <div>
                 <div>
-                    <div>{ new Date(comment.date).toLocaleString()}</div>
+                    <div>{new Date(comment.date).toLocaleString()}</div>
                     <span>{comment.username || comment.email}</span>
                 </div>
             </div>

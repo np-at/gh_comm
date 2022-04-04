@@ -1,0 +1,109 @@
+backend:
+  name: git-gateway
+  branch: main # Branch to update (optional; defaults to master)
+media_folder: "/public/img"
+public_folder: "/img"
+collections:
+  - name: "meta"
+    label: "Configuration"
+    description: "Meta data"
+    hide: false
+    files:
+      - label: "Tags"
+        name: "tags"
+        file: "content/meta/tags.json"
+        fields:
+          - label: tags
+            name: tags
+            type: tags
+            widget: "list"
+            field:
+              name: "tag"
+              label: "Tag Name"
+              widget: string
+#      - name: "meta.yml"
+#        label: "Meta"
+#        description: "Meta data"
+#        type: "yaml"
+#        required: true
+#        default:
+#          title: "Meta"
+#          description: "Meta data"
+#          keywords: "Meta"
+
+  - name: "events"
+    label: "Events"
+    folder: "content/events"
+#    path: "content/events"
+    create: true
+    permalink: "/:slug"
+    pagination:
+      per_page: 10
+      page_param: "page"
+      max_pages: 10
+    sort:
+      - field: "date"
+        order: "desc"
+    fields:
+      - name: title
+        label: "Title"
+        type: "string"
+      - name: date
+        label: "Date"
+        widget: "datetime"
+        date_format: "YYYY-MM-DD"
+        default: ""
+        time_format: false
+      - name: tags
+        label: "Tags"
+        required: false
+        widget: "relation"
+        multiple: true
+        collection: "meta"
+        file: "tags.json"
+        search_fields: ["tags.tag"]
+        display_fields: ["tags.tag"]
+        value_field: "tags.tag"
+      - name: content
+        label: "Content"
+        type: "textarea"
+      - name: excerpt
+        label: "Excerpt"
+        type: "textarea"
+      - name: featured_image
+        label: "Featured Image"
+        widget: "image"
+        allow_multiple: false
+  - name: "pages"
+    label: "Pages"
+    files:
+      - label: "About"
+        name: "about"
+        file: "content/about.md"
+        fields:
+          - label: "Title"
+            name: "title"
+            type: "string"
+      - label: "Home2"
+        name: "home2"
+        file: "content/home2.md"
+        fields:
+          - label: "picture"
+            name: "picture"
+            widget: "image"
+            choose_url: true
+          - { label: "Title", name: "title", widget: "text" }
+          - { label: "Content", name: "content", widget: "text" }
+      - label: "Home"
+        name: "home"
+        file: "content/home.md"
+        fields:
+          - { label: "Title", name: "title", widget: "string"}
+          - { label: "Publish Date", name: "date", widget: "datetime" }
+          - { label: "Body", name: "body", widget: "markdown"}
+          - label: 'Cats'
+            name: "cats"
+            widget: list
+            fields:
+              - { label: "Name", name: "name", widget: "string"}
+              - { label: "Description", name: "description", widget: "text"}

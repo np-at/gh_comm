@@ -2,6 +2,9 @@ import dynamic from "next/dynamic";
 import React, {useState} from "react";
 import IComment from "@interfaces/IComment";
 import styled from "styled-components"
+import Comment from "./Comment";
+import AddComment from "@components/Comments/AddComment";
+
 
 interface CommentBlockProps {
     slug: string,
@@ -13,8 +16,8 @@ const CommentBlock: React.FC<CommentBlockProps> = ({
                                                        comments,
                                                    }) => {
     // Dynamically import everything to reduce the first load of a page. Also, there might be no comments at all.
-    const Comment = dynamic(() => import("@components/Comments/Comment"));
-    const AddComment = dynamic(() => import("@components/Comments/AddComment"));
+//    const Comment = dynamic(() => import("@components/Comments/Comment"));
+//    const AddComment = dynamic(() => import("@components/Comments/AddComment"));
     // const [showAddComment, setShowAddComment] = useState(false);
 
     return (

@@ -1,38 +1,21 @@
-import React from 'react'
-
-const ACItem: React.FC<{ comment: IACom }> = props => {
-    return <li>
-        <div>{new Date(props.comment.date).toLocaleString()}</div>
-        <div>{props.comment.user}</div>
-        <div>{props.comment.content}</div>
-        {props.comment.children &&
-            <ol>{props.comment.children.map((x, idx) => <ACItem key={`e${idx}`} comment={x}/>)}</ol>}
-    </li>
-}
-
-interface IACom {
-    date: number,
-    user: string,
-    content: string,
-    children?: IACom[]
-
-}
+import React, {useEffect} from 'react'
+import {ACItem, IACom} from "@components/Comments/ACItem";
 
 const comments: IACom[] = [
     {
-        date: Date.now(),
+        date: Date.parse("3/30/2022, 11:33:54 AM"),
         user: "test",
         content: "content",
         children: [
             {
                 user: "buttface",
                 content: "f u",
-                date: Date.now() - 20,
+                date:Date.parse("3/30/2022, 11:34:22 AM") - 20,
             }
         ]
     },
     {
-        date: Date.now(),
+        date: Date.parse("3/30/2022, 11:34:22 AM"),
         user: "test",
         content: "content",
         children: [
@@ -44,12 +27,18 @@ const comments: IACom[] = [
             {
                 user: "buttface",
                 content: "f u",
-                date: Date.now() - 20
+                date: -22
             }
         ]
     }
 ]
-export const Overview: React.FC<{ title: string }> = ({title}) => <>
-    <h2>{title}</h2>
-    <ol>{comments.map((value, idx) => <ACItem key={`a${idx}`} comment={value}/>)}</ol>
-</>
+export const Overview: React.FC<{ title: string }> = ({title}) => {
+
+    useEffect(() => {
+    }, []);
+
+    return <>
+        <h2>{title}</h2>
+        <ol>{comments.map((value, idx) => <ACItem key={`a${idx}`} comment={value}/>)}</ol>
+    </>;
+}

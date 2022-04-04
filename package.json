@@ -29,7 +29,9 @@
     "styled-components": "^5.3.5",
     "svg-sprite-loader": "^6.0.11",
     "uuid": "^8.3.2",
-    "webp-loader": "^0.6.0"
+    "webp-loader": "^0.6.0",
+    "babel-plugin-styled-components": "^2.0.6",
+    "@deque/cauldron-react": "^4.2.1"
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "^4.3.1",

@@ -1,0 +1,24 @@
+.Icon {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.Icon svg {
+    display: block;
+}
+
+/* Icon--down is the default orientation */
+.Icon__down {
+}
+
+.Icon__up {
+    transform: scaleY(-1);
+}
+
+.Icon__left {
+    transform: rotate(90deg);
+}
+
+.Icon__right {
+    transform: rotate(-90deg);
+}

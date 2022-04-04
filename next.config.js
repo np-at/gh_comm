@@ -2,6 +2,7 @@
 
 const nextConfig = {
     reactStrictMode: true,
+    styledComponents: true,
     webpack: function (config, context) {
         if (!context.isServer) {
             config.resolve.fallback.fs = false;
@@ -11,6 +12,9 @@ const nextConfig = {
     images: {
         loader: 'custom',
         disableStaticImages: true
+    },
+    compiler: {
+        styledComponents: true
     }
 
 

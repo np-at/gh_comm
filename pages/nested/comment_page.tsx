@@ -16,7 +16,7 @@ export interface CommentPageProps extends IPageBase {
 export const getStaticProps = async () => {
     const comments = await getCommentsFromStatic(SLUG2)
     // const comments = await getComments(SLUG2)
-    return {notFound: false, props: {comments: comments}};
+    return {notFound: false, props: {comments: comments ?? []}}
 }
 
 const CommentPage: React.FC<InferGetServerSidePropsType<typeof getStaticProps>> = (p) => {

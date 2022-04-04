@@ -1,9 +1,12 @@
-html,
-body {
+@import "./_cauldron_vars.css";
+
+html,body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  color: var(--text-color-base);
+  background-color: var(--dark-workspace-color);
 }
 
 a {
@@ -13,4 +16,19 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+/*Screen Reader Only Class*/
+.sr-only,.Offscreen {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  margin-top: -1px;
+}
+
+*:focus {
+  outline: 2px solid var(--focus);
+  outline-offset: var(--space-quarter);
 }
