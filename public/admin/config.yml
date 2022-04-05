@@ -100,20 +100,7 @@ collections:
         date_format: "YYYY-MM-DD"
         default: ""
         time_format: false
-      - name: tags
-        label: "Tags"
-        required: false
-        widget: "relation"
-        multiple: true
-        collection: "meta"
 
-#        file: "tags"
-        file: "tags"
-        search_fields:
-          - "tags.*.name"
-        display_fields:
-          - "tags.*.name"
-        value_field: "tags.*.slug"
       - name: content
         label: "Content"
         type: "textarea"
@@ -124,6 +111,18 @@ collections:
         label: "Featured Image"
         widget: "image"
         allow_multiple: false
+      - name: tags
+        label: "Tags"
+        required: false
+        widget: "relation"
+        multiple: true
+        collection: "meta"
+        file: "tags"
+        search_fields:
+          - "tags.*.name"
+        display_fields:
+          - "tags.*.name"
+        value_field: "tags.*.slug"
   - name: "pages"
     label: "Pages"
     files:
@@ -134,26 +133,34 @@ collections:
           - label: "Title"
             name: "title"
             type: "string"
-      - label: "Home2"
-        name: "home2"
-        file: "content/home2.md"
-        fields:
-          - label: "picture"
-            name: "picture"
-            widget: "image"
-            choose_url: true
-          - { label: "Title", name: "title", widget: "text" }
-          - { label: "Content", name: "content", widget: "text" }
       - label: "Home"
         name: "home"
         file: "content/home.md"
         fields:
-          - { label: "Title", name: "title", widget: "string"}
-          - { label: "Publish Date", name: "date", widget: "datetime" }
-          - { label: "Body", name: "body", widget: "markdown"}
-          - label: 'Cats'
-            name: "cats"
-            widget: list
-            fields:
-              - { label: "Name", name: "name", widget: "string"}
-              - { label: "Description", name: "description", widget: "text"}
+          - label: "picture"
+            name: "picture"
+            widget: "image"
+            choose_url: false
+          - label: "Title"
+            name: "title"
+            widget: "text"
+          - label: "Content"
+            name: "body"
+            widget: "markdown"
+          - label: "slug"
+            name: "slug"
+            hidden: true
+            default: "/"
+#      - label: "Home"
+#        name: "home"
+#        file: "content/home.md"
+#        fields:
+#          - { label: "Title", name: "title", widget: "string"}
+#          - { label: "Publish Date", name: "date", widget: "datetime" }
+#          - { label: "Body", name: "body", widget: "markdown"}
+#          - label: 'Cats'
+#            name: "cats"
+#            widget: list
+#            fields:
+#              - { label: "Name", name: "name", widget: "string"}
+#              - { label: "Description", name: "description", widget: "text"}

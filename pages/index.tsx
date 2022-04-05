@@ -2,18 +2,44 @@ import type {NextPage} from 'next'
 import {GetStaticProps} from 'next'
 import IComment from "@interfaces/IComment";
 import styled from "styled-components";
-
+import path from "path";
+import fs from "node:fs";
+import matter from "gray-matter";
+import yaml from "js-yaml";
 
 interface HomePageProps {
-    comments: IComment[] | null
+    comments: IComment[] | null,
+    matterData: HomePageCMSFields
+}
+interface HomePageCMSFields {
+    picture: string
+    date: string;
+    title: string;
+    body: string;
+    tags?: string[];
+    slug: string;
+    fullPath?: string;
 }
 
 export const getStaticProps: GetStaticProps<HomePageProps> = async context => {
+   const contentDirectory = path.join(process.cwd(), 'content');
+    const fullPath = path.join(contentDirectory, "home2" + ".md");
+    const pageData = fs.readFileSync(fullPath, "utf8");
+
+    const matterResult = matter(pageData, {
+        engines: {
+            yaml: (s) => yaml.load(s, {schema: yaml.JSON_SCHEMA}) as object
+        }
+    });
+    const matterData = matterResult.data as HomePageCMSFields;
+    matterData.fullPath = fullPath
+
     const comments = null
-    return {notFound: false, props: {comments: comments}};
+    return {notFound: false, props: {comments: comments, matterData: matterData}}
 }
 
-const Home: NextPage<HomePageProps> = (p) => {
+const Home: NextPage<HomePageProps> = (props) => {
+    console.log("props ", props)
     return <HomePageLayout>
         <PortraitWrapper><Img src={"/img/rw.png"} alt={""}/> </PortraitWrapper>
         <ArticleColumn><h2>Testing</h2>
@@ -96,8 +122,9 @@ const ArticleColumn = styled.div`
   justify-content: flex-start;
   width: 100%;
   height: 100%;
-  
+
   margin-bottom: auto;
+
   & > :not(h1,h2,h3,h4,h5,h6) {
     align-self: start;
     padding: 1rem;
