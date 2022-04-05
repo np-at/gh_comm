@@ -5,22 +5,68 @@ media_folder: "/public/img"
 public_folder: "/img"
 collections:
   - name: "meta"
-    label: "Configuration"
-    description: "Meta data"
-    hide: false
+    label: "Meta"
+    delete: false
+    editor:
+      preview: false
     files:
-      - label: "Tags"
-        name: "tags"
-        file: "content/meta/tags.json"
+#      - name: "authors"
+#        label: "Authors"
+#        file: "content/meta/authors.yml"
+#        description: "Author descriptions"
+#        fields:
+#          - name: authors
+#            label: Authors
+#            label_singular: "Author"
+#            widget: list
+#            fields:
+#              - label: "Slug"
+#                name: "slug"
+#                widget: "string"
+#                hint: "The part of a URL identifies the author"
+#              - label: "Name"
+#                name: "name"
+#                widget: "string"
+#                hint: "First and Last"
+#              - label: "Introduction"
+#                name: "introduction"
+#                widget: "text"
+      - name: "tags"
+        label: "Tags"
+        file: "content/meta/tags.yml"
+        description: "List of tags"
         fields:
-          - label: tags
-            name: tags
-            type: tags
-            widget: "list"
-            field:
-              name: "tag"
-              label: "Tag Name"
-              widget: string
+          - name: tags
+            label: Tags
+            label_singular: "Tag"
+            widget: list
+            fields:
+              - label: "Slug"
+                name: "slug"
+                widget: "string"
+                hint: "The part of a URL identifies the tag"
+              - label: "Display Name"
+                name: "name"
+                widget: "string"
+                hint: "Tag name for displaying on the site"
+
+#  - name: "configuration"
+#    label: "configuration"
+#    description: "Meta data"
+#    hide: false
+#    files:
+#      - name: "tags"
+#        label: "tags"
+#        file: "content/meta/tags.json"
+#        fields:
+#          - label: tags
+#            name: tags
+#            type: tags
+#            widget: "list"
+#            field:
+#              name: "tag"
+#              label: "Tag Name"
+#              widget: string
 #      - name: "meta.yml"
 #        label: "Meta"
 #        description: "Meta data"
@@ -60,10 +106,14 @@ collections:
         widget: "relation"
         multiple: true
         collection: "meta"
-        file: "tags.json"
-        search_fields: ["tags.tag"]
-        display_fields: ["tags.tag"]
-        value_field: "tags.tag"
+
+#        file: "tags"
+        file: "tags"
+        search_fields:
+          - "tags.*.name"
+        display_fields:
+          - "tags.*.name"
+        value_field: "tags.*.slug"
       - name: content
         label: "Content"
         type: "textarea"
