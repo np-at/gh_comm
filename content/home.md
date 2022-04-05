@@ -1,15 +1,18 @@
 ---
-title: Awesome kitties
 picture: /img/rw.png
+title: Remembering Dmitri Belser
 date: 2019-03-17T19:31:20.591Z
 cats:
-- description: 'Maru is a Scottish Fold from Japan, and he loves boxes.'
-  name: Maru (まる)
-- description: Lil Bub is an American celebrity cat known for her unique appearance.
-  name: Lil Bub
-- description: 'Grumpy cat is an American celebrity cat known for her grumpy appearance.'
-  name: Grumpy cat (Tardar Sauce)
+  - description: Maru is a Scottish Fold from Japan, and he loves boxes.
+    name: Maru (まる)
+  - description: Lil Bub is an American celebrity cat known for her unique appearance.
+    name: Lil Bub
+  - description: Grumpy cat is an American celebrity cat known for her grumpy appearance.
+    name: Grumpy cat (Tardar Sauce)
+slug: '""'
 ---
-Welcome to my awesome page about cats of the internet.
+Master cleanse fugiat veniam, readymade poutine mustache ramps vice neutra cronut reprehenderit offal narwhal hexagon. Green juice thundercats intelligentsia authentic disrupt williamsburg. Chambray vegan adaptogen street art in. Fam hoodie literally freegan. Ut organic salvia master cleanse quinoa enim try-hard tofu voluptate affogato hammock. Raw denim hashtag health goth fanny pack.
 
-This page is built with NextJS, and content is managed in Netlify CMS
+Ennui dolore activated charcoal cornhole. Cardigan glossier irony, succulents williamsburg street art intelligentsia ullamco id sriracha jean shorts. Shoreditch green juice cray, palo santo four loko pok pok meh craft beer nulla kitsch. Taxidermy slow-carb aliquip, hot chicken qui snackwave et YOLO brunch. Street art meditation adipisicing, drinking vinegar pitchfork knausgaard vice listicle actually yuccie brooklyn. Prism laboris yr, direct trade flexitarian commodo poke quinoa incididunt ethical leggings trust fund. Ut master cleanse umami seitan palo santo aliquip, DIY exercitation.
+
+Paleo subway tile man braid marfa cardigan squid ex pitchfork magna vice venmo biodiesel listicle ut. Coloring book next level man braid celiac in. La croix flannel iceland, disrupt bespoke est authentic skateboard fam pinterest next level elit succulents vaporware jean shorts. Blue bottle wolf eiusmod enamel pin meditation leggings.
