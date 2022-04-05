@@ -2,7 +2,7 @@ import path from "path";
 import fs from "node:fs";
 import yaml from "js-yaml";
 import matter from "gray-matter";
-
+import md from "markdown-it";
 
 const contentDirectory = path.join(process.cwd(), "content")
 export interface HomePageCMSFields {
@@ -13,6 +13,7 @@ export interface HomePageCMSFields {
     tags?: string[];
     slug: string;
     fullPath?: string;
+    content?: string;
 }
 export type PageContent = {
     readonly title: string;
@@ -40,5 +41,6 @@ export const getContentFromSlug: (slug: string) => HomePageCMSFields = (slug: st
     const matterData = matterResult.data as HomePageCMSFields
 
     matterData.fullPath = fullPath
+    matterData.body = md({html: true, linkify: true, typographer: true}).render(matterResult.content)
     return matterData;
 }
