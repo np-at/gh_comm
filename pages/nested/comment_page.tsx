@@ -2,13 +2,13 @@ import React from "react";
 import {IPageBase} from "@interfaces/IPageBase";
 import {sanitizeSlug} from "@components/Comments/utils";
 import CommentBlock from "@components/Comments/CommentBlock";
-import {getCommentsFromStatic, getCommentsFromStaticSync} from "@lib/comments/_utils";
-import {GetStaticProps, InferGetServerSidePropsType} from "next";
+import {getCommentsFromStatic} from "@lib/../../libs/comments/_utils";
+import {InferGetServerSidePropsType} from "next";
 
 const SLUG = "/nested/comment_page"
 const SLUG2 = sanitizeSlug(SLUG)
 
-export interface CommentPageProps extends IPageBase {
+interface CommentPageProps extends IPageBase {
 
 }
 

@@ -2,48 +2,45 @@ import type {NextPage} from 'next'
 import {GetStaticProps} from 'next'
 import IComment from "@interfaces/IComment";
 import styled from "styled-components";
-import path from "path";
-import fs from "node:fs";
-import matter from "gray-matter";
-import yaml from "js-yaml";
+import {getContentFromSlug, HomePageCMSFields} from "../libs/pages";
 
 interface HomePageProps {
     comments: IComment[] | null,
     matterData: HomePageCMSFields
 }
-interface HomePageCMSFields {
-    picture: string
-    date: string;
-    title: string;
-    body: string;
-    tags?: string[];
-    slug: string;
-    fullPath?: string;
-}
 
-export const getStaticProps: GetStaticProps<HomePageProps> = async context => {
-   const contentDirectory = path.join(process.cwd(), 'content');
-    const fullPath = path.join(contentDirectory, "home2" + ".md");
-    const pageData = fs.readFileSync(fullPath, "utf8");
 
-    const matterResult = matter(pageData, {
-        engines: {
-            yaml: (s) => yaml.load(s, {schema: yaml.JSON_SCHEMA}) as object
-        }
-    });
-    const matterData = matterResult.data as HomePageCMSFields;
-    matterData.fullPath = fullPath
+export const getStaticProps: GetStaticProps<HomePageProps> = async _ => {
+    const s = getContentFromSlug('home')
+//   const contentDirectory = path.join(process.cwd(), 'content');
+//    const fullPath = path.join(contentDirectory, "home" + ".md");
+//    const pageData = fs.readFileSync(fullPath, "utf8");
+//
+//    const matterResult = matter(pageData, {
+//        engines: {
+//            yaml: (s) => yaml.load(s, {schema: yaml.JSON_SCHEMA}) as object
+//        }
+//    });
+//
+//    const matterData = matterResult.data as HomePageCMSFields;
+//    matterData.fullPath = fullPath
 
     const comments = null
-    return {notFound: false, props: {comments: comments, matterData: matterData}}
+    return {
+        notFound: false,
+//        props: {comments: comments, matterData: matterData
+        props: {
+            comments: comments, matterData: s
+        }
+    }
 }
 
 const Home: NextPage<HomePageProps> = (props) => {
     console.log("props ", props)
     return <HomePageLayout>
         <PortraitWrapper><Img src={"/img/rw.png"} alt={""}/> </PortraitWrapper>
-        <ArticleColumn><h2>Testing</h2>
-            <div>a;lsdkfj;alskfj;asldkfjas;ldfkjasd;flkajf;lekjfwa;lkj</div>
+        <ArticleColumn><h1>{props.matterData.title}</h1>
+            {props.matterData.body}
         </ArticleColumn>
     </HomePageLayout>
 //    return (

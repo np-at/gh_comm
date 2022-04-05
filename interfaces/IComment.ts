@@ -1,6 +1,4 @@
 // IComment.ts
-import { Hash } from "@lib/encryption/crypto"; // That's the Hash interface we created before
-
 export default interface IComment {
     // Mandatory parameters
     id: string; // Unique id of the comment

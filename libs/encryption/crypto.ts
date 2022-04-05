@@ -1,4 +1,4 @@
-import crypto from "crypto"
+import * as crypto from "crypto";
 const algorithm = "aes-256-ctr";
 const iv = crypto.randomBytes(16);
 
