@@ -2,7 +2,7 @@ import {useState} from "react";
 import {SubmitHandler, useForm,} from "react-hook-form";
 import {generateUUID} from "@lib/../../libs/utils/Utils";
 import {CommentForm} from "@components/Comments/CommentForm";
-import IComment from "@interfaces/IComment";
+import { IComment } from "@interfaces/IComment";
 
 
 
@@ -22,13 +22,14 @@ export default function AddComment({
 
         // Prepare the new comment data
         const newComment: IComment = {
+            page_name: slug,
             date: new Date(), // p
             parentCommentId: parentCommentId || undefined, // If this new comment has a parent, put the id here
             id: generateUUID(), // generate the unique id here however you want
             username: data.username || "Anonymous",
             email: data.email,
             content: data.content,
-            children: [],
+            children: []
         };
 
         // Send the new comment to an API endpoint we'll build later. It's important to pass the slug parameter and I'm doing that with a path parameter
@@ -63,6 +64,7 @@ export default function AddComment({
         <>
         {!isLoading && !commentSent && (
             <CommentForm
+                parentCommentId={parentCommentId}
                 parentSlug={slug}
                 onSubmit={onSubmit}
                 register={methods.register}

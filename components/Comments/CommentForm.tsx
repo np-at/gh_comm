@@ -1,22 +1,30 @@
 import {
     FieldErrors,
-    SubmitHandler, useForm, UseFormHandleSubmit, UseFormRegister,
+    SubmitHandler, useForm, UseFormHandleSubmit,
 
 
 } from "react-hook-form";
 import React from "react";
-import IComment from "@interfaces/IComment";
+import { IComment } from "@interfaces/IComment";
 
-export const CommentForm: React.FC<{ handleSubmit: UseFormHandleSubmit<IComment>, onSubmit: SubmitHandler<IComment>, register: any, errors: FieldErrors<IComment>, parentSlug:string }> = p => {
+export const CommentForm: React.FC<{ handleSubmit: UseFormHandleSubmit<IComment>, onSubmit: SubmitHandler<IComment>, register: any, errors: FieldErrors<IComment>, parentSlug:string, parentCommentId?: string }> = p => {
     const {formState: {errors}} = useForm<IComment>();
     // const onSubmit = (data: any) => console.log(data);
-    console.log(errors);
-    const handleFormSubmission: React.FormEventHandler<HTMLFormElement> = event => {}
+    errors && console.error("errors",errors);
+    const handleFormSubmission: React.FormEventHandler<HTMLFormElement> = event => {
+      console.warn("handleFormSubmission",event);
+        event.preventDefault();
+        p.handleSubmit(p.onSubmit);
+    };
+
     return (
         <form action={`/api/comments/save/${p.parentSlug}`} method={"POST"} onSubmit={p.handleSubmit(p.onSubmit, (errors1, event) => console.error(errors1, event))}>
             <label>Your Email<input type={"email"} {...p.register("email")} /></label>
             <label>Comment      <textarea {...p.register("content", {required: true, min: 1, maxLength: 1000})}/>
             </label>
+          <input type={"text"} {...p.register("parentCommentId")} value={p.parentCommentId} hidden readOnly={true}/>
+          <input type={'text'} name={'page_name'} value={p.parentSlug} hidden readOnly={true} {...p.register("page_name")} />
+          <input type={'submit'} value={'Submit'} />
             {/*<input type="text" placeholder="First name" {...register("First name", {required: true, maxLength: 80})} />*/}
             {/*<input type="text" placeholder="Email" {...register("Email", {required: true, pattern: /^\S+@\S+$/i})} />*/}
             {/*<input type="text" placeholder="Last name" {...register("Last name", {required: true, maxLength: 100})} />*/}

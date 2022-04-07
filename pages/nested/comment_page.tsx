@@ -1,5 +1,4 @@
 import React from "react";
-import {IPageBase} from "@interfaces/IPageBase";
 import {sanitizeSlug} from "@components/Comments/utils";
 import CommentBlock from "@components/Comments/CommentBlock";
 import {getCommentsFromStatic} from "@lib/../../libs/comments/_utils";
@@ -8,9 +7,7 @@ import {InferGetServerSidePropsType} from "next";
 const SLUG = "/nested/comment_page"
 const SLUG2 = sanitizeSlug(SLUG)
 
-interface CommentPageProps extends IPageBase {
 
-}
 
 //
 export const getStaticProps = async () => {
@@ -23,7 +20,7 @@ const CommentPage: React.FC<InferGetServerSidePropsType<typeof getStaticProps>> 
 
     // const comments = getCommentsFromStaticSync(SLUG2) ?? []
     // console.log(comments)
-
+    console.debug("comments",p.comments)
     return <CommentBlock slug={SLUG2} comments={p.comments ?? []}/>
 
 }

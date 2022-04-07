@@ -1,6 +1,5 @@
-import dynamic from "next/dynamic";
-import React, {useState} from "react";
-import IComment from "@interfaces/IComment";
+import React from "react";
+import { IComment } from "@interfaces/IComment";
 import styled from "styled-components"
 import Comment from "./Comment";
 import AddComment from "@components/Comments/AddComment";

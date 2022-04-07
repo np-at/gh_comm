@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import IComment from "@interfaces/IComment";
+import { IComment } from "@interfaces/IComment";
 import AddComment from "@components/Comments/AddComment";
 // import {decrypt, Hash} from "@lib/encryption/crypto";
 
