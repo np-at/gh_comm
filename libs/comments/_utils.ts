@@ -2,6 +2,28 @@ import { IComment, ICommentFile } from "@interfaces/IComment";
 import path from "path";
 import { readFileSync } from "fs";
 
+
+// export const getComments = async (slug: string): Promise<Array<IComment> | null> => {
+//     const {ref, repo, owner} = getGithubParamsFromEnv()
+//     try {
+//         const comments = await request(
+//             "GET /repos/{owner}/{repo}/contents/{path}",
+//             {
+//                 headers: {
+//                     authorization: `token ${token}`,
+//                     accept: "application/vnd.github.v3.raw",
+//                 },
+//                 owner: owner,
+//                 repo: repo,
+//                 path: `../../comments/${slug}.json`,
+//                 ref: ref,
+//             }
+//         );
+//         return JSON.parse(comments.data as unknown as string);
+//     } catch (e) {
+//         return null;
+//     }
+// }
 export const getCommentsFromStatic: (slug: string) => Promise<IComment[] | null> = async (slug: string) => {
   const p = path.join(process.cwd(), "comments", `${slug}.json`);
   try {

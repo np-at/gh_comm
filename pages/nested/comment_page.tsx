@@ -1,7 +1,7 @@
 import React from "react";
 import {sanitizeSlug} from "@components/Comments/utils";
 import CommentBlock from "@components/Comments/CommentBlock";
-import {getCommentsFromStatic} from "@lib/../../libs/comments/_utils";
+import {getCommentsFromStatic} from "@lib/comments/_utils";
 import {InferGetServerSidePropsType} from "next";
 
 const SLUG = "/nested/comment_page"

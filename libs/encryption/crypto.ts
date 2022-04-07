@@ -1,8 +1,8 @@
-import * as crypto from "crypto";
+import crypto from "node:crypto";
 const algorithm = "aes-256-ctr";
 const iv = crypto.randomBytes(16);
 
-const encrypt = (text: string): Hash => {
+export const encrypt = (text: string): Hash => {
     const secretKey = process.env.CRYPTO_SECRET_KEY; // Random secret key
     if (!secretKey) throw new Error("No secret");
     const cipher = crypto.createCipheriv(
@@ -22,7 +22,7 @@ const encrypt = (text: string): Hash => {
     };
 };
 
-const decrypt = (hash: Hash): string => {
+export const decrypt = (hash: Hash): string => {
     const secretKey = process.env.CRYPTO_SECRET_KEY;
     if (secretKey) {
         const decipher = crypto.createDecipheriv(
@@ -43,7 +43,6 @@ const decrypt = (hash: Hash): string => {
     throw Error("No secret key");
 };
 
-export { encrypt, decrypt };
 
 export interface Hash {
     iv: string;

@@ -1,12 +1,9 @@
-import {request} from "@octokit/request";
-import IComment from "@interfaces/IComment";
-import dynamic from "next/dynamic";
-import fs from "node:fs/promises"
-import path from "path";
-import * as os from "os";
+import fs_sanitize from "sanitize-filename"
 
-const illegal_char = /[\/?:!\\]/g
-export const sanitizeSlug = (slug: string) => slug.replaceAll(illegal_char, "__")
+
+export const sanitizeSlug = (slug: string) => fs_sanitize(slug, {replacement: "_"})
+
+
 // @ts-ignore
 export const getGithubParamsFromEnv: () => { owner: string; ref: string; repo: string;  } = () => {
     const err: string[] = []

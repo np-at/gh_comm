@@ -6,7 +6,7 @@
         "interfaces/*"
       ],
       "@lib/*": [
-        "_lib/*"
+        "libs/*"
       ],
       "@components/*": [
         "components/*"

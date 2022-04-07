@@ -13,12 +13,10 @@ const config: CmsConfig = {
   },
   collections: [
     {
-//      slug: "{{page_name}}",
       name: "comment_pages",
       label: "Comment Pages",
       description: "Comments",
       folder: "comments",
-//      slug: "{{}}",
       publish: false,
       create: false,
       extension: "json",
@@ -96,9 +94,7 @@ const config: CmsConfig = {
                 value_field: "comments.*.id",
                 search_fields: ["comments.*.username", "comments.*.content"],
                 display_fields: ["comments.*.username", "comments.*.content"],
-//                value_field: "{{fields.page_name}}.*.id",
-//                search_fields: ["{{fields.page_name}}.*.id"],
-//                display_fields: ["{{fields.page_name}}.*.id"],
+
               }
 
             },

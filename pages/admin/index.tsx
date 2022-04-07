@@ -2,6 +2,7 @@ import config from "./_config"
 import dynamic from "next/dynamic";
 import {NextPageWithLayout} from "../_app";
 import Script from "next/script";
+import { Fragment } from "react";
 
 
 
@@ -27,16 +28,15 @@ const CMS = dynamic(
 const AdminPage: NextPageWithLayout<{}> = () => {
 
     return (
-        <>
+        <Fragment>
             <Script async={false} id={"netlify_identity"} src={"https://identity.netlify.com/v1/netlify-identity-widget.js"}/>
             {/*<div id={"nl-ml"} data-netlify-identity-button>Login with Netlify Identity</div>*/}
-
             {/*<IdentityWidget/>*/}
             <div id={"nc-root"}/>
             <CMS/>
-        </>
+        </Fragment>
     );
 };
 
-//AdminPage.getLayout = (page) => page;
+AdminPage.getLayout = (page) => page;
 export default AdminPage;
