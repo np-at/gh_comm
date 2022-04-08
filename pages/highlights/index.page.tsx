@@ -49,34 +49,27 @@ export const getStaticProps: GetStaticProps<HighLightPageProps> = async (
     }
   };
 };
-
+const niceDateDisplay = (date: string) => {
+  const dateObj = new Date(date);
+  const month = dateObj.toLocaleString("default", { month: "long" });
+  const day = dateObj.getDate();
+  const year = dateObj.getFullYear();
+  return `${month} ${day}, ${year}`;
+};
 const Highlight: NextPageWithLayout<HighLightPageProps> = ({ highlights }) => (
   <Fragment>
-    <div style={{ width: "100%" }}>
+    <div>
       <h1>Highlights</h1>
-      {/*{highlights.map((highlight) =>                 <p dangerouslySetInnerHTML={{ __html: highlight.body }} />*/}
-      {/*)}*/}
+
       <EventCardContainer>
         {highlights &&
           highlights.map((highlight, index) => (
             <EventCard key={`${highlight.title}-${index}`}>
               <div>
                 <h2>{highlight.title}</h2>
-                <div>
-                  {new Date(highlight.date).toLocaleString(undefined, {
-                    day: "numeric",
-                    month: "numeric",
-                    year: "2-digit",
-                    hour: "numeric",
-                    minute: "numeric"
-                  })}
-                </div>
+                <div>{niceDateDisplay(highlight.date)}</div>
               </div>
-              {/*<div><p>{highlight.description}</p></div>*/}
-              <div>
-                {parse(highlight.body)}
-                {/*<p dangerouslySetInnerHTML={{ __html: highlight.body }} />*/}
-              </div>
+              <div>{parse(highlight.body)}</div>
               {highlight.featured_image && (
                 <div>
                   <Link passHref={true} href={`/highlights/${highlight.title}`}>
@@ -103,10 +96,9 @@ const EventCardContainer = styled.div`
   width: 100%;
   height: 100%;
   padding: 1rem;
-  border: 1px solid black;
-  border-radius: 5px;
-  margin: 1rem;
-
+  //border: 1px solid black;
+  //border-radius: 5px;
+  //margin: 1rem;
   & div {
     margin-left: auto;
     margin-right: auto;
@@ -118,6 +110,14 @@ const EventCardContainer = styled.div`
 
   & > article:nth-child(even) {
     flex-direction: row-reverse;
+    //background-color: rgba(108, 44, 175, 0.3);
+
+    background: linear-gradient(
+      to right,
+      rgba(108, 44, 175, 0.1) 0%,
+      rgba(108, 44, 175, 0.3) 50%,
+      rgba(108, 44, 175, 0.5) 100%
+    );
 
     & > div:first-child {
       margin: 1.5rem;
@@ -132,8 +132,13 @@ const EventCardContainer = styled.div`
   }
 
   & > article:nth-child(odd) {
-    background-color: rgba(255, 0, 0, 0.3);
-
+    //background-color: rgba(255, 0, 0, 0.3);
+    background: linear-gradient(
+      to left,
+      rgba(255, 0, 0, 0.1) 0%,
+      rgba(255, 0, 0, 0.3) 50%,
+      rgba(255, 0, 0, 0.5) 100%
+    );
     & > div:first-child {
       margin-left: 1rem;
       text-align: left;
@@ -186,7 +191,7 @@ const EventCard = styled.article`
       padding-right: 2rem;
       padding-top: inherit;
       padding-bottom: inherit;
-      min-width: 40vw;
+      min-width: 30vw;
     }
 
     &:last-child {
@@ -211,6 +216,6 @@ const Img = styled.img`
   height: auto;
   max-height: var(--row-height);
   //height: auto;
-  //border-radius: 10px;
+  border-radius: 7px;
 `;
 export default Highlight;

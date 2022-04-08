@@ -15,6 +15,7 @@ const Main_Styled = styled.main`
   display: flex;
   justify-content: space-around;
   align-items: start;
+  width: 100vw;
 `;
 const Layout: React.FC = ({ children }) => {
   const router = useRouter();
