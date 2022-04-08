@@ -64,8 +64,7 @@ export const getMarkdownFileContentFromPath = (
 export function getMarkdownFileContentFromSlug<T extends ContentPageData>(
   rawSlug: string
 ) {
-  //    if (pageCache)
-  //        return pageCache[rawSlug];
+
   const fsSanitizedSlug = sanitizeSlug(rawSlug) + ".md";
   const fullPath = path.join(contentDirectory_Absolute, fsSanitizedSlug);
   const pageData = getMarkdownFileContentFromPath(fullPath);

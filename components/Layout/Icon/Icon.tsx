@@ -1,7 +1,7 @@
-import React, {forwardRef, useEffect, useRef, useState} from "react";
+import React, { forwardRef, useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import "./index.module.css";
-import {IconType} from "@components/Layout/Icon/types";
+import { IconType } from "@components/Layout/Icon/types";
 
 export interface IconProps extends React.HTMLAttributes<HTMLDivElement> {
     label?: string;
@@ -20,7 +20,7 @@ const Icon = forwardRef<HTMLDivElement, IconProps>(({label, className, type, ...
         // NOTE: we don't want to pollute test output with
         //  console.errors as a result of the dynamic imports
         if (process.env.NODE_ENV === 'test') {
-            return;
+            return ()=>{};
         }
 
         import(`./icons/${name}.svg`)

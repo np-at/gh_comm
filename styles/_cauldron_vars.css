@@ -90,22 +90,22 @@
     --layout-padding: 9px;
     --content-max-width: 1000px;
 
-    /* z-index */
-    --z-index-tooltip: 9;
-    --z-index-loader: 8;
-    --z-index-scrim: 7;
-    --z-index-dialog: 21;
-    --z-index-dialog-scrim: 20;
-    --z-index-scrim-action-needed: 23;
-    --z-index-top-nav: 9;
-    --z-index-side-bar: 9;
-    --z-index-toast: 8;
-    --z-index-toast-action-needed: 24;
-    --z-index-listbox: 6;
-    /* ensure this is a higher value than the rest (above)! */
-    --z-index-top-bar: 25;
-    /* ensure this is 1 higher than the top bar z-index */
-    --z-index-skip-container: calc(var(--z-index-top-bar) + 1);
+    /*!* z-index *!*/
+    /*--z-index-tooltip: 9;*/
+    /*--z-index-loader: 8;*/
+    /*--z-index-scrim: 7;*/
+    /*--z-index-dialog: 21;*/
+    /*--z-index-dialog-scrim: 20;*/
+    /*--z-index-scrim-action-needed: 23;*/
+    /*--z-index-top-nav: 9;*/
+    /*--z-index-side-bar: 9;*/
+    /*--z-index-toast: 8;*/
+    /*--z-index-toast-action-needed: 24;*/
+    /*--z-index-listbox: 6;*/
+    /*!* ensure this is a higher value than the rest (above)! *!*/
+    /*--z-index-top-bar: 25;*/
+    /*!* ensure this is 1 higher than the top bar z-index *!*/
+    /*--z-index-skip-container: calc(var(--z-index-top-bar) + 1);*/
 }
 
 .cauldron--theme-dark {

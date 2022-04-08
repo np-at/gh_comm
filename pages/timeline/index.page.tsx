@@ -27,7 +27,7 @@ export interface TimelinePageProps {
 }
 
 export const getStaticProps: GetStaticProps<TimelinePageProps> = async (
-  context
+
 ) => {
   const hlightsSourceFiles = await getHighlightsSourceFiles();
   const timelineEvents: TimelineEventProps[] = await Promise.all(
@@ -35,7 +35,7 @@ export const getStaticProps: GetStaticProps<TimelinePageProps> = async (
       return (await getMarkdownFileContentFromPath(file)) as TimelineEventProps;
     })
   );
-  const sortedEvents = timelineEvents?.sort((a, b) => {
+  timelineEvents.sort((a, b) => {
     const aDate = new Date(a.date);
     const bDate = new Date(b.date);
     return bDate.getTime() - aDate.getTime();
@@ -44,7 +44,7 @@ export const getStaticProps: GetStaticProps<TimelinePageProps> = async (
     props: {
       title: "Timeline",
       description: "Timeline",
-      timelineEvents: sortedEvents ?? []
+      timelineEvents: timelineEvents ?? []
     }
   };
 };

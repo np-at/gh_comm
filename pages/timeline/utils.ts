@@ -1,8 +1,5 @@
 import path from "node:path";
-import {
-  getContentDirectory,
-
-} from "@lib/pages";
+import { getContentDirectory } from "@lib/pages";
 import fs from "node:fs/promises";
 
 export const getHighlightsSourceFiles = async (

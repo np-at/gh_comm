@@ -1,4 +1,5 @@
 import crypto from "node:crypto";
+
 const algorithm = "aes-256-ctr";
 const iv = crypto.randomBytes(16);
 
@@ -11,7 +12,7 @@ export const encrypt = (text: string): Hash => {
             .createHash("sha256")
             .update(String(secretKey))
             .digest("base64")
-            .substr(0, 32),
+            .slice(0, 32),
         iv
     );
 
@@ -31,7 +32,7 @@ export const decrypt = (hash: Hash): string => {
                 .createHash("sha256")
                 .update(String(secretKey))
                 .digest("base64")
-                .substr(0, 32),
+                .slice(0, 32),
             Buffer.from(hash.iv, "hex")
         );
         const decrpyted = Buffer.concat([

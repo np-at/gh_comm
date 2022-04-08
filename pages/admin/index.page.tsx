@@ -1,9 +1,8 @@
-import config from "./_config"
+import config from "./_config";
 import dynamic from "next/dynamic";
-import {NextPageWithLayout} from "../_app.page";
+import { NextPageWithLayout } from "../_app.page";
 import Script from "next/script";
 import { Fragment } from "react";
-
 
 
 const CMS = dynamic(

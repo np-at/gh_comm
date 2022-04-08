@@ -12,6 +12,118 @@ const config: CmsConfig = {
     preview: false
   },
   collections: [
+    {
+      name: "pages",
+      label: "Pages",
+      files: [
+
+        {
+          label: "Home",
+          name: "home",
+          file: "content/home.md",
+          fields: [
+            {
+              label: "picture",
+              name: "picture",
+              widget: "image",
+              config: {
+                choose_url: false
+              }
+            },
+            {
+              label: "Title",
+              name: "title",
+              widget: "text"
+            },
+            {
+              label: "Content",
+              name: "body",
+              widget: "markdown"
+            },
+            {
+              label: "slug",
+              name: "slug",
+              widget: "hidden",
+              default: "/"
+            }
+          ]
+        },
+        {
+          label: "About",
+          name: "about",
+          file: "content/about.md",
+          fields: [
+            {
+              label: "Title",
+              name: "title",
+              widget: "string"
+            }
+          ]
+        },
+      ]
+    },
+    {
+      name: "events",
+      label: "Timeline / Life Events",
+      folder: "content/events",
+      create: true,
+      preview_path: "/timeline/{{slug}}",
+      summary: "{{title}} - {{date | date('MMMM YYYY')}}",
+
+      sortable_fields: [
+        "date",
+        "title"
+      ],
+      fields: [
+        {
+          name: "title",
+          label: "Title",
+          widget: "string"
+        },
+        {
+          name: "date",
+          label: "Date",
+          widget: "datetime",
+          date_format: "YYYY-MM-DD",
+          default: "",
+          time_format: false
+        },
+        {
+          name: "body",
+          label: "Content",
+          widget: "markdown"
+        },
+        {
+          name: "excerpt",
+          label: "Excerpt",
+          widget: "text"
+        },
+        {
+          name: "featured_image",
+          label: "Featured Image",
+          widget: "image",
+          allow_multiple: false
+        },
+        {
+          name: "tags",
+          label: "Tags",
+          required: false,
+          widget: "relation",
+          multiple: true,
+          collection: "meta",
+          file: "tags",
+          search_fields: ["tags.*.name"],
+          display_fields: ["tags.*.name"],
+          value_field: "tags.*.slug"
+        },
+        {
+          label: "slug",
+          name: "slug",
+          widget: "hidden",
+          default: "/timeline/{{slug}}"
+        }
+      ]
+    },
 //    {
 //      name: "comment_pages",
 //      label: "Comment Pages",
@@ -148,150 +260,10 @@ const config: CmsConfig = {
           ]
         }
       ]
-    },
-    {
-      name: "events",
-      label: "Timeline / Life Events",
-      folder: "content/events",
-      create: true,
-      preview_path: "/{{slug}}",
-      sortable_fields: [
-        "date",
-        "title"
-      ],
-      fields: [
-        {
-          name: "title",
-          label: "Title",
-          widget: "string"
-        },
-        {
-          name: "date",
-          label: "Date",
-          widget: "datetime",
-          date_format: "YYYY-MM-DD",
-          default: "",
-          time_format: false
-        },
-        {
-          name: "body",
-          label: "Content",
-          widget: "markdown"
-        },
-        {
-          name: "excerpt",
-          label: "Excerpt",
-          widget: "text"
-        },
-        {
-          name: "featured_image",
-          label: "Featured Image",
-          widget: "image",
-          allow_multiple: false
-        },
-        {
-          name: "tags",
-          label: "Tags",
-          required: false,
-          widget: "relation",
-          multiple: true,
-          collection: "meta",
-          file: "tags",
-          search_fields: ["tags.*.name"],
-          display_fields: ["tags.*.name"],
-          value_field: "tags.*.slug"
-        }
-      ]
-    },
-    {
-      name: "pages",
-      label: "Pages",
-      files: [
-        {
-          label: "About",
-          name: "about",
-          file: "content/about.md",
-          fields: [
-            {
-              label: "Title",
-              name: "title",
-              widget: "string"
-            }
-          ]
-        },
-        {
-          label: "Home",
-          name: "home",
-          file: "content/home.md",
-          fields: [
-            {
-              label: "picture",
-              name: "picture",
-              widget: "image",
-              config: {
-                choose_url: false
-              }
-            },
-            {
-              label: "Title",
-              name: "title",
-              widget: "text"
-            },
-            {
-              label: "Content",
-              name: "body",
-              widget: "markdown"
-            },
-            {
-              label: "slug",
-              name: "slug",
-              widget: "hidden",
-              default: "/"
-            }
-          ]
-        }
-      ]
     }
+
+
   ]
 };
-//const config: CmsConfig = {
-//    backend: {
-//        name: "git-gateway",
-//        branch: "main",
-//        squash_merges: true,
-//    },
-//    media_folder: "public/img",
-//    public_folder: "public/img",
-//    load_config_file: true,
-//    collections: [
-//        {
-//            name: "comments",
-//            label: "Comments",
-//            description: "Comments",
-//            create: true,
-//            publish: false,
-//            extension: "json",
-//            fields: [
-//                {
-//                    name: "id",
-//                    label: "ID",
-//                    widget: "string",
-//                    required: false,
-//                },
-//                {
-//                    name: "parentCommentId",
-//                    label: "Parent Comment ID",
-//                    widget: "string",
-//                    required: false,
-//                },
-//                {
-//                    name: "content",
-//                    label: "Content",
-//
-//                }
-//
-//            ]
-//        }
-//    ]
-//}
+
 export default config;

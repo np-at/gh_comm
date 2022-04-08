@@ -2,10 +2,7 @@
 
 import React from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
-import {
-  getContentDirectory,
-  getMarkdownFileContentFromPath
-} from "@lib/pages";
+import { getContentDirectory, getMarkdownFileContentFromPath } from "@lib/pages";
 import { join } from "node:path";
 import { TimelineEventProps } from "./index.page";
 import { NextPageWithLayout } from "../_app.page";
