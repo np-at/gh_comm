@@ -8,7 +8,7 @@ import { getHighlightsSourceFiles } from "./utils";
 import Link from "next/link";
 import parse from "react-html-parser";
 
-export interface HighlightProps extends ContentPageData {
+export interface TimelineEventProps extends ContentPageData {
   path?: string;
   title: string;
   description: string;
@@ -20,32 +20,31 @@ export interface HighlightProps extends ContentPageData {
   comments: IComment[] | null;
 }
 
-export interface HighLightPageProps {
+export interface TimelinePageProps {
   title: string;
   description: string;
-  highlights: HighlightProps[];
+  timelineEvents: TimelineEventProps[];
 }
 
-export const getStaticProps: GetStaticProps<HighLightPageProps> = async (
+export const getStaticProps: GetStaticProps<TimelinePageProps> = async (
   context
 ) => {
   const hlightsSourceFiles = await getHighlightsSourceFiles();
-  const highlights: HighlightProps[] = await Promise.all(
+  const timelineEvents: TimelineEventProps[] = await Promise.all(
     hlightsSourceFiles.map(async (file) => {
-      return (await getMarkdownFileContentFromPath(file)) as HighlightProps;
+      return (await getMarkdownFileContentFromPath(file)) as TimelineEventProps;
     })
   );
-
+  const sortedEvents = timelineEvents?.sort((a, b) => {
+    const aDate = new Date(a.date);
+    const bDate = new Date(b.date);
+    return bDate.getTime() - aDate.getTime();
+  })
   return {
     props: {
-      title: "Highlights",
-      description: "Highlights",
-      highlights:
-        highlights?.sort((a, b) => {
-          const aDate = new Date(a.date);
-          const bDate = new Date(b.date);
-          return bDate.getTime() - aDate.getTime();
-        }) ?? []
+      title: "Timeline",
+      description: "Timeline",
+      timelineEvents: sortedEvents ?? []
     }
   };
 };
@@ -56,27 +55,27 @@ const niceDateDisplay = (date: string) => {
   const year = dateObj.getFullYear();
   return `${month} ${day}, ${year}`;
 };
-const Highlight: NextPageWithLayout<HighLightPageProps> = ({ highlights }) => (
+const Highlight: NextPageWithLayout<TimelinePageProps> = ({  timelineEvents }) => (
   <Fragment>
     <div>
       <h1>Highlights</h1>
 
       <EventCardContainer>
-        {highlights &&
-          highlights.map((highlight, index) => (
-            <EventCard key={`${highlight.title}-${index}`}>
+        {timelineEvents &&
+          timelineEvents.map((event, index) => (
+            <EventCard key={`${event.title}-${index}`}>
               <div>
-                <h2>{highlight.title}</h2>
-                <div>{niceDateDisplay(highlight.date)}</div>
+                <h2>{event.title}</h2>
+                <div>{niceDateDisplay(event.date)}</div>
               </div>
-              <div>{parse(highlight.body)}</div>
-              {highlight.featured_image && (
+              <div>{parse(event.body)}</div>
+              {event.featured_image && (
                 <div>
-                  <Link passHref={true} href={`/highlights/${highlight.title}`}>
+                  <Link passHref={true} href={`/timeline/${event.title}`}>
                     <a>
                       <Img
-                        src={highlight.featured_image}
-                        alt={highlight.title}
+                        src={event.featured_image}
+                        alt={event.title}
                       />
                     </a>
                   </Link>
@@ -112,12 +111,10 @@ const EventCardContainer = styled.div`
     flex-direction: row-reverse;
     //background-color: rgba(108, 44, 175, 0.3);
 
-    background: linear-gradient(
-      to right,
-      rgba(108, 44, 175, 0.1) 0%,
-      rgba(108, 44, 175, 0.3) 50%,
-      rgba(108, 44, 175, 0.5) 100%
-    );
+    background: linear-gradient(to right,
+    rgba(108, 44, 175, 0.1) 0%,
+    rgba(108, 44, 175, 0.3) 50%,
+    rgba(108, 44, 175, 0.5) 100%);
 
     & > div:first-child {
       margin: 1.5rem;
@@ -133,12 +130,11 @@ const EventCardContainer = styled.div`
 
   & > article:nth-child(odd) {
     //background-color: rgba(255, 0, 0, 0.3);
-    background: linear-gradient(
-      to left,
-      rgba(255, 0, 0, 0.1) 0%,
-      rgba(255, 0, 0, 0.3) 50%,
-      rgba(255, 0, 0, 0.5) 100%
-    );
+    background: linear-gradient(to left,
+    rgba(255, 0, 0, 0.1) 0%,
+    rgba(255, 0, 0, 0.3) 50%,
+    rgba(255, 0, 0, 0.5) 100%);
+
     & > div:first-child {
       margin-left: 1rem;
       text-align: left;
