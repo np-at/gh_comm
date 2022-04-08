@@ -174,7 +174,7 @@ const config: CmsConfig = {
           time_format: false
         },
         {
-          name: "content",
+          name: "body",
           label: "Content",
           widget: "markdown"
         },

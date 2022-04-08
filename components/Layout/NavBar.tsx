@@ -1,7 +1,7 @@
 import React, {Fragment, KeyboardEventHandler, useEffect, useRef, useState} from "react";
 import {useId} from "react-id-generator";
 import classNames from "classnames";
-import {Icon} from "@deque/cauldron-react"
+import Icon from "./Icon/Icon";
 import styled from "styled-components";
 
 export interface NavBarProps {

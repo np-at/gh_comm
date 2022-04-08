@@ -3,44 +3,71 @@ import fs from "node:fs";
 import yaml from "js-yaml";
 import matter from "gray-matter";
 import md from "markdown-it";
+import { sanitizeSlug } from "@components/Comments/utils";
 
-const contentDirectory = path.join(process.cwd(), "content")
-export interface HomePageCMSFields {
-    picture: string
-    date: string;
-    title: string;
-    body: string;
-    tags?: string[];
-    slug: string;
-    fullPath?: string;
-    content?: string;
+const contentDirectory_RelativeToRoot = "content";
+const contentDirectory_Absolute = path.join(process.cwd(), contentDirectory_RelativeToRoot);
+
+export interface HomePageCMSFields extends ContentPageData {
+  picture: string;
+  date: string;
+  title: string;
+  tags?: string[];
 }
+
 export type PageContent = {
-    readonly title: string;
-    readonly date: string;
-    readonly content: string;
-    readonly slug: string;
-    readonly tags: string[];
-    readonly fullPath: string;
-    readonly excerpt: string;
-    readonly description: string;
-    readonly image: string;
+  readonly title: string;
+  readonly date: string;
+  readonly content: string;
+  readonly slug: string;
+  readonly tags: string[];
+  readonly fullPath: string;
+  readonly excerpt: string;
+  readonly description: string;
+  readonly image: string;
+};
+
+export interface ContentPageData {
+  readonly body: string;
+  readonly fullPath: string;
+  readonly slug: string;
 }
-//let pageCache: { [key: string]: PageContent };
-export const getContentFromSlug: (slug: string) => HomePageCMSFields = (slug: string) => {
-//    if (pageCache)
-//        return pageCache[slug];
-    const fullPath = path.join(contentDirectory, slug + ".md");
-    const pageData = fs.readFileSync(fullPath, "utf8");
 
-    const matterResult = matter(pageData, {
-        engines: {
-            yaml: (s) => yaml.load(s, {schema: yaml.JSON_SCHEMA}) as object
-        }
-    });
-    const matterData = matterResult.data as HomePageCMSFields
+export const getContentDirectory = (relativeToRoot: boolean = false): string => relativeToRoot ? contentDirectory_RelativeToRoot : contentDirectory_Absolute;
 
-    matterData.fullPath = fullPath
-    matterData.body = md({html: true, linkify: true, typographer: true}).render(matterResult.content)
-    return matterData;
+export const getMarkdownFileContentFromPath = (
+  fullPath: string
+): { [p: string]: any } | undefined => {
+  let pageData: string;
+  try {
+    pageData = fs.readFileSync(fullPath, "utf8");
+  } catch (e) {
+    return undefined;
+  }
+
+  const matterResult: matter.GrayMatterFile<string> = matter(pageData, {
+    engines: {
+      yaml: (s) => yaml.load(s, { schema: yaml.JSON_SCHEMA }) as object,
+    },
+  });
+  matterResult.data.fullPath = fullPath;
+
+  matterResult.data.fullPath = fullPath;
+  matterResult.data.body = md({
+    html: true,
+    linkify: true,
+    typographer: true,
+  }).render(matterResult.content);
+  return matterResult.data;
+};
+
+export function getMarkdownFileContentFromSlug<T extends ContentPageData>(
+  rawSlug: string
+) {
+  //    if (pageCache)
+  //        return pageCache[rawSlug];
+  const fsSanitizedSlug = sanitizeSlug(rawSlug) + ".md";
+  const fullPath = path.join(contentDirectory_Absolute, fsSanitizedSlug);
+  const pageData = getMarkdownFileContentFromPath(fullPath);
+  return pageData as T;
 }

@@ -1,9 +1,12 @@
 import React, {forwardRef, useEffect, useRef, useState} from "react";
-import {IconProps} from "@deque/cauldron-react/lib/components/Icon";
 import classNames from "classnames";
-import {Offscreen} from "@deque/cauldron-react";
 import "./index.module.css";
+import {IconType} from "@components/Layout/Icon/types";
 
+export interface IconProps extends React.HTMLAttributes<HTMLDivElement> {
+    label?: string;
+    type: IconType;
+}
 const Icon = forwardRef<HTMLDivElement, IconProps>(({label, className, type, ...other}, ref) => {
     const isMounted = useRef(true);
     const [, name, direction] = type.match(/(.*)-(right|left|up|down)$/) || [
@@ -32,7 +35,7 @@ const Icon = forwardRef<HTMLDivElement, IconProps>(({label, className, type, ...
         return () => {
             isMounted.current = false;
         };
-    }, [type]);
+    }, [type,name]);
 
     const data = {
         ...other,
@@ -44,7 +47,7 @@ const Icon = forwardRef<HTMLDivElement, IconProps>(({label, className, type, ...
 
     return (
         <div ref={ref} {...data}>
-            {label && <Offscreen>{label}</Offscreen>}
+            {label && <div className={"sr-only"}>{label}</div>}
             {IconSVG && <IconSVG/>}
         </div>
     )

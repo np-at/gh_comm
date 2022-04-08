@@ -8,7 +8,11 @@ html,body {
   color: var(--text-color-base);
   background-color: var(--dark-workspace-color);
 }
-
+h1,h2,h3,h4,h5,h6 {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
 a {
   color: inherit;
   text-decoration: none;
