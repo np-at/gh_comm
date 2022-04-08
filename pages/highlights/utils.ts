@@ -1,7 +1,7 @@
 import path from "node:path";
 import {
   getContentDirectory,
-  getMarkdownFileContentFromPath,
+
 } from "@lib/pages";
 import fs from "node:fs/promises";
 

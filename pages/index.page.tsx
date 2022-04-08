@@ -2,11 +2,11 @@ import type { NextPage } from "next";
 import { GetStaticProps } from "next";
 import { IComment } from "@interfaces/IComment";
 import styled from "styled-components";
+
 import {
   getMarkdownFileContentFromSlug,
   HomePageCMSFields,
 } from "@lib/pages";
-import { Overview } from "@components/Comments/ACommentTree";
 
 interface HomePageProps {
   comments: IComment[] | null;
@@ -31,15 +31,15 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async (_) => {
 
 const Home: NextPage<HomePageProps> = (props) => (
   <HomePageLayout>
+    {/*<PortraitWrapper2><NextImageFix src={props.matterData.picture} alt={""} /></PortraitWrapper2>*/}
     <PortraitWrapper>
-      <Img src={props.matterData.picture} alt={""} />{" "}
+      <Img  src={props.matterData.picture} alt={""} />
     </PortraitWrapper>
     <ArticleColumn>
       <h1>{props.matterData.title}</h1>
       {props.matterData.body && (
         <div dangerouslySetInnerHTML={{ __html: props.matterData.body }} />
       )}
-      <Overview title={"test"} />
     </ArticleColumn>
   </HomePageLayout>
 );
@@ -61,10 +61,21 @@ const ArticleColumn = styled.div`
 `;
 
 const Img = styled.img`
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
+  //object-fit: contain;
+   width: 100% !important;
+  //position: relative !important;
+  //height: unset !important;
+  //border-radius: 10px;
 `;
+const PortraitWrapper2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  margin-bottom: auto;
+`
 const PortraitWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -73,6 +84,17 @@ const PortraitWrapper = styled.div`
   height: 100%;
   width: 100%;
   margin-bottom: auto;
+
+  & span {
+    position: unset !important;
+  }
+
+  //& > .image {
+  //  object-fit: contain;
+  //  width: 100% !important;
+  //  position: relative !important;
+  //  height: unset !important;
+  //}
   //padding: 1.5em;
 `;
 const HomePageLayout = styled.div`

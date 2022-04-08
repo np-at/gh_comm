@@ -28,7 +28,6 @@ export interface HighLightPageProps {
 export const getStaticProps: GetStaticProps<HighLightPageProps> = async (
   context
 ) => {
-
   const hlightsSourceFiles = await getHighlightsSourceFiles();
   const highlights: HighlightProps[] = await Promise.all(
     hlightsSourceFiles.map(async (file) => {
@@ -40,8 +39,8 @@ export const getStaticProps: GetStaticProps<HighLightPageProps> = async (
     props: {
       title: "Highlights",
       description: "Highlights",
-      highlights: highlights ?? [],
-    },
+      highlights: highlights ?? []
+    }
   };
 };
 
@@ -94,7 +93,6 @@ const EventCardContainer = styled.div`
   margin: 1rem;
 
   & div {
-    //box-sizing: content-box;
     margin-left: auto;
     margin-right: auto;
   }
@@ -111,15 +109,23 @@ const EventCardContainer = styled.div`
       //margin-right: 1rem;
       //margin-left: 1rem;
       text-align: right;
+
+      & h2 {
+        text-align: right;
+      }
     }
   }
 
   & > article:nth-child(odd) {
-    background-color: red;
+    background-color: rgba(255, 0, 0, 0.3);
 
     & > div:first-child {
       margin-left: 1rem;
       text-align: left;
+
+      & h2 {
+        text-align: left;
+      }
     }
   }
 `;

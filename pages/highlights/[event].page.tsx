@@ -1,8 +1,8 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import {
   getContentDirectory,
-  getMarkdownFileContentFromPath,
+  getMarkdownFileContentFromPath
 } from "@lib/pages";
 import { join } from "node:path";
 import { HighlightProps } from "./index.page";
@@ -24,18 +24,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
     return {
       params: {
         event: ev.replaceAll(/(\.md$)|(highlights\/)/gim, ""),
-        pth: ev,
-      },
+        pth: ev
+      }
     };
   });
   console.log("paths", paths);
   return {
     paths,
-    fallback: false,
+    fallback: false
   };
 };
 export const getStaticProps: GetStaticProps<HighlightProps> = async ({
-  params,
+  params
 }) => {
   const event = params?.event;
   const sanitizedPath = sanitizeSlug(event ? `/highlights/${event}` : "");
@@ -48,7 +48,7 @@ export const getStaticProps: GetStaticProps<HighlightProps> = async ({
   eventContent.path = sanitizedPath;
   return {
     notFound: !eventContent,
-    props: eventContent,
+    props: eventContent
   };
 };
 
@@ -60,7 +60,7 @@ const Highlight: NextPageWithLayout<HighlightProps> = ({
   body,
   fullPath,
   comments,
-  path,
+  path
 }: HighlightProps) => {
   console.warn("path", path);
   return (
@@ -85,5 +85,6 @@ const BannerImage = styled.img`
   height: auto;
   aspect-ratio: initial;
   max-height: 400px;
+  //width: 100%;
 `;
 export default Highlight;

@@ -16,7 +16,7 @@ const Main_Styled = styled.main`
   justify-content: space-around;
   align-items: start;
 `;
-const Layout: React.FC<{}> = ({ children }) => {
+const Layout: React.FC = ({ children }) => {
   const router = useRouter();
   const [isMobile, setIsMobile] = React.useState(false);
   return (

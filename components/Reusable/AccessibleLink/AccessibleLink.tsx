@@ -7,7 +7,7 @@ export interface NavLinkProps extends LinkProps {
     stripStyling?: boolean
 }
 
-const AccessibleLink: React.FC<NavLinkProps> = ({children, href, stripStyling, ...other}) => {
+const AccessibleLink: React.FC<NavLinkProps> = ({children, href, stripStyling, ...others}) => {
 
     const {asPath} = useRouter();
     const ariaCurrent = href === asPath ? "page" : undefined;
@@ -17,6 +17,7 @@ const AccessibleLink: React.FC<NavLinkProps> = ({children, href, stripStyling, .
         <a
 
             aria-current={ariaCurrent}
+          {...others}
         >
             {children}
         </a>
