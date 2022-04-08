@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { NextPageWithLayout } from "../_app.page";
 import { GetStaticProps } from "next";
 import { ContentPageData, getMarkdownFileContentFromPath } from "@lib/pages";
@@ -6,6 +6,7 @@ import { IComment } from "@interfaces/IComment";
 import styled from "styled-components";
 import { getHighlightsSourceFiles } from "./utils";
 import Link from "next/link";
+import parse from "react-html-parser";
 
 export interface HighlightProps extends ContentPageData {
   path?: string;
@@ -22,7 +23,7 @@ export interface HighlightProps extends ContentPageData {
 export interface HighLightPageProps {
   title: string;
   description: string;
-  highlights?: HighlightProps[];
+  highlights: HighlightProps[];
 }
 
 export const getStaticProps: GetStaticProps<HighLightPageProps> = async (
@@ -39,27 +40,42 @@ export const getStaticProps: GetStaticProps<HighLightPageProps> = async (
     props: {
       title: "Highlights",
       description: "Highlights",
-      highlights: highlights ?? []
+      highlights:
+        highlights?.sort((a, b) => {
+          const aDate = new Date(a.date);
+          const bDate = new Date(b.date);
+          return bDate.getTime() - aDate.getTime();
+        }) ?? []
     }
   };
 };
 
-const Highlight: NextPageWithLayout<HighLightPageProps> = ({ highlights }) => {
-  console.log("highlights", highlights);
-  return (
-    <>
-      <div style={{ width: "100%" }}>
-        <h1>Highlights</h1>
-        <EventCardContainer>
-          {highlights?.map((highlight, index) => (
-            <EventCard key={`${highlight.fullPath}`}>
+const Highlight: NextPageWithLayout<HighLightPageProps> = ({ highlights }) => (
+  <Fragment>
+    <div style={{ width: "100%" }}>
+      <h1>Highlights</h1>
+      {/*{highlights.map((highlight) =>                 <p dangerouslySetInnerHTML={{ __html: highlight.body }} />*/}
+      {/*)}*/}
+      <EventCardContainer>
+        {highlights &&
+          highlights.map((highlight, index) => (
+            <EventCard key={`${highlight.title}-${index}`}>
               <div>
                 <h2>{highlight.title}</h2>
-                <div>{highlight.date}</div>
+                <div>
+                  {new Date(highlight.date).toLocaleString(undefined, {
+                    day: "numeric",
+                    month: "numeric",
+                    year: "2-digit",
+                    hour: "numeric",
+                    minute: "numeric"
+                  })}
+                </div>
               </div>
               {/*<div><p>{highlight.description}</p></div>*/}
               <div>
-                <p dangerouslySetInnerHTML={{ __html: highlight.body }} />
+                {parse(highlight.body)}
+                {/*<p dangerouslySetInnerHTML={{ __html: highlight.body }} />*/}
               </div>
               {highlight.featured_image && (
                 <div>
@@ -75,11 +91,10 @@ const Highlight: NextPageWithLayout<HighLightPageProps> = ({ highlights }) => {
               )}
             </EventCard>
           ))}
-        </EventCardContainer>
-      </div>
-    </>
-  );
-};
+      </EventCardContainer>
+    </div>
+  </Fragment>
+);
 const EventCardContainer = styled.div`
   display: flex;
   flex-direction: column;
