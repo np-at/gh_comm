@@ -1,21 +1,13 @@
-import {
-    FieldErrors,
-    SubmitHandler, useForm, UseFormHandleSubmit,
-
-
-} from "react-hook-form";
+import { FieldErrors, SubmitHandler, UseFormHandleSubmit } from "react-hook-form";
 import React from "react";
 import { IComment } from "@interfaces/IComment";
 
 export const CommentForm: React.FC<{ handleSubmit: UseFormHandleSubmit<IComment>, onSubmit: SubmitHandler<IComment>, register: any, errors: FieldErrors<IComment>, parentSlug:string, parentCommentId?: string }> = p => {
-    const {formState: {errors}} = useForm<IComment>();
-    // const onSubmit = (data: any) => console.log(data);
-    errors && console.error("errors",errors);
-    const handleFormSubmission: React.FormEventHandler<HTMLFormElement> = event => {
-      console.warn("handleFormSubmission",event);
-        event.preventDefault();
-        p.handleSubmit(p.onSubmit);
-    };
+//    const handleFormSubmission: React.FormEventHandler<HTMLFormElement> = event => {
+//      console.warn("handleFormSubmission",event);
+//        event.preventDefault();
+//        p.handleSubmit(p.onSubmit);
+//    };
 
     return (
         <form action={`/api/comments/save/${p.parentSlug}`} method={"POST"} onSubmit={p.handleSubmit(p.onSubmit, (errors1, event) => console.error(errors1, event))}>

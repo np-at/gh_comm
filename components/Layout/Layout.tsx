@@ -7,7 +7,7 @@ import NavItem from "./NavItem";
 
 const items = [
   ["Home", ""],
-  ["Highlights", "highlights"],
+  ["Highlights", "timeline"],
   ["Bio", "about"],
   ["Contact", "contact"],
 ];

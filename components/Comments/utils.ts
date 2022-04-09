@@ -1,4 +1,4 @@
-import fs_sanitize from "sanitize-filename"
+import fs_sanitize from "sanitize-filename";
 
 
 export const sanitizeSlug = (slug: string) => fs_sanitize(slug, {replacement: "_"})
@@ -46,4 +46,3 @@ export const getGithubParamsFromEnv: () => { owner: string; ref: string; repo: s
 //         return null;
 //     }
 // }
-

@@ -1,10 +1,7 @@
-import React, {useEffect} from "react";
+import React from "react";
 
 export const ACItem: React.FC<{ comment: IACom }> = props => {
-    useEffect(() => {
-        return () => {
-        };
-    }, [props.comment]);
+
 
     return <li>
         <div>{new Date(props.comment.date ?? "").toLocaleString()}</div>

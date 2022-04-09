@@ -3,10 +3,7 @@ import { GetStaticProps } from "next";
 import { IComment } from "@interfaces/IComment";
 import styled from "styled-components";
 
-import {
-  getMarkdownFileContentFromSlug,
-  HomePageCMSFields,
-} from "@lib/pages";
+import { getMarkdownFileContentFromSlug, HomePageCMSFields } from "@lib/pages";
 
 interface HomePageProps {
   comments: IComment[] | null;

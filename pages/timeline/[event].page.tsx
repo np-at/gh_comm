@@ -1,11 +1,10 @@
+//noinspection JSUnusedGlobalSymbols
+
 import React from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
-import {
-  getContentDirectory,
-  getMarkdownFileContentFromPath
-} from "@lib/pages";
+import { getContentDirectory, getMarkdownFileContentFromPath } from "@lib/pages";
 import { join } from "node:path";
-import { HighlightProps } from "./index.page";
+import { TimelineEventProps } from "./index.page";
 import { NextPageWithLayout } from "../_app.page";
 import CommentBlock from "@components/Comments/CommentBlock";
 import { getHighlightsSourceFiles } from "./utils";
@@ -19,31 +18,30 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const highlights = await getHighlightsSourceFiles(false);
   const paths = highlights.map((highlight) => {
     const ev = highlight
-      .replace(/^content\/events/, "highlights")
+      .replace(/^content[\/\\]events/, "timeline")
       .replace(/\.md$/, "");
     return {
       params: {
-        event: ev.replaceAll(/(\.md$)|(highlights\/)/gim, ""),
+        event: ev.replaceAll(/(\.md$)|(timeline[\/\\])/gim, ""),
         pth: ev
       }
     };
   });
-  console.log("paths", paths);
   return {
     paths,
     fallback: false
   };
 };
-export const getStaticProps: GetStaticProps<HighlightProps> = async ({
+export const getStaticProps: GetStaticProps<TimelineEventProps> = async ({
   params
 }) => {
   const event = params?.event;
-  const sanitizedPath = sanitizeSlug(event ? `/highlights/${event}` : "");
+  const sanitizedPath = sanitizeSlug(event ? `/timeline/${event}` : "");
   const resolvedPath = join(getContentDirectory(true), `events/${event}.md`);
   const comments = await getCommentsFromStatic(sanitizedPath);
   const eventContent = getMarkdownFileContentFromPath(
     resolvedPath
-  ) as HighlightProps;
+  ) as TimelineEventProps;
   eventContent.comments = comments;
   eventContent.path = sanitizedPath;
   return {
@@ -52,7 +50,7 @@ export const getStaticProps: GetStaticProps<HighlightProps> = async ({
   };
 };
 
-const Highlight: NextPageWithLayout<HighlightProps> = ({
+const Highlight: NextPageWithLayout<TimelineEventProps> = ({
   title,
   description,
   date,
@@ -61,7 +59,7 @@ const Highlight: NextPageWithLayout<HighlightProps> = ({
   fullPath,
   comments,
   path
-}: HighlightProps) => {
+}: TimelineEventProps) => {
   console.warn("path", path);
   return (
     <div style={{ width: "80%" }}>

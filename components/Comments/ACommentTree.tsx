@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react'
-import {ACItem, IACom} from "@components/Comments/ACItem";
+import React from "react";
+import { ACItem, IACom } from "@components/Comments/ACItem";
 
 const comments: IACom[] = [
     {
@@ -34,8 +34,7 @@ const comments: IACom[] = [
 ]
 export const Overview: React.FC<{ title: string }> = ({title}) => {
 
-    useEffect(() => {
-    }, []);
+
 
     return <>
         <h2>{title}</h2>

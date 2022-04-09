@@ -2,7 +2,6 @@ import React from "react";
 import { IComment } from "@interfaces/IComment";
 import styled from "styled-components";
 import Comment from "./Comment";
-import AddComment from "@components/Comments/AddComment";
 import { sanitizeSlug } from "@components/Comments/utils";
 
 interface CommentBlockProps {
@@ -20,14 +19,14 @@ const CommentBlock: React.FC<CommentBlockProps> = ({ slug, comments }) => {
     <CommentsBlockWrapper>
       <h2>Comments</h2>
       {
-        <ol>
+        <ul>
           {(comments &&
             comments.map((c) => (
               <Comment comment={c} key={c.id} slug={sanitizedSlug} />
             ))) ?? <p>There are no comments.</p>}
-        </ol>
+        </ul>
       }
-      <AddComment slug={sanitizedSlug} />
+      {/*<AddComment slug={sanitizedSlug} />*/}
       {/*{showAddComment ? (*/}
       {/*    <AddComment slug={slug}/>*/}
       {/*) : (*/}

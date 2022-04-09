@@ -4,7 +4,6 @@ import Image, { ImageProps } from "next/image";
 import styled from "styled-components";
 
 const NextImageFix: React.FC<ImageProps> = ({
-  children,
   layout,
   alt,
   ...others

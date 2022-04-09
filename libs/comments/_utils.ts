@@ -44,8 +44,8 @@ const assembleCommentRelationships: (comments: (IComment[] | null), debug?: bool
     const comment = comments[i]
     comment.children = [];
   }
-  for (let i = 0; i < comments.length; i++){
-    const comment = comments[i];
+  for (const element of comments) {
+    const comment = element;
     if (comment.parentCommentId) {
       const parent = comments?.find(c => c.id === comment.parentCommentId);
       if (parent) {

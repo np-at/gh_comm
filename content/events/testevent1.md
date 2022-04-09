@@ -6,5 +6,6 @@ tags:
   - about
 content: test
 excerpt: test
-featured_image: /img/rw.png
+featured_image: https://www.rockheadandquarry.com/wp-content/uploads/2017/05/cropped-Back-in-place.jpg
 ---
+Moving house

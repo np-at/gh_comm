@@ -1,13 +1,13 @@
 import React from "react";
-import {useRouter} from "next/router";
-import Link,{LinkProps} from "next/link";
+import { useRouter } from "next/router";
+import Link, { LinkProps } from "next/link";
 import styled from "styled-components";
 
 export interface NavLinkProps extends LinkProps {
-    stripStyling?: boolean
+    _stripStyling?: boolean
 }
 
-const AccessibleLink: React.FC<NavLinkProps> = ({children, href, stripStyling, ...others}) => {
+const AccessibleLink: React.FC<NavLinkProps> = ({children, href, _stripStyling, ...others}) => {
 
     const {asPath} = useRouter();
     const ariaCurrent = href === asPath ? "page" : undefined;
@@ -24,7 +24,7 @@ const AccessibleLink: React.FC<NavLinkProps> = ({children, href, stripStyling, .
     </Link>
 }
 const NavLink = styled(AccessibleLink)`
-  text-decoration: ${props => (props.stripStyling === true ? "none" : "inherit")};
+  text-decoration: ${props => (props._stripStyling === true ? "none" : "inherit")};
   color: black;
 `
 export default NavLink
