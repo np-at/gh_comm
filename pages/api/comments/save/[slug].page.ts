@@ -1,15 +1,16 @@
 import { Octokit } from "@octokit/core";
 import { createAppAuth } from "@octokit/auth-app";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { IComment, ICommentFile } from "@interfaces/IComment";
+import { ICommentFile, ICommentStorage } from "@interfaces/IComment";
 import { Endpoints } from "@octokit/types";
 import { getGithubParamsFromEnv } from "@components/Comments/utils";
+import { encrypt } from "@lib/encryption/crypto";
 
 type repoContentsRequestParameters =
   Endpoints["GET /repos/{owner}/{repo}/contents/{path}"]["parameters"];
 type repoContentsRequestResponse = Endpoints["GET /repos/{owner}/{repo}/contents/{path}"]["response"]
 
-function appendCommentToCommentFile(commentFile: ICommentFile, newComment: IComment): ICommentFile {
+function appendCommentToCommentFile(commentFile: ICommentFile, newComment: ICommentStorage): ICommentFile {
   const { comments} = commentFile;
 
   if (newComment.parentCommentId) {
@@ -75,13 +76,13 @@ const SaveComment: (req: NextApiRequest, res: NextApiResponse) => Promise<void> 
     // const installations = await o.request("GET /app/installations")
     // console.log(installations)
 
-    const newComment: IComment = {
+    const newComment: ICommentStorage = {
       date: req.body.date,
       parentCommentId: req.body.parentCommentId,
       id: req.body.id,
       username: req.body.username,
       // email: encrypt(req.body.email as string),
-      email: req.body.email,
+      email: encrypt(req.body.email),
       content: req.body.content,
       children: req.body.children,
       page_name: req.body.page_name

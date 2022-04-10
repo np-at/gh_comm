@@ -2,10 +2,11 @@ import React, { forwardRef, useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import "./index.module.css";
 import { IconType } from "@components/Layout/Icon/types";
+import { SRSpan } from "@components/Reusable/SROnly";
 
 export interface IconProps extends React.HTMLAttributes<HTMLDivElement> {
-    label?: string;
-    type: IconType;
+  label?: string;
+  type: IconType;
 }
 const Icon = forwardRef<HTMLDivElement, IconProps>(({label, className, type, ...other}, ref) => {
     const isMounted = useRef(true);
@@ -47,7 +48,7 @@ const Icon = forwardRef<HTMLDivElement, IconProps>(({label, className, type, ...
 
     return (
         <div ref={ref} {...data}>
-            {label && <div className={"sr-only"}>{label}</div>}
+            {label && <SRSpan className={"sr-only"}>{label}</SRSpan>}
             {IconSVG && <IconSVG/>}
         </div>
     )

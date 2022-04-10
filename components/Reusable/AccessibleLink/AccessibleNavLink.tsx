@@ -4,10 +4,10 @@ import Link, { LinkProps } from "next/link";
 import styled from "styled-components";
 
 export interface NavLinkProps extends LinkProps {
-    _stripStyling?: boolean
+  _stripStyling?: boolean;
 }
 
-const AccessibleLink: React.FC<NavLinkProps> = ({children, href, _stripStyling, ...others}) => {
+const AccessibleNavLink: React.FC<NavLinkProps> = ({children, href, _stripStyling, ...others}) => {
 
     const {asPath} = useRouter();
     const ariaCurrent = href === asPath ? "page" : undefined;
@@ -23,7 +23,7 @@ const AccessibleLink: React.FC<NavLinkProps> = ({children, href, _stripStyling, 
         </a>
     </Link>
 }
-const NavLink = styled(AccessibleLink)`
+const NavLink = styled(AccessibleNavLink)`
   text-decoration: ${props => (props._stripStyling === true ? "none" : "inherit")};
   color: black;
 `

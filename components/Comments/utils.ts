@@ -1,7 +1,7 @@
 import fs_sanitize from "sanitize-filename";
 
-
-export const sanitizeSlug = (slug: string) => fs_sanitize(slug, {replacement: "_"})
+export const sanitizeSlug = (slug: string) =>
+  fs_sanitize(slug, { replacement: "_" });
 
 
 // @ts-ignore

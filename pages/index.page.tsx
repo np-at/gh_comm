@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { InferGetStaticPropsType, NextPage } from "next";
 import { GetStaticProps } from "next";
 import { IComment } from "@interfaces/IComment";
 import styled from "styled-components";
@@ -21,26 +21,83 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async (_) => {
     notFound: false,
     props: {
       comments: comments,
-      matterData: s,
-    },
+      matterData: s
+    }
   };
 };
 
-const Home: NextPage<HomePageProps> = (props) => (
-  <HomePageLayout>
-    {/*<PortraitWrapper2><NextImageFix src={props.matterData.picture} alt={""} /></PortraitWrapper2>*/}
-    <PortraitWrapper>
-      <Img  src={props.matterData.picture} alt={""} />
-    </PortraitWrapper>
-    <ArticleColumn>
-      <h1>{props.matterData.title}</h1>
-      {props.matterData.body && (
-        <div dangerouslySetInnerHTML={{ __html: props.matterData.body }} />
-      )}
-    </ArticleColumn>
-  </HomePageLayout>
+const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (props) => (
+  <div>
+    <HomePageLayout>
+      {/*<PortraitWrapper2><NextImageFix src={props.matterData.picture} alt={""} /></PortraitWrapper2>*/}
+      <PortraitWrapper>
+        <Img src={props.matterData.picture} alt={""} />
+      </PortraitWrapper>
+      <ArticleColumn>
+        <h1>{props.matterData.title}</h1>
+        {props.matterData.body && (
+          <div dangerouslySetInnerHTML={{ __html: props.matterData.body }} />
+        )}
+      </ArticleColumn>
+    </HomePageLayout>
+    <Footer>
+      <div>
+        <a href={"/"}>testing</a>
+      </div>
+      <div>
+        <a href={"/"}>testing</a>
+      </div>
+      <div>
+        <a href={"/"}>testing</a>
+      </div>
+      <div>
+        <a href={"/"}>testing</a>
+      </div>
+      <div>
+        <a href={"/"}>testing</a>
+      </div>
+      <div>
+        <a href={"/"}>testing</a>
+      </div>
+    </Footer>
+  </div>
 );
+const Footer = styled.footer`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  padding: 0 1rem;
+  background-color: #fafafa;
+  border-top: 1px solid #eaeaea;
+  font-size: 0.8rem;
+  color: #666;
+  width: 100%;
+  height: 2rem;
+  
+  & > div {
+    border: 2px solid black;
 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    //margin-left: 1rem;
+    //margin-right: 1rem;
+    height: 100%;
+    & > a {
+      font-size: var(--text-size-normal);
+      padding: 0 1rem;
+      color: #666;
+      text-decoration: none;
+      &:hover {
+        color: #333;
+      }
+    }
+  }
+`;
 const ArticleColumn = styled.div`
   display: flex;
   flex-direction: column;
@@ -59,10 +116,11 @@ const ArticleColumn = styled.div`
 
 const Img = styled.img`
   //object-fit: contain;
-   width: 100% !important;
+  width: 100% !important;
   //position: relative !important;
   //height: unset !important;
-  //border-radius: 10px;
+  //border-radius: 11px;
+  padding-top: 2rem;
 `;
 const PortraitWrapper2 = styled.div`
   display: flex;
@@ -72,7 +130,7 @@ const PortraitWrapper2 = styled.div`
   height: 100%;
   width: 100%;
   margin-bottom: auto;
-`
+`;
 const PortraitWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -100,7 +158,7 @@ const HomePageLayout = styled.div`
   grid-gap: 1rem;
   display: grid;
 
-  @media (min-width: 768px) {
+  @media (min-width: 48rem) {
     grid-template-columns: 66% 33%;
     grid-template-rows: auto;
     display: flex;

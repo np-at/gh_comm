@@ -1,7 +1,7 @@
 //noinspection JSUnusedGlobalSymbols
 
 import React from "react";
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
 import { getContentDirectory, getMarkdownFileContentFromPath } from "@lib/pages";
 import { join } from "node:path";
 import { TimelineEventProps } from "./index.page";
@@ -50,7 +50,7 @@ export const getStaticProps: GetStaticProps<TimelineEventProps> = async ({
   };
 };
 
-const Highlight: NextPageWithLayout<TimelineEventProps> = ({
+const Highlight: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> = ({
   title,
   description,
   date,
@@ -60,13 +60,11 @@ const Highlight: NextPageWithLayout<TimelineEventProps> = ({
   comments,
   path
 }: TimelineEventProps) => {
-  console.warn("path", path);
   return (
     <div style={{ width: "80%" }}>
       <RowDiv className="row">
         <h1>{title}</h1>
         <h2>{date}</h2>
-        {/*<h3>{location}</h3>*/}
         <CenteredRow>
           <BannerImage src={featured_image} alt={description} />
         </CenteredRow>

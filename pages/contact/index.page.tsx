@@ -1,22 +1,14 @@
-import React, { KeyboardEventHandler, useState } from "react";
+import React, { useState } from "react";
 import ReactModal from "react-modal";
 import styled from "styled-components";
+import { NextPageWithLayout } from "../_app.page";
+import { SRSpan } from "@components/Reusable/SROnly";
 
-
-const Contact: React.FC = () => {
+const Contact: NextPageWithLayout<{}> = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-
-  // react-modal's built in Esc handler doesn't work, so we need to handle it ourselves
-  const closeModal: KeyboardEventHandler = (ev) => {
-    if (ev.key === "Escape") {
-      ev.stopPropagation();
-      setModalIsOpen(false);
-    }
-  };
-
   return (
-    <div onKeyUp={closeModal}>
+    <div>
       <h1>Contact</h1>
       <button onClick={() => setModalIsOpen(true)}>Open Modal</button>
       <p>
@@ -24,13 +16,39 @@ const Contact: React.FC = () => {
         doloremque, quidem quisquam, quisquam quisquam quisquam quisquam
         dignissimos.
       </p>
-      <StyledModal isOpen={modalIsOpen} shouldCloseOnEsc={true} shouldReturnFocusAfterClose={true}
-                   shouldFocusAfterRender={true} shouldCloseOnOverlayClick={false}>
+      <StyledModal
+        isOpen={modalIsOpen}
+        shouldCloseOnEsc={true}
+        shouldReturnFocusAfterClose={true}
+        shouldFocusAfterRender={true}
+        shouldCloseOnOverlayClick={true}
+        aria={{ modal: true }}
+        onRequestClose={() => setModalIsOpen(false)}
+      >
+        <ModalCloseButton onClick={() => setModalIsOpen(false)}>
+          <span aria-hidden={true}>X</span>
+          <SRSpan>Close Dialog</SRSpan>{" "}
+        </ModalCloseButton>
+        <h2>Modal</h2>
         <div>Hiya Folks!</div>
       </StyledModal>
     </div>
   );
 };
+const ModalCloseButton = styled.button`
+  //z-index: 10000;
+  position: absolute;
+  align-items: unset;
+  justify-content: unset;
+  right: 0;
+  border: none;
+  background: none;
+  color: #000;
+  font-size: 1.5rem;
+  padding: 0;
+  margin: 0 1em 0 0;
+  cursor: pointer;
+`;
 const StyledModal = styled(ReactModal)`
   background-color: #fff;
   color: #000;
@@ -41,5 +59,8 @@ const StyledModal = styled(ReactModal)`
   border-radius: 10px;
   text-align: center;
   z-index: 100;
+  top: 20%;
+  //left: 20%;
+  position: sticky;
 `;
 export default Contact;

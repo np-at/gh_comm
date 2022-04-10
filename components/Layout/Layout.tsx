@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import NavBar from "@components/Layout/NavBar";
 import { useRouter } from "next/router";
-import NavLink from "@components/Reusable/AccessibleLink/AccessibleLink";
+import NavLink from "@components/Reusable/AccessibleLink/AccessibleNavLink";
 import styled from "styled-components";
 import NavItem from "./NavItem";
 
@@ -9,7 +9,7 @@ const items = [
   ["Home", ""],
   ["Highlights", "timeline"],
   ["Bio", "about"],
-  ["Contact", "contact"],
+  ["Contact", "contact"]
 ];
 const Main_Styled = styled.main`
   display: flex;

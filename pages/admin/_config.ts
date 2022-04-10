@@ -16,7 +16,6 @@ const config: CmsConfig = {
       name: "pages",
       label: "Pages",
       files: [
-
         {
           label: "Home",
           name: "home",
@@ -59,7 +58,7 @@ const config: CmsConfig = {
               widget: "string"
             }
           ]
-        },
+        }
       ]
     },
     {
@@ -70,10 +69,7 @@ const config: CmsConfig = {
       preview_path: "/timeline/{{slug}}",
       summary: "{{title}} - {{date | date('MMMM YYYY')}}",
 
-      sortable_fields: [
-        "date",
-        "title"
-      ],
+      sortable_fields: ["date", "title"],
       fields: [
         {
           name: "title",
@@ -124,105 +120,105 @@ const config: CmsConfig = {
         }
       ]
     },
-//    {
-//      name: "comment_pages",
-//      label: "Comment Pages",
-//      description: "Comments",
-//      folder: "comments",
-//      publish: false,
-//      create: false,
-//      extension: "json",
-//      identifier_field: "page_name",
-////      filter: {
-////        field: "parentCommentId",
-////        value: ""
-////      },
-//      fields: [
-//        {
-//          name: "page_name",
-//          label: "Page Name",
-//          widget: "hidden",
-//          default: "{{file}}"
-//
-//        },
-//        {
-//          label: "Comments",
-//          name: "comments",
-//          widget: "list",
-//          summary: "{{fields.username}} - {{fields.date}}",
-//          collapsed:false,
-//          fields: [
-//
-//            {
-//              name: "id",
-//              label: "ID",
-//              widget: "string",
-//              required: true
-//            },
-//            {
-//              name: "parentId",
-//              label: "Parent Comment ID",
-//              widget: "hidden",
-//              default: "",
-//              required: false
-//            },
-//            {
-//              name: "content",
-//              label: "Content",
-//              widget: "markdown",
-//              required: true
-//            },
-//            {
-//              name: "username",
-//              label: "Username",
-//              widget: "string",
-//              required: true
-//            },
-//            {
-//              name: "date",
-//              label: "Date",
-////          widget: "date",
-//              widget: "datetime",
-//              required: true
-//            },
-//            {
-//              name: "email",
-//              label: "Email",
-//              widget: "string",
-//              required: true
-//            },
-//            {
-//              name: "childrenIds",
-//              label: "Children",
-//              widget: "list",
-//              required: false,
-//              summary: "{{children}}",
-//
-////              summary: "----{{fields.children.id}}-----",
-//              field: {
-//                name: "children",
-//                widget: "relation",
-//                collection: "comment_pages",
-//                value_field: "comments.*.id",
-//                search_fields: ["comments.*.username", "comments.*.content"],
-//                display_fields: ["comments.*.username", "comments.*.content"],
-//
-//              }
-//
-//            },
-//            {
-//              name: "children",
-//              widget: "hidden",
-//              label: "Children IDs",
-//              required: false,
-//              default: []
-//            }
-//          ]
-//
-//        }
-//
-//      ]
-//    },
+    //    {
+    //      name: "comment_pages",
+    //      label: "Comment Pages",
+    //      description: "Comments",
+    //      folder: "comments",
+    //      publish: false,
+    //      create: false,
+    //      extension: "json",
+    //      identifier_field: "page_name",
+    ////      filter: {
+    ////        field: "parentCommentId",
+    ////        value: ""
+    ////      },
+    //      fields: [
+    //        {
+    //          name: "page_name",
+    //          label: "Page Name",
+    //          widget: "hidden",
+    //          default: "{{file}}"
+    //
+    //        },
+    //        {
+    //          label: "Comments",
+    //          name: "comments",
+    //          widget: "list",
+    //          summary: "{{fields.username}} - {{fields.date}}",
+    //          collapsed:false,
+    //          fields: [
+    //
+    //            {
+    //              name: "id",
+    //              label: "ID",
+    //              widget: "string",
+    //              required: true
+    //            },
+    //            {
+    //              name: "parentId",
+    //              label: "Parent Comment ID",
+    //              widget: "hidden",
+    //              default: "",
+    //              required: false
+    //            },
+    //            {
+    //              name: "content",
+    //              label: "Content",
+    //              widget: "markdown",
+    //              required: true
+    //            },
+    //            {
+    //              name: "username",
+    //              label: "Username",
+    //              widget: "string",
+    //              required: true
+    //            },
+    //            {
+    //              name: "date",
+    //              label: "Date",
+    ////          widget: "date",
+    //              widget: "datetime",
+    //              required: true
+    //            },
+    //            {
+    //              name: "email",
+    //              label: "Email",
+    //              widget: "string",
+    //              required: true
+    //            },
+    //            {
+    //              name: "childrenIds",
+    //              label: "Children",
+    //              widget: "list",
+    //              required: false,
+    //              summary: "{{children}}",
+    //
+    ////              summary: "----{{fields.children.id}}-----",
+    //              field: {
+    //                name: "children",
+    //                widget: "relation",
+    //                collection: "comment_pages",
+    //                value_field: "comments.*.id",
+    //                search_fields: ["comments.*.username", "comments.*.content"],
+    //                display_fields: ["comments.*.username", "comments.*.content"],
+    //
+    //              }
+    //
+    //            },
+    //            {
+    //              name: "children",
+    //              widget: "hidden",
+    //              label: "Children IDs",
+    //              required: false,
+    //              default: []
+    //            }
+    //          ]
+    //
+    //        }
+    //
+    //      ]
+    //    },
     {
       name: "meta",
       label: "Meta",
@@ -261,8 +257,6 @@ const config: CmsConfig = {
         }
       ]
     }
-
-
   ]
 };
 

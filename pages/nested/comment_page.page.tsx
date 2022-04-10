@@ -2,9 +2,9 @@ import React from "react";
 import { sanitizeSlug } from "@components/Comments/utils";
 import CommentBlock from "@components/Comments/CommentBlock";
 import { getCommentsFromStatic } from "@lib/comments/_utils";
-import { InferGetServerSidePropsType } from "next";
+import { InferGetStaticPropsType } from "next";
 
-const SLUG = "/nested/comment_page"
+const SLUG = "/nested/comment_page";
 const SLUG2 = sanitizeSlug(SLUG)
 
 
@@ -16,7 +16,7 @@ export const getStaticProps = async () => {
     return {notFound: false, props: {comments: comments}}
 }
 
-const CommentPage: React.FC<InferGetServerSidePropsType<typeof getStaticProps>> = (p) => {
+const CommentPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = (p) => {
 
     // const comments = getCommentsFromStaticSync(SLUG2) ?? []
     // console.log(comments)

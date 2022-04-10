@@ -1,5 +1,10 @@
 @import "./_cauldron_vars.css";
-
+:root {
+  --breakpoint-small: 30rem;
+  --breakpoint-medium: 48rem;
+  --breakpoint-large: 64rem;
+  --breakpoint-xlarge: 75rem;
+}
 html,body {
   padding: 0;
   margin: 0;
@@ -18,9 +23,10 @@ a {
   text-decoration: none;
 }
 
-* {
+*, *:before, *:after {
   box-sizing: border-box;
 }
+
 
 /*Screen Reader Only Class*/
 .sr-only,.Offscreen {

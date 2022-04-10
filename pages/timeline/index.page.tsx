@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import { NextPageWithLayout } from "../_app.page";
-import { GetStaticProps } from "next";
+import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { ContentPageData, getMarkdownFileContentFromPath } from "@lib/pages";
-import { IComment } from "@interfaces/IComment";
+import { IComment as IComment } from "@interfaces/IComment";
 import styled from "styled-components";
 import { getHighlightsSourceFiles } from "./utils";
 import Link from "next/link";
@@ -55,7 +55,7 @@ const niceDateDisplay = (date: string) => {
   const year = dateObj.getFullYear();
   return `${month} ${day}, ${year}`;
 };
-const Highlight: NextPageWithLayout<TimelinePageProps> = ({  timelineEvents }) => (
+const Highlight: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> = ({  timelineEvents }) => (
   <Fragment>
     <div>
       <h1>Highlights</h1>

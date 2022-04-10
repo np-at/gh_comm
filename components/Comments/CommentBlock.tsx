@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { IComment } from "@interfaces/IComment";
 import styled from "styled-components";
 import Comment from "./Comment";
 import { sanitizeSlug } from "@components/Comments/utils";
+import AddComment from "@components/Comments/AddComment";
 
 interface CommentBlockProps {
   slug: string;
@@ -13,7 +14,7 @@ const CommentBlock: React.FC<CommentBlockProps> = ({ slug, comments }) => {
   // Dynamically import everything to reduce the first load of a page. Also, there might be no comments at all.
   //    const Comment = dynamic(() => import("@components/Comments/Comment"));
   //    const AddComment = dynamic(() => import("@components/Comments/AddComment"));
-  // const [showAddComment, setShowAddComment] = useState(false);
+  const [showAddComment, setShowAddComment] = useState(!comments);
   const sanitizedSlug = sanitizeSlug(slug);
   return (
     <CommentsBlockWrapper>
@@ -27,18 +28,18 @@ const CommentBlock: React.FC<CommentBlockProps> = ({ slug, comments }) => {
         </ul>
       }
       {/*<AddComment slug={sanitizedSlug} />*/}
-      {/*{showAddComment ? (*/}
-      {/*    <AddComment slug={slug}/>*/}
-      {/*) : (*/}
-      {/*    <div>*/}
-      {/*        <button*/}
-      {/*            type="submit"*/}
-      {/*            onClick={() => setShowAddComment(true)}*/}
-      {/*        >*/}
-      {/*            Comment*/}
-      {/*        </button>*/}
-      {/*    </div>*/}
-      {/*)}*/}
+      {showAddComment ? (
+          <AddComment slug={slug}/>
+      ) : (
+          <div>
+              <button
+                  type="submit"
+                  onClick={() => setShowAddComment(true)}
+              >
+                  Comment
+              </button>
+          </div>
+      )}
     </CommentsBlockWrapper>
   );
 };

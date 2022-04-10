@@ -4,24 +4,23 @@ import { NextPageWithLayout } from "../_app.page";
 import Script from "next/script";
 import { Fragment } from "react";
 
-
 const CMS = dynamic(
+  //@ts-ignore
+  async () => {
     //@ts-ignore
-    async () => {
-        //@ts-ignore
-        window.CMS_MANUAL_INIT = true;
-        //@ts-ignore
-        await import("netlify-cms")
-        //@ts-ignore
-        const {initCMS: init} = window;
-        init({
-            config: config
-        })
-    },
-    {
-        ssr: false,
-        loading: () => <h1>Loading</h1>,
-    }
+    window.CMS_MANUAL_INIT = true;
+    //@ts-ignore
+    await import("netlify-cms");
+    //@ts-ignore
+    const { initCMS: init } = window;
+    init({
+      config: config
+    });
+  },
+  {
+    ssr: false,
+    loading: () => <h1>Loading</h1>
+  }
 );
 
 const AdminPage: NextPageWithLayout<{}> = () => {
