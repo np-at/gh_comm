@@ -2,6 +2,7 @@ import { IComment, ICommentFile, ICommentStorage } from "@interfaces/IComment";
 import path from "path";
 import { readFileSync } from "fs";
 import { decrypt } from "@lib/encryption/crypto";
+import { assembleCommentRelationships } from "@lib/comments/assembleCommentRelationships";
 
 // export const getComments = async (slug: string): Promise<Array<IComment> | null> => {
 //     const {ref, repo, owner} = getGithubParamsFromEnv()
@@ -24,25 +25,29 @@ import { decrypt } from "@lib/encryption/crypto";
 //         return null;
 //     }
 // }
-const convertCommentStorageToDisplay: (comment: ICommentStorage) => IComment = (
-  comment: ICommentStorage
-) => {
+const convertCommentStorageToDisplay: (
+  comment: ICommentStorage,
+  unmaskEmails?: boolean
+) => IComment = (comment, unmaskEmails = false) => {
   return {
     id: comment.id,
     parentCommentId: comment.parentCommentId ? comment.parentCommentId : null,
     content: comment.content,
-    email: comment.email ? decrypt(comment.email) : "",
+    email: unmaskEmails && comment.email ? decrypt(comment.email) : "",
     date: comment.date,
     username: comment.username,
     page_name: comment.page_name,
     childrenIds: comment.childrenIds,
-    children: comment.children ? comment.children.map(convertCommentStorageToDisplay) : []
+    children: comment.children
+      ? comment.children.map((c) => convertCommentStorageToDisplay(c, unmaskEmails))
+      : []
   };
 };
 
 export const getCommentsFromStatic: (
-  slug: string
-) => Promise<IComment[] | null> = async (slug: string) => {
+  slug: string,
+  unmaskEmails?: boolean
+) => Promise<IComment[] | null> = async (slug: string, unmaskEmails = false) => {
   const p = path.join(process.cwd(),"content", "comments", `${slug}.json`);
   try {
     const commentPageJson = readFileSync(p);
@@ -50,40 +55,10 @@ export const getCommentsFromStatic: (
       commentPageJson.toString("utf8")
     ) as ICommentFile | null;
 
-    return assembleCommentRelationships(comments?.comments.map(convertCommentStorageToDisplay) || []);
+    return assembleCommentRelationships(comments?.comments.map((c)=>convertCommentStorageToDisplay(c, unmaskEmails)) || []);
   } catch (e) {
     return null;
   }
-};
-
-const assembleCommentRelationships: (
-  comments: IComment[] | null,
-  debug?: boolean
-) => null | IComment[] = (comments: IComment[] | null) => {
-  if (comments === null) {
-    return null;
-  }
-  // Iterate over all comments and clear out the children to avoid clobbering
-  for (let i = comments.length - 1; i >= 0; i--) {
-    const comment = comments[i];
-    comment.children = [];
-  }
-  for (const element of comments) {
-    const comment = element;
-    if (comment.parentCommentId) {
-      const parent = comments?.find((c) => c.id === comment.parentCommentId);
-      if (parent) {
-        parent.children = parent.children || [];
-        parent.children.push(comment);
-      } else
-        console.warn(
-          "comment found with parentCommentId that does not exist",
-          comment
-        );
-    }
-    //        comment .children = comments?.filter(c => c.parentCommentId === comment.id)
-  }
-  return comments.filter((c) => !c.parentCommentId) ?? [];
 };
 
 export const getCommentsFromStaticSync: (slug: string) => IComment[] | null = (

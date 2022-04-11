@@ -1,10 +1,8 @@
-import {
-  FieldErrors,
-  SubmitHandler,
-  UseFormHandleSubmit
-} from "react-hook-form";
+import { FieldErrors, SubmitHandler, UseFormHandleSubmit } from "react-hook-form";
 import React from "react";
 import { IComment } from "@interfaces/IComment";
+import RowDiv from "@components/Layout/Row";
+import Row from "@components/Layout/Row";
 
 export const CommentForm: React.FC<{
   handleSubmit: UseFormHandleSubmit<IComment>;
@@ -24,24 +22,36 @@ export const CommentForm: React.FC<{
     <form
       action={`/api/comments/save/${p.parentSlug}`}
       method={"POST"}
-      onSubmit={p.handleSubmit(p.onSubmit, (errors1, event) =>
-        console.error(errors1, event)
-      )}
-    >
-      <label>
-        Your Email
-        <input type={"email"} {...p.register("email")} />
-      </label>
-      <label>
-        Comment{" "}
-        <textarea
-          {...p.register("content", {
-            required: true,
-            min: 1,
-            maxLength: 1000
-          })}
-        />
-      </label>
+      onSubmit={p.handleSubmit(p.onSubmit, (errors1, event) => console.error(errors1, event))}>
+      <RowDiv>
+        <label>
+          <span>Display Name</span>
+          <input
+            type={"text"}
+            name={"username"}
+            {...p.register("username", { required: true })}
+            defaultValue={""}
+          />
+        </label>
+      </RowDiv>
+      <RowDiv>
+        <label>
+          Your Email
+          <input type={"email"} {...p.register("email")} />
+        </label>
+      </RowDiv>
+      <RowDiv>
+        <label>
+          Comment{" "}
+          <textarea
+            {...p.register("content", {
+              required: true,
+              min: 1,
+              maxLength: 1000
+            })}
+          />
+        </label>
+      </RowDiv>
       <input
         type={"text"}
         {...p.register("parentCommentId")}
@@ -57,7 +67,9 @@ export const CommentForm: React.FC<{
         readOnly={true}
         {...p.register("page_name")}
       />
-      <input type={"submit"} value={"Submit"} />
+      <RowDiv>
+        <input type={"submit"} value={"Submit"} />
+      </RowDiv>
       {/*<input type="text" placeholder="First name" {...register("First name", {required: true, maxLength: 80})} />*/}
       {/*<input type="text" placeholder="Email" {...register("Email", {required: true, pattern: /^\S+@\S+$/i})} />*/}
       {/*<input type="text" placeholder="Last name" {...register("Last name", {required: true, maxLength: 100})} />*/}

@@ -18,7 +18,7 @@ const Comment: React.FC<{ comment: IComment; slug: string }> = ({
     >
       <div>
         {"  Posted by: "}
-        <span>{comment.username || comment.email}</span>
+        <span>{comment.username}</span>
         <span aria-hidden={"true"}> | </span>
         <span>{new Date(comment.date).toLocaleString()}</span>
       </div>

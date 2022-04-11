@@ -1,5 +1,5 @@
 import { Octokit } from "@octokit/core";
-import Status from "http-status-codes";
+import  {StatusCodes} from "http-status-codes";
 import { createAppAuth } from "@octokit/auth-app";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { ICommentFile, ICommentStorage } from "@interfaces/IComment";
@@ -70,7 +70,7 @@ const SaveComment: (req: NextApiRequest, res: NextApiResponse) => Promise<void> 
     console.warn("bad request received: comment content empty, rejecting");
     console.log(req.body);
     return new Promise<void>((resolve) => {
-      res.status(Status.UNAUTHORIZED).json({});
+      res.status(StatusCodes.UNAUTHORIZED).json({});
       resolve();
     });
   }
@@ -105,10 +105,10 @@ const SaveComment: (req: NextApiRequest, res: NextApiResponse) => Promise<void> 
         })
         .catch((e) => {
           console.error(
-            `error encountered while retrieving repo comments with path: comments/${slug}.json`,
+            "error encountered while retrieving repo comments with path: comments/%s.json",
             e
           );
-          if (e.status !== Status.NOT_FOUND) throw new Error(e);
+          if (e.status !== StatusCodes.NOT_FOUND) throw new Error(e);
         });
 
       if (prevComments) {
@@ -144,7 +144,7 @@ const SaveComment: (req: NextApiRequest, res: NextApiResponse) => Promise<void> 
           content: Buffer.from(JSON.stringify(data), "ascii").toString("base64")
         });
 
-        res.status(Status.OK).json(JSON.stringify(update));
+        res.status(StatusCodes.OK).json(JSON.stringify(update));
         resolve();
       } else {
         const data: ICommentFile = {
@@ -164,12 +164,12 @@ const SaveComment: (req: NextApiRequest, res: NextApiResponse) => Promise<void> 
           content: Buffer.from(JSON.stringify(data), "ascii").toString("base64")
         });
 
-        res.status(Status.OK).json(JSON.stringify(update));
+        res.status(StatusCodes.OK).json(JSON.stringify(update));
         resolve();
       }
     } catch (e) {
-      console.error("generic error enountered from comment/save/[slug] handler", e);
-      res.status(Status.SERVICE_UNAVAILABLE).json(e);
+      console.error("generic error encountered from comment/save/[slug] handler", e);
+      res.status(StatusCodes.SERVICE_UNAVAILABLE).json(e);
       resolve();
     }
   });

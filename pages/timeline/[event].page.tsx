@@ -78,7 +78,7 @@ const Highlight: NextPageWithLayout<
         <div dangerouslySetInnerHTML={{ __html: body }} />
       </RowDiv>
       <RowDiv>
-        <CommentBlock slug={path ?? fullPath} comments={comments} />
+        <CommentBlock slug={path ?? fullPath} comments={comments} attemptPreemptiveFetch={true} />
       </RowDiv>
     </div>
   );
