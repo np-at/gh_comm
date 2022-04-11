@@ -39,7 +39,6 @@ const NavBarWrapper = styled.nav`
     --top-bar-background-color-active: #0b0e11;
   }
 
-
   --top-nav-height: 3rem;
   --top-nav-background-color: var(--top-bar-background-color);
   --top-nav-background-color-hover: var(--gray-20);
@@ -56,7 +55,6 @@ const NavBarWrapper = styled.nav`
     --top-nav-box-shadow-color: #5d676f;
   }
 
-
   height: var(--top-nav-height);
   /* allow the top bar dropdown to be higher in stacking order */
   z-index: 1;
@@ -66,7 +64,6 @@ const NavBarWrapper = styled.nav`
   background-color: var(--top-nav-background-color);
   color: var(--top-nav-text-color);
   border-bottom: 1px solid var(--top-nav-border-bottom-color);
-
 
   & > ul {
     width: 100%;
@@ -98,7 +95,6 @@ const NavBarWrapper = styled.nav`
     margin-right: auto;
     left: 0;
     -ms-flex-align: start;
-
   }
 
   & > ul > li:hover {
@@ -128,7 +124,6 @@ const NavBarWrapper = styled.nav`
     width: 100%;
   }
 
-
   /* NavBar collapsed */
 
   &.NavBar--collapsed {
@@ -154,12 +149,12 @@ const NavBarWrapper = styled.nav`
 
   &.NavBar--collapsed > ul > .NavItem--active {
     box-shadow: inset 0px -1px 0px var(--top-nav-box-shadow-color),
-    inset 6px 0px 0px var(--top-nav-active-shadow-color);
+      inset 6px 0px 0px var(--top-nav-active-shadow-color);
   }
 
   &.NavBar--collapsed > .NavBar__trigger--active {
     box-shadow: inset 0px -1px 0px var(--top-nav-box-shadow-color),
-    inset 0px 4px 0px var(--top-nav-active-shadow-color);
+      inset 0px 4px 0px var(--top-nav-active-shadow-color);
     z-index: calc(var(--z-index-top-nav) + 1);
   }
 
@@ -195,15 +190,13 @@ const NavBarWrapper = styled.nav`
       min-width: 7.125rem;
     }
   }
-
-
 `;
 const NavBar: React.FC<NavBarProps> = ({
-                                         collapsed,
-                                         children,
-                                         propId,
-                                         navTriggerLabel
-                                       }) => {
+  collapsed,
+  children,
+  propId,
+  navTriggerLabel
+}) => {
   const navRef = useRef<HTMLElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -239,8 +232,7 @@ const NavBar: React.FC<NavBarProps> = ({
         document.removeEventListener("focusin", handleOutSideEvent);
       };
     }
-    return () => {
-    };
+    return () => {};
   }, [collapsed, showDropdown]);
 
   const handleTriggerClick = () => {
@@ -248,7 +240,6 @@ const NavBar: React.FC<NavBarProps> = ({
   };
 
   return (
-
     <Fragment>
       <NavBarWrapper
         className={collapsed ? "NavBar--collapsed" : ""}
@@ -265,7 +256,10 @@ const NavBar: React.FC<NavBarProps> = ({
               "NavBar__trigger--active": showDropdown
             })}
           >
-            <Icon type={showDropdown ? "close" : "hamburger-menu"} label={navTriggerLabel} />
+            <Icon
+              type={showDropdown ? "close" : "hamburger-menu"}
+              label={navTriggerLabel}
+            />
           </button>
         )}
         {/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */}

@@ -2,7 +2,10 @@
 
 import React from "react";
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
-import { getContentDirectory, getMarkdownFileContentFromPath } from "@lib/pages";
+import {
+  getContentDirectory,
+  getMarkdownFileContentFromPath
+} from "@lib/pages";
 import { join } from "node:path";
 import { TimelineEventProps } from "./index.page";
 import { NextPageWithLayout } from "../_app.page";
@@ -12,6 +15,7 @@ import styled from "styled-components";
 import RowDiv, { CenteredRow } from "@components/Layout/Row";
 import { getCommentsFromStatic } from "@lib/comments/_utils";
 import { sanitizeSlug } from "@components/Comments/utils";
+import { niceDateDisplay } from "./FormattingUtils";
 
 // TODO: make this less awful
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -50,7 +54,9 @@ export const getStaticProps: GetStaticProps<TimelineEventProps> = async ({
   };
 };
 
-const Highlight: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> = ({
+const Highlight: NextPageWithLayout<
+  InferGetStaticPropsType<typeof getStaticProps>
+> = ({
   title,
   description,
   date,
@@ -64,7 +70,7 @@ const Highlight: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProp
     <div style={{ width: "80%" }}>
       <RowDiv className="row">
         <h1>{title}</h1>
-        <h2>{date}</h2>
+        <h2>{niceDateDisplay(date)}</h2>
         <CenteredRow>
           <BannerImage src={featured_image} alt={description} />
         </CenteredRow>
@@ -81,6 +87,7 @@ const BannerImage = styled.img`
   height: auto;
   aspect-ratio: initial;
   max-height: 400px;
+  border-radius: 8px;
   //width: 100%;
 `;
 export default Highlight;

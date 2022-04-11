@@ -1,10 +1,15 @@
-import React, { forwardRef, ReactSVG, ReactSVGElement, useEffect, useRef, useState } from "react";
+import React, {
+  forwardRef,
+  ReactSVG,
+  useEffect,
+  useRef,
+  useState
+} from "react";
 import classNames from "classnames";
 import "./index.module.css";
-import { IconType, iconTypes } from "@components/Layout/Icon/types";
+import { IconType } from "@components/Layout/Icon/types";
 import { SRSpan } from "@components/Reusable/SROnly";
 import dynamic from "next/dynamic";
-
 
 export interface IconProps extends React.HTMLAttributes<HTMLDivElement> {
   label?: string;
@@ -18,14 +23,17 @@ const Icon = forwardRef<HTMLDivElement, IconProps>(
       "",
       type
     ];
-    const [IconSVG, setIcon] = useState<React.ComponentType<ReactSVG> | null>(null);
-  // const ICO = dynamic(() => import(`@components/Layout/Icon/icons/${name}.svg`), {})
+    const [IconSVG, setIcon] = useState<React.ComponentType<ReactSVG> | null>(
+      null
+    );
+    // const ICO = dynamic(() => import(`@components/Layout/Icon/icons/${name}.svg`), {})
     useEffect(() => {
       const setupIcon = async () => {
         if (isMounted.current) {
-          const IC: React.ComponentType<React.ReactSVG> = dynamic<ReactSVG>(()=> import(
-            `@components/Layout/Icon/icons/${name}.svg`
-          ),{ ssr:true});
+          const IC: React.ComponentType<React.ReactSVG> = dynamic<ReactSVG>(
+            () => import(`@components/Layout/Icon/icons/${name}.svg`),
+            { ssr: true }
+          );
           IC && setIcon(IC);
         }
       };
@@ -33,7 +41,8 @@ const Icon = forwardRef<HTMLDivElement, IconProps>(
       // NOTE: we don't want to pollute test output with
       //  console.errors as a result of the dynamic imports
       if (process.env.NODE_ENV === "test") {
-        return () => {};
+        return () => {
+        };
       }
 
       // import(`./icons/${name}.svg`)
@@ -51,7 +60,7 @@ const Icon = forwardRef<HTMLDivElement, IconProps>(
       return () => {
         isMounted.current = false;
       };
-    }, [type,name]);
+    }, [type, name]);
 
     const data = {
       ...other,
@@ -71,9 +80,10 @@ const Icon = forwardRef<HTMLDivElement, IconProps>(
         {/*)}*/}
         {label && <SRSpan className={"sr-only"}>{label}</SRSpan>}
 
-
-        {// @ts-ignore
-          IconSVG && <IconSVG aria-hidden={true} />}
+        {
+          // @ts-ignore
+          IconSVG && <IconSVG aria-hidden={true} />
+        }
       </div>
     );
   }

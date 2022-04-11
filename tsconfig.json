@@ -2,8 +2,11 @@
   "compilerOptions": {
     "target": "esnext",
     "sourceMap": true,
-    "preserveConstEnums": true,
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -18,7 +21,6 @@
     "incremental": true,
     "baseUrl": "./",
     "paths": {
-
       "@interfaces/*": [
         "interfaces/*"
       ],
@@ -33,6 +35,16 @@
       ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "typeAcquisition": {
+    "enable": true,
+    "enableAutoDiscovery": true
+  }
 }

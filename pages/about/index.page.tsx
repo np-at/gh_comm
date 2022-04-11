@@ -6,7 +6,7 @@ const About: NextPageWithLayout<{}> = () => {
   return (
     <div>
       <h1>About</h1>
-      <CardComponent card_data={SampleCardData} />
+      <CardComponent cardData={SampleCardData} />
     </div>
   );
 };

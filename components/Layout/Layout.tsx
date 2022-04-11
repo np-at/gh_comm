@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useLayoutEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import NavBar from "@components/Layout/NavBar";
 import { useRouter } from "next/router";
 import NavLink from "@components/Reusable/AccessibleLink/AccessibleNavLink";

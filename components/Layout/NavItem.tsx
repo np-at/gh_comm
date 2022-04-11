@@ -8,8 +8,8 @@ interface NavItemProps extends React.HTMLAttributes<HTMLLIElement> {
 
 const NavItem: React.FC<NavItemProps> = ({ children, active, ...other }) => (
   <li
-    className={classNames('NavItem', {
-      'NavItem--active': active
+    className={classNames("NavItem", {
+      "NavItem--active": active
     })}
     {...other}
   >
@@ -17,7 +17,6 @@ const NavItem: React.FC<NavItemProps> = ({ children, active, ...other }) => (
   </li>
 );
 
-NavItem.displayName = 'NavItem';
-
+NavItem.displayName = "NavItem";
 
 export default NavItem;

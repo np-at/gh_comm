@@ -29,16 +29,13 @@ const CommentBlock: React.FC<CommentBlockProps> = ({ slug, comments }) => {
       }
       {/*<AddComment slug={sanitizedSlug} />*/}
       {showAddComment ? (
-          <AddComment slug={slug}/>
+        <AddComment slug={slug} />
       ) : (
-          <div>
-              <button
-                  type="submit"
-                  onClick={() => setShowAddComment(true)}
-              >
-                  Comment
-              </button>
-          </div>
+        <div>
+          <button type="submit" onClick={() => setShowAddComment(true)}>
+            Comment
+          </button>
+        </div>
       )}
     </CommentsBlockWrapper>
   );

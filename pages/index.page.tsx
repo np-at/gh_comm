@@ -26,7 +26,9 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async (_) => {
   };
 };
 
-const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (props) => (
+const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (
+  props
+) => (
   <div>
     <HomePageLayout>
       {/*<PortraitWrapper2><NextImageFix src={props.matterData.picture} alt={""} /></PortraitWrapper2>*/}
@@ -76,7 +78,7 @@ const Footer = styled.footer`
   color: #666;
   width: 100%;
   height: 2rem;
-  
+
   & > div {
     border: 2px solid black;
 
@@ -157,7 +159,7 @@ const HomePageLayout = styled.div`
   width: 88vw;
   grid-gap: 1rem;
   display: grid;
-  @media(max-width: 48rem) {
+  @media (max-width: 48rem) {
     grid-template-columns: 1fr;
     width: 100%;
   }

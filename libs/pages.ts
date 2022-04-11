@@ -6,7 +6,10 @@ import md from "markdown-it";
 import { sanitizeSlug } from "@components/Comments/utils";
 
 const contentDirectory_RelativeToRoot = "content";
-const contentDirectory_Absolute = path.join(process.cwd(), contentDirectory_RelativeToRoot);
+const contentDirectory_Absolute = path.join(
+  process.cwd(),
+  contentDirectory_RelativeToRoot
+);
 
 export interface HomePageCMSFields extends ContentPageData {
   picture: string;
@@ -33,7 +36,8 @@ export interface ContentPageData {
   readonly slug: string;
 }
 
-export const getContentDirectory = (relativeToRoot: boolean = false): string => relativeToRoot ? contentDirectory_RelativeToRoot : contentDirectory_Absolute;
+export const getContentDirectory = (relativeToRoot: boolean = false): string =>
+  relativeToRoot ? contentDirectory_RelativeToRoot : contentDirectory_Absolute;
 
 export const getMarkdownFileContentFromPath = (
   fullPath: string
@@ -47,8 +51,8 @@ export const getMarkdownFileContentFromPath = (
 
   const matterResult: matter.GrayMatterFile<string> = matter(pageData, {
     engines: {
-      yaml: (s) => yaml.load(s, { schema: yaml.JSON_SCHEMA }) as object,
-    },
+      yaml: (s) => yaml.load(s, { schema: yaml.JSON_SCHEMA }) as object
+    }
   });
   matterResult.data.fullPath = fullPath;
 
@@ -56,7 +60,7 @@ export const getMarkdownFileContentFromPath = (
   matterResult.data.body = md({
     html: true,
     linkify: true,
-    typographer: true,
+    typographer: true
   }).render(matterResult.content);
   return matterResult.data;
 };
@@ -64,7 +68,6 @@ export const getMarkdownFileContentFromPath = (
 export function getMarkdownFileContentFromSlug<T extends ContentPageData>(
   rawSlug: string
 ) {
-
   const fsSanitizedSlug = sanitizeSlug(rawSlug) + ".md";
   const fullPath = path.join(contentDirectory_Absolute, fsSanitizedSlug);
   const pageData = getMarkdownFileContentFromPath(fullPath);

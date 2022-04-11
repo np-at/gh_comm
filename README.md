@@ -5,7 +5,8 @@ This repo contains the source for the memorial site of Dmitri Belser.
 The site is built using [NextJS](https://nextjs.org/docs).
 
 - Netlify CMS for content management
-  - configuration  is stored in [pages/admin/_config.ts](pages/admin/_config.ts).
+    - configuration is stored in [pages/admin/_config.ts](pages/admin/_config.ts).
+
 <dl>
     <dt></dt>
 <dd>configuration for which is stored in [pages/admin/_config.ts](pages/admin/_config.ts).  

@@ -27,10 +27,16 @@ const Contact: NextPageWithLayout<{}> = () => {
       >
         <ModalCloseButton onClick={() => setModalIsOpen(false)}>
           <span aria-hidden={true}>X</span>
-          <SRSpan>Close Dialog</SRSpan>{" "}
+          <SRSpan>Close Dialog</SRSpan>
         </ModalCloseButton>
         <h2>Modal</h2>
-        <div>Hiya Folks!</div>
+        <div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+            doloremque, quidem quisquam, quisquam quisquam quisquam quisquam
+            dignissimos.
+          </p>
+        </div>
       </StyledModal>
     </div>
   );

@@ -1,10 +1,12 @@
-import path from "node:path";
 import { getContentDirectory } from "@lib/pages";
-import fs from "node:fs/promises";
 
 export const getHighlightsSourceFiles = async (
   returnFullPath: boolean = false
 ) => {
+  const path = await import("node:path");
+
+  const fs = await import("node:fs/promises");
+
   const eventsDirectory = path.join(getContentDirectory(), "events");
 
   const qualifiedRootPath = returnFullPath

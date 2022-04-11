@@ -1,8 +1,12 @@
 {
   "endOfLine": "lf",
-  "printWidth": 80,
+  "printWidth": 100,
   "tabWidth": 2,
   "useTabs": false,
   "quoteProps": "as-needed",
-  "trailingComma": "none"
+  "trailingComma": "none",
+  "bracketSameLine": true,
+  "semi": true,
+  "proseWrap": "preserve",
+  "insertPragma": false
 }

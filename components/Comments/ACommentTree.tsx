@@ -32,12 +32,15 @@ const comments: IACom[] = [
     ]
   }
 ];
-export const Overview: React.FC<{ title: string }> = ({title}) => {
-
-
-
-    return <>
-        <h2>{title}</h2>
-        <ol>{comments.map((value, idx) => <ACItem key={`a${idx}`} comment={value}/>)}</ol>
-    </>;
-}
+export const Overview: React.FC<{ title: string }> = ({ title }) => {
+  return (
+    <>
+      <h2>{title}</h2>
+      <ol>
+        {comments.map((value, idx) => (
+          <ACItem key={`a${idx}`} comment={value} />
+        ))}
+      </ol>
+    </>
+  );
+};

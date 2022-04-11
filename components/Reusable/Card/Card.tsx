@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
 
@@ -6,96 +7,108 @@ export interface CardData {
   card_body: string;
   image: string;
   image_alt?: string;
+  link: string;
 }
+
 export const SampleCardData: CardData[] = [
   {
     title: "Card Title",
     image: "https://picsum.photos/500/300/?image=10",
     card_body:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit lkj;j lsajflkjsfdljla;djsf;lajksdf;ljasd;flkjasd;lfkja;sdlkj"
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit lkj;j lsajflkjsfdljla;djsf;lajksdf;ljasd;flkjasd;lfkja;sdlkj",
+    link: "/"
   },
   {
     title: "Card 2 Title",
     image: "https://picsum.photos/500/300/?image=14",
     image_alt: "Card 2 Image",
     card_body:
-      "Cum nuptia prarere, omnes ususes fallere germanus, raptus demissioes. "
+      "Cum nuptia prarere, omnes ususes fallere germanus, raptus demissioes. ",
+    link: "/"
   },
   {
     title: "Card 3 Title",
     image: "https://picsum.photos/500/300/?image=15",
     image_alt: "Card 3 Image",
     card_body:
-      "Cum agripeta peregrinationes, omnes lacteaes carpseris camerarius, clemens itineris tramitemes. "
+      "Cum agripeta peregrinationes, omnes lacteaes carpseris camerarius, clemens itineris tramitemes. ",
+    link: "/"
   },
   {
     title: "Card 4 Title",
     image: "https://picsum.photos/500/300/?image=16",
     image_alt: "Card 4 Image",
     card_body:
-      "Altus, secundus pulchritudines aliquando imperium de albus, magnum cedrium. "
+      "Altus, secundus pulchritudines aliquando imperium de albus, magnum cedrium. ",
+    link: "/"
   },
   {
     title: "Card 5 Title",
     image: "https://picsum.photos/500/300/?image=17",
     image_alt: "Card 5 Image",
     card_body:
-      "Fatalis, altus cobaltums satis imitari de azureus, flavum luba. "
+      "Fatalis, altus cobaltums satis imitari de azureus, flavum luba. ",
+    link: "/"
   },
   {
     title: "Card 6 Title",
     image: "https://picsum.photos/500/300/?image=18",
     image_alt: "Card 6 Image",
     card_body:
-      "Lotus, raptus repressors sapienter aperto de festus, grandis guttus. "
+      "Lotus, raptus repressors sapienter aperto de festus, grandis guttus. ",
+    link: "/"
   },
   {
     title: "Card 7 Title",
     image: "https://picsum.photos/500/300/?image=19",
     image_alt: "Card 7 Image",
     card_body:
-      "Cum palus peregrinationes, omnes abactores resuscitabo neuter, fortis nomenes. "
+      "Cum palus peregrinationes, omnes abactores resuscitabo neuter, fortis nomenes. ",
+    link: "/"
   },
   {
     title: "Card 8 Title",
     image: "https://picsum.photos/500/300/?image=20",
     image_alt: "Card 8 Image",
     card_body:
-      "Fortis, barbatus terrors tandem imitari de domesticus, superbus historia. "
+      "Fortis, barbatus terrors tandem imitari de domesticus, superbus historia. ",
+    link: "/"
   },
   {
     title: "Card 9 Title",
     image: "https://picsum.photos/500/300/?image=21",
     image_alt: "Card 9 Image",
     card_body:
-      "Cum fluctus ortum, omnes lanistaes talem bi-color, germanus byssuses. "
+      "Cum fluctus ortum, omnes lanistaes talem bi-color, germanus byssuses. ",
+    link: "/"
   },
   {
     title: "Card 10 Title",
     image: "https://picsum.photos/500/300/?image=22",
     image_alt: "Card 10 Image",
     card_body:
-      "Cum cacula accelerare, omnes barcases imperium audax, velox vigiles. "
+      "Cum cacula accelerare, omnes barcases imperium audax, velox vigiles. ",
+    link: "/"
   }
 ];
-const CardComponent: React.FC<{card_data: CardData[]}> = ({card_data}) => (
+const CardComponent: React.FC<{ cardData: CardData[] }> = ({ cardData }) => (
   <CardsCollectionWrapper>
-    {card_data.map((card: any, index: number) => {
-      return (
-        <CardsItem key={index}>
-          <Card>
-            <CardImageWrapper>
-              <img src={card.image} alt={card.image_alt} />
-            </CardImageWrapper>
-            <CardBody>
-              <CardTitle>{card.title}</CardTitle>
-              <CardText>{card.card_body}</CardText>
+    {cardData.map((card) => (
+      <CardsItem key={`${card.title}-${card.image}`}>
+        <Card>
+          <CardImageWrapper>
+            <img src={card.image} alt={card.image_alt} />
+          </CardImageWrapper>
+          <CardBody>
+            <CardTitle>{card.title}</CardTitle>
+            <CardText>{card.card_body}</CardText>
+            <Link href={card.link} passHref={true}>
               <ReadMoreBtn>Read More</ReadMoreBtn>
-            </CardBody>
-          </Card>
-        </CardsItem>
-      );
-    })}
+            </Link>
+          </CardBody>
+        </Card>
+      </CardsItem>
+    ))}
   </CardsCollectionWrapper>
 );
 const CardText = styled.div`
@@ -134,9 +147,10 @@ const Card = styled.div`
 `;
 const CardsItem = styled.li`
   //@media (prefers-reduced-motion: no-preference) {
-  //  transition: all 0.3s ease-in-out;
+  //  transition: box-shadow 0.2s linear;
   //  &:hover {
-  //    transform: scale(1.01);
+  //    //transform: scale(1.01);
+  //    box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
   //  }
   //}
   @media (prefers-reduced-motion: reduce) {
@@ -178,7 +192,7 @@ const CardTitle = styled.h2`
   text-transform: capitalize;
   margin: 0;
 `;
-const ReadMoreBtn = styled.button`
+const ReadMoreBtn = styled.a`
   //margin-bottom: 0;;
   bottom: 0;
   margin-top: auto;
@@ -193,6 +207,7 @@ const ReadMoreBtn = styled.button`
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: transparent;
+  text-align: center;
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.12);

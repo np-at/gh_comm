@@ -24,16 +24,19 @@ const CMS = dynamic(
 );
 
 const AdminPage: NextPageWithLayout<{}> = () => {
-
-    return (
-        <Fragment>
-            <Script async={false} id={"netlify_identity"} src={"https://identity.netlify.com/v1/netlify-identity-widget.js"}/>
-            {/*<div id={"nl-ml"} data-netlify-identity-button>Login with Netlify Identity</div>*/}
-            {/*<IdentityWidget/>*/}
-            <div id={"nc-root"}/>
-            <CMS/>
-        </Fragment>
-    );
+  return (
+    <Fragment>
+      <Script
+        async={false}
+        id={"netlify_identity"}
+        src={"https://identity.netlify.com/v1/netlify-identity-widget.js"}
+      />
+      {/*<div id={"nl-ml"} data-netlify-identity-button>Login with Netlify Identity</div>*/}
+      {/*<IdentityWidget/>*/}
+      <div id={"nc-root"} />
+      <CMS />
+    </Fragment>
+  );
 };
 
 AdminPage.getLayout = (page) => page;

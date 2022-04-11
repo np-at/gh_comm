@@ -12,7 +12,6 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout<any>;
 };
 
-
 function App({ Component, pageProps }: AppPropsWithLayout) {
   useEffect(() => {
     setAppElement("#__next");

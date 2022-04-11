@@ -18,9 +18,8 @@ export const ACItem: React.FC<{ comment: IACom }> = (props) => {
 };
 
 export interface IACom {
-    date: number,
-    user: string,
-    content: string,
-    children?: IACom[]
-
+  date: number;
+  user: string;
+  content: string;
+  children?: IACom[];
 }

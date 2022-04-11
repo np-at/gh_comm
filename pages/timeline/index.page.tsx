@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { getHighlightsSourceFiles } from "./utils";
 import Link from "next/link";
 import parse from "react-html-parser";
+import { niceDateDisplay } from "./FormattingUtils";
 
 export interface TimelineEventProps extends ContentPageData {
   path?: string;
@@ -26,9 +27,7 @@ export interface TimelinePageProps {
   timelineEvents: TimelineEventProps[];
 }
 
-export const getStaticProps: GetStaticProps<TimelinePageProps> = async (
-
-) => {
+export const getStaticProps: GetStaticProps<TimelinePageProps> = async () => {
   const hlightsSourceFiles = await getHighlightsSourceFiles();
   const timelineEvents: TimelineEventProps[] = await Promise.all(
     hlightsSourceFiles.map(async (file) => {
@@ -39,7 +38,7 @@ export const getStaticProps: GetStaticProps<TimelinePageProps> = async (
     const aDate = new Date(a.date);
     const bDate = new Date(b.date);
     return bDate.getTime() - aDate.getTime();
-  })
+  });
   return {
     props: {
       title: "Timeline",
@@ -48,14 +47,9 @@ export const getStaticProps: GetStaticProps<TimelinePageProps> = async (
     }
   };
 };
-const niceDateDisplay = (date: string) => {
-  const dateObj = new Date(date);
-  const month = dateObj.toLocaleString("default", { month: "long" });
-  const day = dateObj.getDate();
-  const year = dateObj.getFullYear();
-  return `${month} ${day}, ${year}`;
-};
-const Highlight: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> = ({  timelineEvents }) => (
+const Highlight: NextPageWithLayout<
+  InferGetStaticPropsType<typeof getStaticProps>
+> = ({ timelineEvents }) => (
   <Fragment>
     <div>
       <h1>Highlights</h1>
@@ -73,10 +67,7 @@ const Highlight: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProp
                 <div>
                   <Link passHref={true} href={`/timeline/${event.title}`}>
                     <a>
-                      <Img
-                        src={event.featured_image}
-                        alt={event.title}
-                      />
+                      <Img src={event.featured_image} alt={event.title} />
                     </a>
                   </Link>
                 </div>
@@ -111,10 +102,12 @@ const EventCardContainer = styled.div`
     flex-direction: row-reverse;
     //background-color: rgba(108, 44, 175, 0.3);
 
-    background: linear-gradient(to right,
-    rgba(108, 44, 175, 0.1) 0%,
-    rgba(108, 44, 175, 0.3) 50%,
-    rgba(108, 44, 175, 0.5) 100%);
+    background: linear-gradient(
+      to right,
+      rgba(108, 44, 175, 0.1) 0%,
+      rgba(108, 44, 175, 0.3) 50%,
+      rgba(108, 44, 175, 0.5) 100%
+    );
 
     & > div:first-child {
       margin: 1.5rem;
@@ -130,10 +123,12 @@ const EventCardContainer = styled.div`
 
   & > article:nth-child(odd) {
     //background-color: rgba(255, 0, 0, 0.3);
-    background: linear-gradient(to left,
-    rgba(255, 0, 0, 0.1) 0%,
-    rgba(255, 0, 0, 0.3) 50%,
-    rgba(255, 0, 0, 0.5) 100%);
+    background: linear-gradient(
+      to left,
+      rgba(255, 0, 0, 0.1) 0%,
+      rgba(255, 0, 0, 0.3) 50%,
+      rgba(255, 0, 0, 0.5) 100%
+    );
 
     & > div:first-child {
       margin-left: 1rem;

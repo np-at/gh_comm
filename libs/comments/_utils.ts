@@ -24,7 +24,9 @@ import { decrypt } from "@lib/encryption/crypto";
 //         return null;
 //     }
 // }
-const convertCommentStoragetoDisplay: (comment: ICommentStorage) => IComment = (comment: ICommentStorage) => {
+const convertCommentStoragetoDisplay: (comment: ICommentStorage) => IComment = (
+  comment: ICommentStorage
+) => {
   let displayComment: IComment = {
     id: comment.id,
     parentCommentId: comment.parentCommentId ? comment.parentCommentId : null,
@@ -34,10 +36,12 @@ const convertCommentStoragetoDisplay: (comment: ICommentStorage) => IComment = (
     username: comment.username,
     page_name: comment.page_name,
     childrenIds: comment.childrenIds,
-    children: comment.children ? comment.children.map(convertCommentStoragetoDisplay) : [],
-  }
-  return displayComment
-}
+    children: comment.children
+      ? comment.children.map(convertCommentStoragetoDisplay)
+      : []
+  };
+  return displayComment;
+};
 
 export const getCommentsFromStatic: (
   slug: string
@@ -49,7 +53,9 @@ export const getCommentsFromStatic: (
       commentPageJson.toString("utf8")
     ) as ICommentFile | null;
 
-    return assembleCommentRelationships(comments?.comments.map(convertCommentStoragetoDisplay) || []);
+    return assembleCommentRelationships(
+      comments?.comments.map(convertCommentStoragetoDisplay) || []
+    );
   } catch (e) {
     return null;
   }

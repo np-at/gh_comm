@@ -57,5 +57,4 @@ const ReplyButton = styled.button`
   }
 `;
 
-
 export default Comment;

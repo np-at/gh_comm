@@ -8,13 +8,19 @@ import { encrypt } from "@lib/encryption/crypto";
 
 type repoContentsRequestParameters =
   Endpoints["GET /repos/{owner}/{repo}/contents/{path}"]["parameters"];
-type repoContentsRequestResponse = Endpoints["GET /repos/{owner}/{repo}/contents/{path}"]["response"]
+type repoContentsRequestResponse =
+  Endpoints["GET /repos/{owner}/{repo}/contents/{path}"]["response"];
 
-function appendCommentToCommentFile(commentFile: ICommentFile, newComment: ICommentStorage): ICommentFile {
-  const { comments} = commentFile;
+function appendCommentToCommentFile(
+  commentFile: ICommentFile,
+  newComment: ICommentStorage
+): ICommentFile {
+  const { comments } = commentFile;
 
   if (newComment.parentCommentId) {
-    const parent = comments.find(comment => comment.id === newComment.parentCommentId);
+    const parent = comments.find(
+      (comment) => comment.id === newComment.parentCommentId
+    );
     if (parent) {
       parent.childrenIds = parent.childrenIds || [];
       if (!parent.childrenIds.includes(newComment.id)) {
@@ -24,25 +30,24 @@ function appendCommentToCommentFile(commentFile: ICommentFile, newComment: IComm
   }
   comments.push(newComment);
   return commentFile;
-//  comments.forEach((comment) => {
-//    const parent = comments.find((c) => c.id === comment.parentCommentId);
-//    if (parent) {
-//      parent.childrenIds = parent.childrenIds || [];
-//      parent.childrenIds.push(newComment.id);
-//    }
-//    if (comment.id === newComment.parentCommentId) {
-//      comment.childrenIds = comment.childrenIds || [];
-//      comment.childrenIds.push(newComment.id);
-//    } else if (comment.children && comment.children.length > 0) {
-//      comment.children = appendCommentToCommentFile(comment.children, newComment);
-//    }
-//  });
-//  return comments;
+  //  comments.forEach((comment) => {
+  //    const parent = comments.find((c) => c.id === comment.parentCommentId);
+  //    if (parent) {
+  //      parent.childrenIds = parent.childrenIds || [];
+  //      parent.childrenIds.push(newComment.id);
+  //    }
+  //    if (comment.id === newComment.parentCommentId) {
+  //      comment.childrenIds = comment.childrenIds || [];
+  //      comment.childrenIds.push(newComment.id);
+  //    } else if (comment.children && comment.children.length > 0) {
+  //      comment.children = appendCommentToCommentFile(comment.children, newComment);
+  //    }
+  //  });
+  //  return comments;
 }
 
 let octo: Octokit;
 const getOctoInstance = () => {
-
   if (!octo)
     if (!process.env.GITHUB_PRIV_KEY)
       console.error("no private key found in env: GITHUB_PRIV_KEY");
@@ -58,24 +63,25 @@ const getOctoInstance = () => {
   });
   return octo;
 };
-const SaveComment: (req: NextApiRequest, res: NextApiResponse) => Promise<void> = (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
+const SaveComment: (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => Promise<void> = (
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> => {
   const { owner, repo, ref } = getGithubParamsFromEnv();
   const o = getOctoInstance();
   if (!req.body.content) {
-
     console.warn("bad request received: comment content empty, rejecting");
     console.log(req.body);
-    return new Promise<void>(resolve => {
+    return new Promise<void>((resolve) => {
       res.status(401).json({});
       resolve();
     });
   }
 
   return new Promise(async (resolve) => {
-
-    // const installations = await o.request("GET /app/installations")
-    // console.log(installations)
-
     const newComment: ICommentStorage = {
       date: req.body.date,
       parentCommentId: req.body.parentCommentId,
@@ -89,14 +95,12 @@ const SaveComment: (req: NextApiRequest, res: NextApiResponse) => Promise<void> 
       childrenIds: req.body.childrenIds ?? []
     };
 
-//    const { slug } = req.query;
+    //    const { slug } = req.query;
     const slug = req.body.page_name || req.query.slug;
 
-
     try {
-      const prevComments: repoContentsRequestResponse | void = await o.request(
-        "GET /repos/{owner}/{repo}/contents/{path}",
-        {
+      const prevComments: repoContentsRequestResponse | void = await o
+        .request("GET /repos/{owner}/{repo}/contents/{path}", {
           headers: {
             accept: "application/vnd.github.v3+json"
           },
@@ -104,16 +108,20 @@ const SaveComment: (req: NextApiRequest, res: NextApiResponse) => Promise<void> 
           repo: repo,
           path: `comments/${slug}.json`,
           ref: ref
-
-        }
-      ).catch((e) => {
-        console.error(`error encountered while retrieving repo comments with path: comments/${slug}.json`, e);
-        if (e.status !== 404) throw new Error(e);
-      });
+        })
+        .catch((e) => {
+          console.error(
+            `error encountered while retrieving repo comments with path: comments/${slug}.json`,
+            e
+          );
+          if (e.status !== 404) throw new Error(e);
+        });
 
       if (prevComments) {
-        //@ts-ignore
-        let data: ICommentFile = JSON.parse(Buffer.from((prevComments.data).content, "base64").toString("ascii"));
+        let data: ICommentFile = JSON.parse(
+          // @ts-ignore
+          Buffer.from(prevComments.data.content, "base64").toString("ascii")
+        );
 
         // attempt to deal with possible malformed comments file (all valid comments files should have a page_name value; overwrite it
         if (!data.comments && !data.page_name) {
@@ -155,7 +163,6 @@ const SaveComment: (req: NextApiRequest, res: NextApiResponse) => Promise<void> 
           comments: [newComment]
         };
 
-
         const update = await o.request(
           "PUT /repos/{owner}/{repo}/contents/{path}",
           {
@@ -177,7 +184,10 @@ const SaveComment: (req: NextApiRequest, res: NextApiResponse) => Promise<void> 
         resolve();
       }
     } catch (e) {
-      console.error("generic error enountered from comment/save/[slug] handler", e);
+      console.error(
+        "generic error enountered from comment/save/[slug] handler",
+        e
+      );
       res.status(503).json(e);
       resolve();
     }
