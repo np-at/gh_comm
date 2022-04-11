@@ -232,7 +232,7 @@ const NavBar: React.FC<NavBarProps> = ({
         document.removeEventListener("focusin", handleOutSideEvent);
       };
     }
-    return () => {};
+    return undefined;
   }, [collapsed, showDropdown]);
 
   const handleTriggerClick = () => {

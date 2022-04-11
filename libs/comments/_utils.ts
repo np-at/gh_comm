@@ -24,10 +24,10 @@ import { decrypt } from "@lib/encryption/crypto";
 //         return null;
 //     }
 // }
-const convertCommentStoragetoDisplay: (comment: ICommentStorage) => IComment = (
+const convertCommentStorageToDisplay: (comment: ICommentStorage) => IComment = (
   comment: ICommentStorage
 ) => {
-  let displayComment: IComment = {
+  return {
     id: comment.id,
     parentCommentId: comment.parentCommentId ? comment.parentCommentId : null,
     content: comment.content,
@@ -36,26 +36,21 @@ const convertCommentStoragetoDisplay: (comment: ICommentStorage) => IComment = (
     username: comment.username,
     page_name: comment.page_name,
     childrenIds: comment.childrenIds,
-    children: comment.children
-      ? comment.children.map(convertCommentStoragetoDisplay)
-      : []
+    children: comment.children ? comment.children.map(convertCommentStorageToDisplay) : []
   };
-  return displayComment;
 };
 
 export const getCommentsFromStatic: (
   slug: string
 ) => Promise<IComment[] | null> = async (slug: string) => {
-  const p = path.join(process.cwd(), "comments", `${slug}.json`);
+  const p = path.join(process.cwd(),"content", "comments", `${slug}.json`);
   try {
     const commentPageJson = readFileSync(p);
     const comments = JSON.parse(
       commentPageJson.toString("utf8")
     ) as ICommentFile | null;
 
-    return assembleCommentRelationships(
-      comments?.comments.map(convertCommentStoragetoDisplay) || []
-    );
+    return assembleCommentRelationships(comments?.comments.map(convertCommentStorageToDisplay) || []);
   } catch (e) {
     return null;
   }
@@ -94,7 +89,7 @@ const assembleCommentRelationships: (
 export const getCommentsFromStaticSync: (slug: string) => IComment[] | null = (
   slug: string
 ) => {
-  const p = path.join(process.cwd(), "comments", `${slug}.json`);
+  const p = path.join(process.cwd(),"content", "comments", `${slug}.json`);
   try {
     const commentPageJson = readFileSync(p);
     return JSON.parse(commentPageJson.toString("utf8")) as IComment[] | null;

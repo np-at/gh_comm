@@ -1,4 +1,5 @@
 import { Octokit } from "@octokit/core";
+import Status from "http-status-codes";
 import { createAppAuth } from "@octokit/auth-app";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { ICommentFile, ICommentStorage } from "@interfaces/IComment";
@@ -18,9 +19,7 @@ function appendCommentToCommentFile(
   const { comments } = commentFile;
 
   if (newComment.parentCommentId) {
-    const parent = comments.find(
-      (comment) => comment.id === newComment.parentCommentId
-    );
+    const parent = comments.find((comment) => comment.id === newComment.parentCommentId);
     if (parent) {
       parent.childrenIds = parent.childrenIds || [];
       if (!parent.childrenIds.includes(newComment.id)) {
@@ -49,10 +48,8 @@ function appendCommentToCommentFile(
 let octo: Octokit;
 const getOctoInstance = () => {
   if (!octo)
-    if (!process.env.GITHUB_PRIV_KEY)
-      console.error("no private key found in env: GITHUB_PRIV_KEY");
-  if (!process.env.GITHUB_APP_ID)
-    console.error("no app id found in env: GITHUB_APP_ID");
+    if (!process.env.GITHUB_PRIV_KEY) console.error("no private key found in env: GITHUB_PRIV_KEY");
+  if (!process.env.GITHUB_APP_ID) console.error("no app id found in env: GITHUB_APP_ID");
   octo = new Octokit({
     authStrategy: createAppAuth,
     auth: {
@@ -63,20 +60,17 @@ const getOctoInstance = () => {
   });
   return octo;
 };
-const SaveComment: (
+const SaveComment: (req: NextApiRequest, res: NextApiResponse) => Promise<void> = (
   req: NextApiRequest,
   res: NextApiResponse
-) => Promise<void> = (
-  req: NextApiRequest,
-  res: NextApiResponse
-): Promise<void> => {
+) => {
   const { owner, repo, ref } = getGithubParamsFromEnv();
   const o = getOctoInstance();
   if (!req.body.content) {
     console.warn("bad request received: comment content empty, rejecting");
     console.log(req.body);
     return new Promise<void>((resolve) => {
-      res.status(401).json({});
+      res.status(Status.UNAUTHORIZED).json({});
       resolve();
     });
   }
@@ -106,7 +100,7 @@ const SaveComment: (
           },
           owner: owner,
           repo: repo,
-          path: `comments/${slug}.json`,
+          path: `content/comments/${slug}.json`,
           ref: ref
         })
         .catch((e) => {
@@ -114,7 +108,7 @@ const SaveComment: (
             `error encountered while retrieving repo comments with path: comments/${slug}.json`,
             e
           );
-          if (e.status !== 404) throw new Error(e);
+          if (e.status !== Status.NOT_FOUND) throw new Error(e);
         });
 
       if (prevComments) {
@@ -137,25 +131,20 @@ const SaveComment: (
         data.comments = data.comments || [];
         data = appendCommentToCommentFile(data, newComment);
 
-        const update = await o.request(
-          "PUT /repos/{owner}/{repo}/contents/{path}",
-          {
-            headers: {
-              accept: "application/vnd.github.v3+json"
-            },
-            owner: owner,
-            repo: repo,
-            path: `comments/${slug}.json`,
-            branch: ref,
-            message: `Updated comment on post ${slug}`,
-            sha,
-            content: Buffer.from(JSON.stringify(data), "ascii").toString(
-              "base64"
-            )
-          }
-        );
+        const update = await o.request("PUT /repos/{owner}/{repo}/contents/{path}", {
+          headers: {
+            accept: "application/vnd.github.v3+json"
+          },
+          owner: owner,
+          repo: repo,
+          path: `content/comments/${slug}.json`,
+          branch: ref,
+          message: `Updated comment on post ${slug}`,
+          sha,
+          content: Buffer.from(JSON.stringify(data), "ascii").toString("base64")
+        });
 
-        res.status(200).json(JSON.stringify(update));
+        res.status(Status.OK).json(JSON.stringify(update));
         resolve();
       } else {
         const data: ICommentFile = {
@@ -163,32 +152,24 @@ const SaveComment: (
           comments: [newComment]
         };
 
-        const update = await o.request(
-          "PUT /repos/{owner}/{repo}/contents/{path}",
-          {
-            headers: {
-              accept: "application/vnd.github.v3+json"
-            },
-            owner: owner,
-            repo: repo,
-            path: `comments/${slug}.json`,
-            branch: ref,
-            message: `New comment on post ${slug}`,
-            content: Buffer.from(JSON.stringify(data), "ascii").toString(
-              "base64"
-            )
-          }
-        );
+        const update = await o.request("PUT /repos/{owner}/{repo}/contents/{path}", {
+          headers: {
+            accept: "application/vnd.github.v3+json"
+          },
+          owner: owner,
+          repo: repo,
+          path: `content/comments/${slug}.json`,
+          branch: ref,
+          message: `New comment on post ${slug}`,
+          content: Buffer.from(JSON.stringify(data), "ascii").toString("base64")
+        });
 
-        res.status(200).json(JSON.stringify(update));
+        res.status(Status.OK).json(JSON.stringify(update));
         resolve();
       }
     } catch (e) {
-      console.error(
-        "generic error enountered from comment/save/[slug] handler",
-        e
-      );
-      res.status(503).json(e);
+      console.error("generic error enountered from comment/save/[slug] handler", e);
+      res.status(Status.SERVICE_UNAVAILABLE).json(e);
       resolve();
     }
   });

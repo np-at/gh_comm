@@ -26,7 +26,6 @@ const Icon = forwardRef<HTMLDivElement, IconProps>(
     const [IconSVG, setIcon] = useState<React.ComponentType<ReactSVG> | null>(
       null
     );
-    // const ICO = dynamic(() => import(`@components/Layout/Icon/icons/${name}.svg`), {})
     useEffect(() => {
       const setupIcon = async () => {
         if (isMounted.current) {
@@ -38,21 +37,8 @@ const Icon = forwardRef<HTMLDivElement, IconProps>(
         }
       };
       isMounted.current = true;
-      // NOTE: we don't want to pollute test output with
-      //  console.errors as a result of the dynamic imports
-      if (process.env.NODE_ENV === "test") {
-        return () => {
-        };
-      }
 
-      // import(`./icons/${name}.svg`)
-      //     .then(icon => {
-      //         isMounted.current && setIcon(() => icon.default);
-      //     })
-      //     .catch(() => {
-      //         console.error(`Could not find icon type "${type}".`);
-      //         isMounted.current && setIcon(null);
-      //     });
+
       setupIcon()
         .then((r) => console.log(r))
         .catch((e) => console.error(e));
@@ -71,13 +57,6 @@ const Icon = forwardRef<HTMLDivElement, IconProps>(
     };
     return (
       <div ref={ref} {...data}>
-        {/*<Asdf />*/}
-        {/*{IconSVG && (*/}
-        {/*  // <img*/}
-        {/*  //   src={require(`@components/Layout/Icon/icons/${name}.svg`)}*/}
-        {/*  //   alt={label}*/}
-        {/*  // />*/}
-        {/*)}*/}
         {label && <SRSpan className={"sr-only"}>{label}</SRSpan>}
 
         {

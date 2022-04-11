@@ -11,7 +11,7 @@ function isRelativeUrlWithoutProtocol(url: string): boolean {
 
 // adapted from https://stackoverflow.com/a/29824550/2601552
 function decodeHtmlCharacters(str: string) {
-  return str.replace(htmlEntitiesRegex, (match, dec) => {
+  return str.replace(htmlEntitiesRegex, (_, dec) => {
     return String.fromCharCode(dec);
   });
 }
