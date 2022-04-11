@@ -85,7 +85,8 @@ const SaveComment: (req: NextApiRequest, res: NextApiResponse) => Promise<void> 
       email: encrypt(req.body.email),
       content: req.body.content,
       children: req.body.children,
-      page_name: req.body.page_name
+      page_name: req.body.page_name,
+      childrenIds: req.body.childrenIds ?? []
     };
 
 //    const { slug } = req.query;

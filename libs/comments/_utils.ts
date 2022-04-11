@@ -27,7 +27,7 @@ import { decrypt } from "@lib/encryption/crypto";
 const convertCommentStoragetoDisplay: (comment: ICommentStorage) => IComment = (comment: ICommentStorage) => {
   let displayComment: IComment = {
     id: comment.id,
-    parentCommentId: comment.parentCommentId,
+    parentCommentId: comment.parentCommentId ? comment.parentCommentId : null,
     content: comment.content,
     email: comment.email ? decrypt(comment.email) : "",
     date: comment.date,

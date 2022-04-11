@@ -157,7 +157,10 @@ const HomePageLayout = styled.div`
   width: 88vw;
   grid-gap: 1rem;
   display: grid;
-
+  @media(max-width: 48rem) {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
   @media (min-width: 48rem) {
     grid-template-columns: 66% 33%;
     grid-template-rows: auto;

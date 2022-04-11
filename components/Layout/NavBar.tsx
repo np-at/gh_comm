@@ -265,8 +265,7 @@ const NavBar: React.FC<NavBarProps> = ({
               "NavBar__trigger--active": showDropdown
             })}
           >
-            <Icon type={showDropdown ? "close" : "hamburger-menu"} />
-            {navTriggerLabel}
+            <Icon type={showDropdown ? "close" : "hamburger-menu"} label={navTriggerLabel} />
           </button>
         )}
         {/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */}

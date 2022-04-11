@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useLayoutEffect } from "react";
 import NavBar from "@components/Layout/NavBar";
 import { useRouter } from "next/router";
 import NavLink from "@components/Reusable/AccessibleLink/AccessibleNavLink";
@@ -20,6 +20,16 @@ const Main_Styled = styled.main`
 const Layout: React.FC = ({ children }) => {
   const router = useRouter();
   const [isMobile, setIsMobile] = React.useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <Fragment>
       <NavBar collapsed={isMobile}>

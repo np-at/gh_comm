@@ -22,12 +22,13 @@ export default function AddComment({
     const newComment: IComment = {
       page_name: slug,
       date: new Date(), // p
-      parentCommentId: parentCommentId || undefined, // If this new comment has a parent, put the id here
+      parentCommentId: parentCommentId || null, // If this new comment has a parent, put the id here
       id: generateUUID(), // generate the unique id here however you want
       username: data.username || "Anonymous",
       email: data.email,
       content: data.content,
-      children: []
+      children: [],
+      childrenIds: null
     };
 
     // Send the new comment to an API endpoint we'll build later. It's important to pass the slug parameter and I'm doing that with a path parameter

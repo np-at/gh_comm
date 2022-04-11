@@ -7,6 +7,12 @@ const nextConfig = {
         if (!context.isServer) {
             config.resolve.fallback.fs = false;
         }
+        config.module.rules.push({
+            test: /\.svg$/i,
+            // issuer: /\.[jt]sx?$/,
+            use: ['@svgr/webpack'],
+        })
+
         return config;
     },
     images: {
@@ -30,7 +36,7 @@ module.exports = withPlugins([
         inlineImageLimit: 8192,
         imagesFolder: 'images',
         imagesName: '[name]-[hash].[ext]',
-        handleImages: ['jpeg', 'png', 'svg', 'webp', 'gif'],
+        handleImages: ['jpeg', 'png', 'webp', 'gif'],
         removeOriginalExtension: false,
         optimizeImages: true,
         optimizeImagesInDev: false,
@@ -45,9 +51,9 @@ module.exports = withPlugins([
             interlaced: true,
             optimizationLevel: 3
         },
-        svgo: {
-            // enable/disable svgo plugins here
-        },
+        // svgo: {
+        //     // enable/disable svgo plugins here
+        // },
         webp: {
             preset: 'default',
             quality: 75
