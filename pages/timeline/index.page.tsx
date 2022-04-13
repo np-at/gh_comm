@@ -8,6 +8,7 @@ import { getHighlightsSourceFiles } from "./utils";
 import Link from "next/link";
 import parse from "react-html-parser";
 import { niceDateDisplay } from "./FormattingUtils";
+import Head from "next/head";
 
 export interface TimelineEventProps extends ContentPageData {
   path?: string;
@@ -51,6 +52,9 @@ const Highlight: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProp
   timelineEvents
 }) => (
   <Fragment>
+    <Head>
+      <title>Timeline</title>
+    </Head>
     <div>
       <h1>Highlights</h1>
 
@@ -67,7 +71,7 @@ const Highlight: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProp
                 <div>
                   <Link passHref={true} href={`/timeline/${event.title}`}>
                     <a>
-                      <Img src={event.featured_image} alt={event.title} />
+                      <Img src={event.featured_image} alt={event.title ?? ""} />
                     </a>
                   </Link>
                 </div>

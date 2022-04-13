@@ -3,6 +3,7 @@ import ReactModal from "react-modal";
 import styled from "styled-components";
 import { NextPageWithLayout } from "../_app.page";
 import { SRSpan } from "@components/Reusable/SROnly";
+import RowDiv from "@components/Layout/Row";
 
 const Contact: NextPageWithLayout<{}> = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -10,6 +11,11 @@ const Contact: NextPageWithLayout<{}> = () => {
   return (
     <div>
       <h1>Contact</h1>
+      <RowDiv>
+        <h1>
+          Probably going to deprecate this page, not sure if It&apos;s worth it.
+        </h1>
+      </RowDiv>
       <button onClick={() => setModalIsOpen(true)}>Open Modal</button>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam

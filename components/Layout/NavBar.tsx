@@ -3,6 +3,7 @@ import { useId } from "react-id-generator";
 import classNames from "classnames";
 import Icon from "./Icon/Icon";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 
 export interface NavBarProps {
   collapsed?: boolean;
@@ -227,6 +228,20 @@ const NavBar: React.FC<NavBarProps> = ({ collapsed, children, propId, navTrigger
   const handleTriggerClick = () => {
     setShowDropdown(!showDropdown);
   };
+  const { events } = useRouter();
+
+  useEffect(() => {
+    const closeDropdown = () => {
+      setShowDropdown(false);
+    };
+    events?.on("routeChangeStart", closeDropdown);
+
+
+
+    return () => {
+      events?.off("routeChangeStart", closeDropdown);
+    };
+  });
 
   return (
     <Fragment>
