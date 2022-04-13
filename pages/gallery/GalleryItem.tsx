@@ -1,21 +1,24 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useId } from "react-id-generator";
 import styled from "styled-components";
+import parse from "react-html-parser";
 
 export interface GalleryItemProps {
   id: number;
   title: string;
-  description: string;
+  body: string;
   image: string;
   image_alt: string;
+  card_type?: "white" | "black";
 }
 
 const GalleryItemPreview: React.FC<GalleryItemProps> = ({
   id,
   title,
-  description,
+  body,
   image,
-  image_alt
+  image_alt,
+  card_type
 }) => {
   // return (
   //   <div className="gallery-item">
@@ -28,13 +31,14 @@ const GalleryItemPreview: React.FC<GalleryItemProps> = ({
   // );
   const ids = useId(1);
   return (
-    <GalleryItemWrapper aria-labelledby={ids[0]} className="white">
+    <article aria-labelledby={ids[0]} className={card_type ?? "white"}>
       <div className="content">
         <h2 id={ids[0]}>{title}</h2>
-        <div dangerouslySetInnerHTML={{ __html: description }} />
+        {parse(body)}
+        {/*< dangerouslySetInnerHTML={{ __html: body }} />*/}
       </div>
       <img src={image} alt={image_alt} />
-    </GalleryItemWrapper>
+    </article>
   );
 };
 const GalleryItemWrapper = styled.article`

@@ -11,7 +11,10 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head />
+        <Head>
+          <link rel={"stylesheet"} href={"https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700;800&&display=swap"} />
+          <link rel={"stylesheet"} href={"https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&display=swap"} />
+        </Head>
         <body>
           <Main />
           <NextScript />

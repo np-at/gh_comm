@@ -4,10 +4,11 @@ const config: CmsConfig = {
   load_config_file: false,
   backend: {
     name: "git-gateway",
-    branch: "main"
+    branch: "main",
+    squash_merges: true,
   },
   media_folder: "/public/img",
-  public_folder: "/img",
+  // public_folder: "/img",
   editor: {
     preview: false
   },
@@ -65,12 +66,13 @@ const config: CmsConfig = {
       name: "gallery",
       label: "Gallery",
       folder: "content/gallery",
-      media_folder: "media",
+      media_folder: "/public/img/gallery",
+      // public_folder: "/public/img/gallery",
       create: true,
       nested: {
         depth: 2,
         // @ts-ignore - type info is out of date
-        summary: "{{title}}",
+        summary: "{{title}}"
       },
       // meta: {
       //   path: {
@@ -88,24 +90,38 @@ const config: CmsConfig = {
         {
           label: "Description",
           name: "body",
-          widget: "markdown",
+          widget: "markdown"
         },
         {
           label: "Image",
           name: "image",
           widget: "image",
-          config: {
-            choose_url: false
-          }
+          media_folder: "/public/img/gallery",
         },
         {
           label: "Image Alt Text",
           name: "imageAlt",
           allow_multiple: false,
-          widget: "string",
+          widget: "string"
         },
         {
-          label: "slug",
+          label: "Card Background",
+          name: "card_type",
+          widget: "select",
+          options: [
+            {
+              label: "White",
+              value: "white"
+            },
+            {
+              label: "Black",
+              value: "black"
+            }
+          ],
+          default: "white"
+        },
+        {
+          label: "web_path",
           name: "slug",
           widget: "hidden",
           default: "gallery/{{slug}}"

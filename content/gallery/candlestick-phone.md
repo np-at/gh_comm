@@ -4,7 +4,7 @@ image: /img/gallery/candlestick-export.png
 imageAlt: Early 20th century style phone with a rotary dial at the
   base.  Slightly yellowed from age.
 card_type: black
-slug: /
+web_path: gallery/candlestick-phone
 ---
 Don’t try to light this candlestick! It’s actually an upright phone from the
 early 20th century with a mouthpiece at the top, handheld earpiece hanging off
