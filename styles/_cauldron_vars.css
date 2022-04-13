@@ -112,11 +112,20 @@
     --focus: var(--focus-dark);
 }
 
-@media (prefers-color-scheme: dark) {
+
+@media (prefers-color-scheme: light) {
     :root {
-        --focus: var(--focus-dark);
-        --text-color-base: var(--white)
+        --theme: light;
+        --text-color-base: black;
+        --workspace-color: white;
     }
 
+}
 
+@media (prefers-color-scheme: dark), (prefers-color-scheme: no-preference) {
+    :root {
+        --focus: var(--focus-dark);
+        --text-color-base: var(--white);
+        --workspace-color: var(--dark-workspace-color);
+    }
 }

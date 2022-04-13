@@ -13,7 +13,7 @@ html, body {
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     color: var(--text-color-base);
-    background-color: var(--dark-workspace-color);
+    background-color: var(--workspace-color);
 }
 
 h1, h2, h3, h4, h5, h6 {

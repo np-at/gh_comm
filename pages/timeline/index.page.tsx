@@ -101,7 +101,7 @@ const EventCardContainer = styled.div`
   & > div {
     height: 100%;
   }
-
+ 
   & > article:nth-child(even) {
     flex-direction: row-reverse;
     //background-color: rgba(108, 44, 175, 0.3);
@@ -112,6 +112,7 @@ const EventCardContainer = styled.div`
       rgba(108, 44, 175, 0.3) 50%,
       rgba(108, 44, 175, 0.5) 100%
     );
+   
 
     & > div:first-child {
       margin: 1.5rem;
@@ -158,14 +159,16 @@ const EventCard = styled.article`
   min-height: 12rem;
   max-height: var(--row-height);
   //max-height: 50vh;
-  background-color: var(--card-background-color);
-  color: var(--card-text-color);
+  //background-color: var(--card-background-color);
+  //color: var(--card-text-color);
+  
+  color: var(--text-color-base);
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin: 10px;
   //padding: 10px;
   padding: 2em 2em;
-  transition: all 0.3s ease;
+  //transition: all 0.3s ease;
 
   & > div {
     flex-direction: column;

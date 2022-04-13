@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import NavLink from "@components/Reusable/AccessibleLink/AccessibleNavLink";
 import styled from "styled-components";
 import NavItem from "./NavItem";
+import { AppTheme } from "@styles/GlobalStylesProvider";
 
 const items = [
   ["Home", ""],
@@ -19,7 +20,7 @@ const Main_Styled = styled.main`
   align-items: start;
   width: 100vw;
 `;
-const Layout: React.FC = ({ children }) => {
+const Layout: React.FC<{toggleThemeCallback?: () => void}> = ({ children, toggleThemeCallback }) => {
   const router = useRouter();
   const [isMobile, setIsMobile] = React.useState(false);
   useEffect(() => {
@@ -40,10 +41,31 @@ const Layout: React.FC = ({ children }) => {
             <NavLink href={`/${x[1]}`}>{x[0]}</NavLink>
           </NavItem>
         ))}
+
       </NavBar>
+      {toggleThemeCallback && <ThemeToggleButton onClick={toggleThemeCallback}>T</ThemeToggleButton>}
+
       <Main_Styled>{children}</Main_Styled>
     </Fragment>
   );
 };
+
+const ThemeToggleButton = styled.button<{theme: AppTheme}>`
+  
+  //content: ${({theme})=> theme.themeName === "light" ? "🌞 light" : "🌚 dark"};
+  color: ${({theme})=> theme.themeName === "light" ? "black" : "white"};
+  background: ${({theme})=> theme.themeName === "light" ? "white" : "black"};
+  color: ${({theme})=> theme.themeName === "light" ? "black" : "white"};
+  border: none;
+  border-radius: 50%;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  outline: none;
+  //transition: all 0.2s ease-in-out;
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
 
 export default Layout;

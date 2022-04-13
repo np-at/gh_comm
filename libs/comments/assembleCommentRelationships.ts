@@ -11,6 +11,9 @@ const getChildrenForComment = (rootComment: IComment, comments: IComment[]) => {
     children.forEach((childComment) => getChildrenForComment(childComment, comments));
   }
 };
+
+// takes a flattened list of comments and assembled the comment tree (populates the children property using the parentId property of each node)
+// could definitely be optimized
 export const assembleCommentRelationships = (comments: IComment[]) => {
   const rootComments = comments.filter((c) => c.parentCommentId === null) ?? [];
   rootComments.forEach((comment) => getChildrenForComment(comment, comments));

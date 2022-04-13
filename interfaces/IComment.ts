@@ -22,7 +22,8 @@ export interface ICommentStorage extends ICommentBase {
 }
 
 export interface IComment extends ICommentBase {
-  children: Array<IComment> | null; // Objects of type IComment that are children to this comment.  This is a convenience property that is only used for the UI. It is not persisted.
+  // Objects of type IComment that are children to this comment.  This is a convenience property that is only used for the UI. It is not persisted.
+  children: Array<IComment> | null;
 
   // * @deprecated avoid using this property, it is not persisted
   email: string;
