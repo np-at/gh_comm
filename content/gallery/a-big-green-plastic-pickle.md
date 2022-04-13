@@ -1,6 +1,6 @@
 ---
 title: A Big Green Plastic Pickle
-image: /public/img/gallery/green-pickle-export.png
+image: /img/gallery/green-pickle-export.png
 imageAlt: A shiny, bright green, plastic pickle. There are a bunch of closely
   clustered holes at the top for the speaker.
 card_type: white

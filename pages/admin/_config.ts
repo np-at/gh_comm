@@ -67,7 +67,7 @@ const config: CmsConfig = {
       label: "Gallery",
       folder: "content/gallery",
       media_folder: "/public/img/gallery",
-      // public_folder: "/public/img/gallery",
+      public_folder: "/img/gallery",
       create: true,
       nested: {
         depth: 2,
