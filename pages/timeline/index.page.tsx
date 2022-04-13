@@ -47,9 +47,9 @@ export const getStaticProps: GetStaticProps<TimelinePageProps> = async () => {
     }
   };
 };
-const Highlight: NextPageWithLayout<
-  InferGetStaticPropsType<typeof getStaticProps>
-> = ({ timelineEvents }) => (
+const Highlight: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> = ({
+  timelineEvents
+}) => (
   <Fragment>
     <div>
       <h1>Highlights</h1>

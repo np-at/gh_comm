@@ -1,6 +1,22 @@
 import { IComment } from "@interfaces/IComment";
 
-export const assembleCommentRelationships: (
+const getChildrenForComment = (rootComment: IComment, comments: IComment[]) => {
+  const { childrenIds } = rootComment;
+  if (!childrenIds) {
+    return;
+  }
+  const children = comments.filter((comment) => childrenIds?.includes(comment.id));
+  if (children.length > 0) {
+    rootComment.children = children ? children : [];
+    children.forEach((childComment) => getChildrenForComment(childComment, comments));
+  }
+};
+export const assembleCommentRelationships = (comments: IComment[]) => {
+  const rootComments = comments.filter((c) => c.parentCommentId === null) ?? [];
+  rootComments.forEach((comment) => getChildrenForComment(comment, comments));
+  return rootComments;
+};
+export const assembleCommentRelationships_old: (
   comments: IComment[] | null,
   debug?: boolean
 ) => null | IComment[] = (comments: IComment[] | null) => {

@@ -62,6 +62,57 @@ const config: CmsConfig = {
       ]
     },
     {
+      name: "gallery",
+      label: "Gallery",
+      folder: "content/gallery",
+      media_folder: "media",
+      create: true,
+      nested: {
+        depth: 2,
+        // @ts-ignore - type info is out of date
+        summary: "{{title}}",
+      },
+      // meta: {
+      //   path: {
+      //     widget: "string",
+      //     label: "Path",
+      //     index_file: "index"
+      //   }
+      // },
+      fields: [
+        {
+          label: "Title",
+          name: "title",
+          widget: "string"
+        },
+        {
+          label: "Description",
+          name: "body",
+          widget: "markdown",
+        },
+        {
+          label: "Image",
+          name: "image",
+          widget: "image",
+          config: {
+            choose_url: false
+          }
+        },
+        {
+          label: "Image Alt Text",
+          name: "imageAlt",
+          allow_multiple: false,
+          widget: "string",
+        },
+        {
+          label: "slug",
+          name: "slug",
+          widget: "hidden",
+          default: "gallery/{{slug}}"
+        }
+      ]
+    },
+    {
       name: "events",
       label: "Timeline / Life Events",
       folder: "content/events",

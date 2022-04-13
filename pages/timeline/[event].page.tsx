@@ -2,10 +2,7 @@
 
 import React from "react";
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
-import {
-  getContentDirectory,
-  getMarkdownFileContentFromPath
-} from "@lib/pages";
+import { getContentDirectory, getMarkdownFileContentFromPath } from "@lib/pages";
 import { join } from "node:path";
 import { TimelineEventProps } from "./index.page";
 import { NextPageWithLayout } from "../_app.page";
@@ -21,9 +18,7 @@ import { niceDateDisplay } from "./FormattingUtils";
 export const getStaticPaths: GetStaticPaths = async () => {
   const highlights = await getHighlightsSourceFiles(false);
   const paths = highlights.map((highlight) => {
-    const ev = highlight
-      .replace(/^content[\/\\]events/, "timeline")
-      .replace(/\.md$/, "");
+    const ev = highlight.replace(/^content[\/\\]events/, "timeline").replace(/\.md$/, "");
     return {
       params: {
         event: ev.replaceAll(/(\.md$)|(timeline[\/\\])/gim, ""),
@@ -36,16 +31,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fallback: false
   };
 };
-export const getStaticProps: GetStaticProps<TimelineEventProps> = async ({
-  params
-}) => {
+export const getStaticProps: GetStaticProps<TimelineEventProps> = async ({ params }) => {
   const event = params?.event;
   const sanitizedPath = sanitizeSlug(event ? `/timeline/${event}` : "");
   const resolvedPath = join(getContentDirectory(true), `events/${event}.md`);
   const comments = await getCommentsFromStatic(sanitizedPath);
-  const eventContent = getMarkdownFileContentFromPath(
-    resolvedPath
-  ) as TimelineEventProps;
+  const eventContent = getMarkdownFileContentFromPath(resolvedPath) as TimelineEventProps;
   eventContent.comments = comments;
   eventContent.path = sanitizedPath;
   return {
@@ -54,9 +45,7 @@ export const getStaticProps: GetStaticProps<TimelineEventProps> = async ({
   };
 };
 
-const Highlight: NextPageWithLayout<
-  InferGetStaticPropsType<typeof getStaticProps>
-> = ({
+const Highlight: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> = ({
   title,
   description,
   date,
@@ -65,7 +54,7 @@ const Highlight: NextPageWithLayout<
   fullPath,
   comments,
   path
-}: TimelineEventProps) => {
+}) => {
   return (
     <div style={{ width: "80%" }}>
       <RowDiv className="row">

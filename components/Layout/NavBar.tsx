@@ -1,10 +1,4 @@
-import React, {
-  Fragment,
-  KeyboardEventHandler,
-  useEffect,
-  useRef,
-  useState
-} from "react";
+import React, { Fragment, KeyboardEventHandler, useEffect, useRef, useState } from "react";
 import { useId } from "react-id-generator";
 import classNames from "classnames";
 import Icon from "./Icon/Icon";
@@ -191,12 +185,7 @@ const NavBarWrapper = styled.nav`
     }
   }
 `;
-const NavBar: React.FC<NavBarProps> = ({
-  collapsed,
-  children,
-  propId,
-  navTriggerLabel
-}) => {
+const NavBar: React.FC<NavBarProps> = ({ collapsed, children, propId, navTriggerLabel }) => {
   const navRef = useRef<HTMLElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -241,10 +230,7 @@ const NavBar: React.FC<NavBarProps> = ({
 
   return (
     <Fragment>
-      <NavBarWrapper
-        className={collapsed ? "NavBar--collapsed" : ""}
-        ref={navRef}
-      >
+      <NavBarWrapper className={collapsed ? "NavBar--collapsed" : ""} ref={navRef}>
         {collapsed && (
           <button
             aria-haspopup="true"
@@ -254,12 +240,8 @@ const NavBar: React.FC<NavBarProps> = ({
             onClick={handleTriggerClick}
             className={classNames("NavBar__trigger", {
               "NavBar__trigger--active": showDropdown
-            })}
-          >
-            <Icon
-              type={showDropdown ? "close" : "hamburger-menu"}
-              label={navTriggerLabel}
-            />
+            })}>
+            <Icon type={showDropdown ? "close" : "hamburger-menu"} label={navTriggerLabel} />
           </button>
         )}
         {/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */}

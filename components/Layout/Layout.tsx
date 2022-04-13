@@ -7,9 +7,11 @@ import NavItem from "./NavItem";
 
 const items = [
   ["Home", ""],
-  ["Highlights", "timeline"],
-  ["Bio", "about"],
-  ["Contact", "contact"]
+  ["Timeline", "timeline"],
+  ["Card Testing", "about"],
+  ["Contact?", "contact"],
+  ["Galerie-de-Dmitri", "gallery"],
+
 ];
 const Main_Styled = styled.main`
   display: flex;

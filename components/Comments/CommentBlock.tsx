@@ -7,22 +7,25 @@ import useFetch from "react-fetch-hook";
 import { CompareCommentLists } from "@lib/comments/Extensions";
 import { assembleCommentRelationships } from "@lib/comments/assembleCommentRelationships";
 import dynamic from "next/dynamic";
+import { PreferOpportunisticFetch } from "@lib/GLOBALS";
+import type { Endpoints } from "@octokit/types";
 
 interface CommentBlockProps {
   slug: string;
   comments: Array<IComment> | null;
   attemptPreemptiveFetch?: boolean;
 }
+//
+// const rootRepoTemplate =
+//   "https://raw.githubusercontent.com/np-at/gh_comm/main/content/comments/%s.json";
 
-const rootRepoTemplate =
-  "https://raw.githubusercontent.com/np-at/gh_comm/main/content/comments/%s.json";
 const checkForNewer = (
   slug: string,
   setStateCallback: React.Dispatch<SetStateAction<IComment[]>>,
   currentComments?: IComment[] | null
 ) => {
   console.log("testing for newer comments");
-  const remoteFile = rootRepoTemplate.replace("%s", slug);
+  const remoteFile = ""// rootRepoTemplate.replace("%s", slug);
   fetch(remoteFile)
     .then((res) => res.json())
     .then((remoteCommentFile: ICommentFile) => {
@@ -37,10 +40,14 @@ const checkForNewer = (
       }
     });
 };
-const CommentBlock: React.FC<CommentBlockProps> = ({ slug, comments, attemptPreemptiveFetch }) => {
+const CommentBlock: React.FC<CommentBlockProps> = ({
+  slug,
+  comments,
+  attemptPreemptiveFetch = PreferOpportunisticFetch
+}) => {
   // Dynamically import everything to reduce the first load of a page. Also, there might be no comments at all.
-  const Comment = dynamic(() => import("@components/Comments/Comment"), {ssr: true});
-  const AddComment = dynamic(() => import("@components/Comments/AddComment"), {ssr: false});
+  const Comment = dynamic(() => import("@components/Comments/Comment"), { ssr: true });
+  const AddComment = dynamic(() => import("@components/Comments/AddComment"), { ssr: false });
   const [showAddComment, setShowAddComment] = useState(!comments);
   const [currentComments, setCurrentComments] = useState(comments ?? []);
   const sanitizedSlug = sanitizeSlug(slug);
@@ -49,6 +56,18 @@ const CommentBlock: React.FC<CommentBlockProps> = ({ slug, comments, attemptPree
     `https://raw.githubusercontent.com/np-at/gh_comm/main/content/comments/${slug}.json`,
     {}
   );
+  // const { data, error, isLoading } = useFetch<
+  //   Endpoints["GET /repos/{owner}/{repo}/contents/{path}"]["response"]
+  // >(
+  //   `https://api.github.com/repos/np-at/gh_comm/contents/content/comments/${sanitizedSlug}.json?ref=main`,
+  //
+  //   {
+  //     headers: {
+  //       // Accept: "application/vnd.github.v3.raw"
+  //     },
+  //     method: "GET"
+  //   }
+  // );
 
   useEffect(() => {
     if (!attemptPreemptiveFetch) {
@@ -58,9 +77,15 @@ const CommentBlock: React.FC<CommentBlockProps> = ({ slug, comments, attemptPree
       console.log("Error fetching comments", error);
     }
     if (!data) return;
-    const remoteComments =
-      assembleCommentRelationships(data.comments.map(convertCommentStorageToDisplayClientSide)) ??
-      [];
+    console.debug("content fetched", data);
+    // // @ts-ignore
+    // const intermediateContents = data.content
+    //   ? // @ts-ignore
+    //     JSON.parse<ICommentFile>(Buffer.from(data.content, "base64").toString()).comments
+    //   : [];
+    // const remoteComments = assembleCommentRelationships(intermediateContents.map(convertCommentStorageToDisplayClientSide)) ?? [];
+const remoteComments=    assembleCommentRelationships(data.comments.map(convertCommentStorageToDisplayClientSide)) ??      [];
+
     console.log("remoteComments", remoteComments);
     console.log("currentComments", currentComments);
     if (CompareCommentLists(remoteComments, currentComments ?? [])) {

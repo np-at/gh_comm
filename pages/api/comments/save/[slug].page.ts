@@ -1,17 +1,19 @@
 import { Octokit } from "@octokit/core";
-import  {StatusCodes} from "http-status-codes";
+import { StatusCodes } from "http-status-codes";
 import { createAppAuth } from "@octokit/auth-app";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { ICommentFile, ICommentStorage } from "@interfaces/IComment";
 import { Endpoints } from "@octokit/types";
 import { getGithubParamsFromEnv } from "@components/Comments/utils";
 import { encrypt } from "@lib/encryption/crypto";
-
-type repoContentsRequestParameters =
-  Endpoints["GET /repos/{owner}/{repo}/contents/{path}"]["parameters"];
+//
+// type repoContentsRequestParameters =
+//   Endpoints["GET /repos/{owner}/{repo}/contents/{path}"]["parameters"];
 type repoContentsRequestResponse =
   Endpoints["GET /repos/{owner}/{repo}/contents/{path}"]["response"];
 
+
+// not the most efficient way to do this, but it works
 function appendCommentToCommentFile(
   commentFile: ICommentFile,
   newComment: ICommentStorage
@@ -25,24 +27,12 @@ function appendCommentToCommentFile(
       if (!parent.childrenIds.includes(newComment.id)) {
         parent.childrenIds.push(newComment.id);
       }
+    } else {
+      console.warn(`Parent comment ${newComment.parentCommentId} not found`);
     }
   }
   comments.push(newComment);
   return commentFile;
-  //  comments.forEach((comment) => {
-  //    const parent = comments.find((c) => c.id === comment.parentCommentId);
-  //    if (parent) {
-  //      parent.childrenIds = parent.childrenIds || [];
-  //      parent.childrenIds.push(newComment.id);
-  //    }
-  //    if (comment.id === newComment.parentCommentId) {
-  //      comment.childrenIds = comment.childrenIds || [];
-  //      comment.childrenIds.push(newComment.id);
-  //    } else if (comment.children && comment.children.length > 0) {
-  //      comment.children = appendCommentToCommentFile(comment.children, newComment);
-  //    }
-  //  });
-  //  return comments;
 }
 
 let octo: Octokit;

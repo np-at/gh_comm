@@ -14,17 +14,12 @@ export const getHighlightsSourceFiles = async (
     : path.join(getContentDirectory(true), "events");
 
   const eventFiles = await fs.readdir(eventsDirectory, { encoding: "utf-8" });
-  console.warn("eventFiles", eventFiles);
+  // console.warn("eventFiles", eventFiles);
   const timelineEvents: string[] = [];
   for (let i = eventFiles.length - 1; i >= 0; i--) {
     const file = eventFiles[i];
     if (file.endsWith(".md")) {
       timelineEvents.push(path.join(qualifiedRootPath, file));
-      // console.log("file", file);
-      // const content = (await getMarkdownFileContentFromPath(
-      //   path.join(eventsDirectory, file)
-      // )) as TimelineEventProps;
-      // content && timelineEvents.push(content);
     }
   }
   return timelineEvents;
