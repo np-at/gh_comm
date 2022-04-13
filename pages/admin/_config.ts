@@ -5,7 +5,7 @@ const config: CmsConfig = {
   backend: {
     name: "git-gateway",
     branch: "main",
-    squash_merges: true,
+    squash_merges: true
   },
   media_folder: "/public/img",
   // public_folder: "/img",
@@ -38,7 +38,19 @@ const config: CmsConfig = {
             {
               label: "Content",
               name: "body",
-              widget: "markdown"
+              widget: "markdown",
+              buttons: [
+                "bold",
+                "italic",
+                "link",
+                "code",
+                "bulleted-list",
+                "numbered-list",
+                "heading-two",
+                "heading-three",
+                "heading-four",
+                "quote"
+              ]
             },
             {
               label: "slug",
@@ -96,7 +108,7 @@ const config: CmsConfig = {
           label: "Image",
           name: "image",
           widget: "image",
-          media_folder: "/public/img/gallery",
+          media_folder: "/public/img/gallery"
         },
         {
           label: "Image Alt Text",
