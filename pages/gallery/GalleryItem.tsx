@@ -1,9 +1,8 @@
 import React from "react";
-import { useId } from "react-id-generator";
 import parse from "react-html-parser";
 
 export interface GalleryItemProps {
-  id: number;
+  id: string;
   title: string;
   body: string;
   image: string;
@@ -12,6 +11,7 @@ export interface GalleryItemProps {
 }
 
 const GalleryItemPreview: React.FC<GalleryItemProps> = ({
+  id,
   title,
   body,
   image,
@@ -28,11 +28,10 @@ const GalleryItemPreview: React.FC<GalleryItemProps> = ({
   //   </div>
   // );
 
-  const ids = useId(1);
   return (
-    <article aria-labelledby={ids[0]} className={card_type ?? "white"}>
+    <article aria-labelledby={id} className={card_type ?? "white"}>
       <div className="content">
-        <h2 id={ids[0]}>{title}</h2>
+        <h2 id={id}>{title}</h2>
         {parse(body)}
       </div>
       {/* eslint-disable-next-line @next/next/no-img-element */}

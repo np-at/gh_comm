@@ -108,7 +108,8 @@ const config: CmsConfig = {
           label: "Image",
           name: "image",
           widget: "image",
-          media_folder: "/public/img/gallery"
+          media_folder: "/public/img/gallery",
+          public_folder: "/img/gallery",
         },
         {
           label: "Image Alt Text",

@@ -1,11 +1,11 @@
 ---
 title: The Perfect Man
-image: /public/img/gallery/mr-perfect.png
+image: /img/gallery/mr-perfect.png
 imageAlt: A plush, white skinned doll with brown hair. He sports a fresh looking
   blue button-up shirt, khakis held up by a brown belt, and very shiny brown
   hiking loafers. On his left hand you can make out a red bullseye.
 card_type: white
-slug: gallery/{{slug}}
+slug: gallery/the-perfect-man
 ---
 
 
