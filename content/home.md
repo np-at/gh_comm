@@ -10,6 +10,9 @@ cats:
   - description: Grumpy cat is an American celebrity cat known for her grumpy appearance.
     name: Grumpy cat (Tardar Sauce)
 slug: '""'
+suggested_links:
+  - title: Suggested Link 1
+    url: https://www.google.com
 ---
 Master cleanse fugiat veniam, readymade poutine mustache ramps vice neutra cronut reprehenderit offal narwhal hexagon. Green juice thundercats intelligentsia authentic disrupt williamsburg. Chambray vegan adaptogen street art in. Fam hoodie literally freegan. Ut organic salvia master cleanse quinoa enim try-hard tofu voluptate affogato hammock. Raw denim hashtag health goth fanny pack.
 
