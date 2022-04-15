@@ -5,7 +5,7 @@ import { NextPageWithLayout } from "../_app.page";
 const About: NextPageWithLayout<{}> = () => {
   return (
     <div>
-      <h1>About</h1>
+      <h1>Cards Testing</h1>
       <CardComponent cardData={SampleCardData} />
     </div>
   );

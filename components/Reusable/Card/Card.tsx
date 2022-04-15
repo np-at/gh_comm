@@ -6,7 +6,7 @@ export interface CardData {
   title: string;
   card_body: string;
   image: string;
-  image_alt?: string;
+  image_alt: string;
   link: string;
 }
 
@@ -16,7 +16,8 @@ export const SampleCardData: CardData[] = [
     image: "https://picsum.photos/500/300/?image=10",
     card_body:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit lkj;j lsajflkjsfdljla;djsf;lajksdf;ljasd;flkjasd;lfkja;sdlkj",
-    link: "/"
+    link: "/",
+    image_alt: "Sample Image",
   },
   {
     title: "Card 2 Title",
@@ -96,9 +97,8 @@ const CardComponent: React.FC<{ cardData: CardData[] }> = ({ cardData }) => (
     {cardData.map((card) => (
       <CardsItem key={`${card.title}-${card.image}`}>
         <Card>
-          <CardImageWrapper>
-            <img src={card.image} alt={card.image_alt} />
-          </CardImageWrapper>
+          <CardImg src={card.image} alt={card.image_alt} />
+
           <CardBody>
             <CardTitle>{card.title}</CardTitle>
             <CardText>{card.card_body}</CardText>
@@ -130,12 +130,13 @@ const CardBody = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const CardImageWrapper = styled.div`
-  & > img {
+const CardImg = styled.img`
+
     height: auto;
     max-width: 100%;
     vertical-align: middle;
-  }
+  flex-basis: 70%;
+  
 `;
 const Card = styled.div`
   background-color: white;
@@ -160,19 +161,25 @@ const CardsItem = styled.li`
   padding: 1.5rem;
   justify-content: space-around;
 
-  @media (min-width: 64rem) {
-    flex-basis: calc(50% - 2rem);
-    padding: 2rem;
-    max-width: 35rem;
+ 
+  @media (min-width: var(--breakpoint-small)) {
+    
   }
   @media (min-width: 56rem) {
-    width: calc(33.3333% - 1.5rem);
+    width: 50%;
+
   }
-  @media (min-width: 44rem) {
-    width: 40%;
+  @media (min-width: 64rem){
+    width: calc(33.3333%);
+
   }
+  //@media (min-width: 64rem) {
+  //  //flex-basis: calc(50% - 2rem);
+  //  //padding: 2rem;
+  //  max-width: 35rem;
+  //}
   @media (max-width: 44rem) {
-    max-width: 34rem;
+    //max-width: 34rem;
     width: 100%;
   }
 `;
@@ -183,6 +190,9 @@ const CardsCollectionWrapper = styled.ul`
   margin: 2rem 0;
   padding: 0;
   justify-content: center;
+  @media (min-width: var(--breakpoint-medium)) {
+    margin: 0;
+  }
 `;
 const CardTitle = styled.h2`
   color: #ffffff;
