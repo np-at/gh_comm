@@ -1,22 +1,21 @@
 import { createGlobalStyle, css, ThemeProps } from "styled-components";
-
 export interface AppTheme {
   themeName: string;
   body?: string;
   text?: string;
   toggleBorder?: string;
   background?: string;
+  menuBackground: string;
+  menuBorder: string;
+  menuShadow: string;
   accentColor?: string;
   primaryColor?: string;
   secondaryColor?: string;
   tertiaryColor?: string;
   quaternaryColor?: string;
 
-
-
-
-
 }
+export type AppThemeProps =  ThemeProps<AppTheme>;
 
 export const lightTheme: AppTheme = {
   themeName: "light",
@@ -24,7 +23,11 @@ export const lightTheme: AppTheme = {
   text: "#363537",
   toggleBorder: "#FFF",
   background: "#FFF",
-  accentColor: "var(--accent-light)"
+  accentColor: "var(--accent-light)",
+  menuBackground: "rgba(255, 255, 255, 0.9)",
+  menuBorder: "black",
+  menuShadow: "rgba(0, 0, 0, 0.2)"
+
 };
 export const darkTheme: AppTheme = {
   themeName: "dark",
@@ -32,7 +35,11 @@ export const darkTheme: AppTheme = {
   text: "#FAFAFA",
   toggleBorder: "#6B8096",
   background: "#53636e",
-  accentColor: "var(--accent-dark)"
+  menuBackground: "rgb(23,23,23)",
+  menuBorder: "white",
+  accentColor: "var(--accent-dark)",
+  menuShadow: "rgba(255, 255, 255, 0.2)"
+
 };
 const global_vars = css`
   :root {
@@ -156,8 +163,10 @@ const base_css = css`
   body {
     padding: 0;
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
-      Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    //font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+      //Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-family: "EB Garamond", serif;
+    font-size: 16pt;
     color: var(--text-color-base);
     background-color: var(--workspace-color);
   }
@@ -206,34 +215,29 @@ const base_css = css`
     outline-offset: var(--space-quarter);
   }
 `;
+const themedVars = (theme: AppTheme) => css`
+  :root {
+    --text-color-base: ${theme.text};
+    --workspace-color: ${theme.background};
+    --accent-theme: ${theme.accentColor};
+    --menu-background-color: ${theme.menuBackground};
+    --menu-border: ${theme.menuBorder};
+    --menu-shadow: ${theme.menuShadow};
+  }
+`;
 const GlobalStylesProvider = createGlobalStyle<ThemeProps<AppTheme>>`
   ${global_vars}
   @media (prefers-color-scheme: dark),(prefers-color-scheme: no-preference) {
-    :root {
-      --theme: dark;
-      --focus: var(--focus-dark);
-      --text-color-base: ${darkTheme.text};
-      --workspace-color: ${darkTheme.background};
-      --accent-theme: ${darkTheme.accentColor};
-    }
+    ${themedVars(darkTheme)}
   }
   @media (prefers-color-scheme: light) {
-    :root {
-      --theme: light;
-      --text-color-base: ${lightTheme.text};
-      --workspace-color: ${lightTheme.background};
-      --accent-theme: ${lightTheme.accentColor};
-    }
+    ${themedVars(lightTheme)}
   }
+  // If the user has selected a color theme via the theme picker, use that instead of the
+  // preference supplied by "prefers-color-scheme".
   ${({theme}) => {
     if (theme) {
-      return css`
-        :root {
-          --text-color-base: ${theme.text};
-          --workspace-color: ${theme.background};
-          --accent-theme: ${theme.accentColor};
-        }
-      `;
+      return themedVars(theme);
     }
     return undefined;
   }}

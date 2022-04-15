@@ -16,6 +16,7 @@ export interface HomePageCMSFields extends ContentPageData {
   date: string;
   title: string;
   tags?: string[];
+  suggested_links?: {title: string,url: string}[]
 }
 
 export type PageContent = {

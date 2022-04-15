@@ -57,6 +57,24 @@ const config: CmsConfig = {
               name: "slug",
               widget: "hidden",
               default: "/"
+            },
+            {
+              label: "Suggested Links",
+              name: "suggested_links",
+              widget: "list",
+              fields: [
+                {
+                  label: "Title",
+                  name: "title",
+                  widget: "string"
+                },
+                {
+                  label: "Link",
+                  name: "url",
+                  widget: "string",
+                  pattern: ["^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$", "Please enter a valid URL"]
+                }
+              ]
             }
           ]
         },

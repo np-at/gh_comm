@@ -1,6 +1,7 @@
 import type { AppProps } from "next/app";
-import { NextPage } from "next";
-import React, {  ReactElement, ReactNode, useEffect } from "react";
+import type { NextPage } from "next";
+import React, { type ReactElement, useEffect } from "react";
+import type {ReactNode} from "react";
 import Layout from "@components/Layout/Layout";
 import { setAppElement } from "react-modal";
 import GlobalStylesProvider, { darkTheme, lightTheme } from "@styles/GlobalStylesProvider";

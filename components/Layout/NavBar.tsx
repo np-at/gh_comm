@@ -4,7 +4,7 @@ import classNames from "classnames";
 import Icon from "./Icon/Icon";
 import styled, { css } from "styled-components";
 import { useRouter } from "next/router";
-import { AppTheme } from "@styles/GlobalStylesProvider";
+import { AppTheme, AppThemeProps } from "@styles/GlobalStylesProvider";
 
 export interface NavBarProps {
   collapsed?: boolean;
@@ -13,38 +13,39 @@ export interface NavBarProps {
   initialActiveIndex?: number;
   navTriggerLabel?: string;
 }
-const darkThemeTopBarCss = css`
-  --top-bar-background-color: var(--accent-dark);
-  --top-bar-menuitem-separator: #5d676f;
-  --top-bar-border-bottom-color: var(--gray-70);
-  --top-bar-text-color: var(--accent-light);
-  --top-bar-background-color-active: #0b0e11;
+// TODO: remove this if not used
+//
+// const darkThemeTopBarCss = css<AppThemeProps>`
+//   --top-bar-background-color: var(--accent-dark);
+//   --top-bar-menuitem-separator: #5d676f;
+//   --top-bar-border-bottom-color: var(--gray-70);
+//   --top-bar-text-color: var(--accent-light);
+//   --top-bar-background-color-active: #0b0e11;
+// `;
+// const darkThemeNavBarCss = css`
+//   --top-nav-background-color: var(--top-bar-background-color);
+//   --top-nav-background-color-hover: var(--accent-medium);
+//   --top-nav-text-color: var(--top-bar-text-color);
+//   --top-nav-border-bottom-color: #5d676f;
+//   --top-nav-active-shadow-color: var(--accent-info);
+//   --top-nav-box-shadow-color: #5d676f;
+// `;
+// const lightThemeNavBarCss = css`
+//   --top-bar-background-color: var(--white);
+//   --top-bar-background-color-active: var(--white);
+//   --top-bar-text-color: var(--accent-dark);
+//   --top-bar-menuitem-separator: #b3bfc6;
+//   --top-bar-border-bottom-color: var(--gray-40);
+//
+//   --top-nav-background-color: var(--top-bar-background-color);
+//   --top-nav-background-color-hover: var(--gray-20);
+//   --top-nav-border-bottom-color: var(--gray-40);
+//   --top-nav-active-shadow-color: var(--accent-primary);
+//   --top-nav-box-shadow-color: var(--gray-40);
+//   --top-nav-text-color: var(--top-bar-text-color);
+// `;
+const NavBarWrapper = styled.nav`
   
-`
-const darkThemeNavBarCss = css`
-
-  --top-nav-background-color: var(--top-bar-background-color);
-  --top-nav-background-color-hover: var(--accent-medium);
-  --top-nav-text-color: var(--top-bar-text-color);
-  --top-nav-border-bottom-color: #5d676f;
-  --top-nav-active-shadow-color: var(--accent-info);
-  --top-nav-box-shadow-color: #5d676f;
-`
-const lightThemeNavBarCss = css`
-  --top-bar-background-color: var(--white);
-  --top-bar-background-color-active: var(--white);
-  --top-bar-text-color: var(--accent-dark);
-  --top-bar-menuitem-separator: #b3bfc6;
-  --top-bar-border-bottom-color: var(--gray-40);
-
-  --top-nav-background-color: var(--top-bar-background-color);
-  --top-nav-background-color-hover: var(--gray-20);
-  --top-nav-border-bottom-color: var(--gray-40);
-  --top-nav-active-shadow-color: var(--accent-primary);
-  --top-nav-box-shadow-color: var(--gray-40);
-  --top-nav-text-color: var(--top-bar-text-color);
-`;
-const NavBarWrapper = styled.nav<{ theme: AppTheme }>`
   --top-bar-accent-primary: var(--accent-info);
   --top-bar-accent-warning: var(--accent-warning);
   --top-bar-accent-error: var(--accent-danger);
@@ -53,39 +54,9 @@ const NavBarWrapper = styled.nav<{ theme: AppTheme }>`
   --top-bar-height: 69px;
   --top-bar-height-thin: 43px;
   --top-nav-height: 3rem;
-  --top-nav-text-color: var(--top-bar-text-color);
- 
+  --top-nav-text-color: var(--text-color-base);
+  --top-nav-background-color: var(--menu-background-color);
 
-  
-  ${({ theme }) => {
-    if (theme !== null) {
-      if (theme.themeName === "dark") {
-        console.log("dark theme");
-        return darkThemeNavBarCss;
-      }
-      if (theme.themeName === "light") {
-        console.log("light theme");
-        return lightThemeNavBarCss;
-//        (theme.themeName === "dark" && darkThemeNavBarCss) ||
-//        (theme.themeName === "light" && lightThemeNavBarCss)
-      }
-    } 
-    return css`
-      @media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
-        ${lightThemeNavBarCss}
-      }
-      @media (prefers-color-scheme: dark) {
-        ${darkThemeTopBarCss}
-        ${darkThemeNavBarCss}
-        //--top-bar-background-color: var(--accent-dark);
-        //--top-bar-menuitem-separator: #5d676f;
-        //--top-bar-border-bottom-color: var(--gray-70);
-        //--top-bar-text-color: var(--accent-light);
-        //--top-bar-background-color-active: #0b0e11;;
-      }   
-    `;
-  }}  
- 
   height: var(--top-nav-height);
   /* allow the top bar dropdown to be higher in stacking order */
   z-index: 1;
@@ -94,7 +65,7 @@ const NavBarWrapper = styled.nav<{ theme: AppTheme }>`
   align-items: center;
   background-color: var(--top-nav-background-color);
   color: var(--top-nav-text-color);
-  border-bottom: 1px solid var(--top-nav-border-bottom-color);
+  border-bottom: 1px solid var(--menu-border);
 
   & > ul {
     width: 100%;
@@ -117,8 +88,9 @@ const NavBarWrapper = styled.nav<{ theme: AppTheme }>`
     //display: block;
     align-items: center;
     background-color: var(--top-nav-background-color);
-    border-bottom: 1px solid var(--top-nav-border-bottom-color);
-    border-right: 1px solid var(--top-nav-box-shadow-color);
+    //border-bottom: 1px solid var(--menu-border);
+    //border-bottom: transparent;
+    border-right: 1px solid var(--menu-shadow);
     transition: background-color 0.3s ease;
   }
 
@@ -128,6 +100,10 @@ const NavBarWrapper = styled.nav<{ theme: AppTheme }>`
     margin-right: auto;
     left: 0;
     -ms-flex-align: start;
+  }
+
+  & > ul > li:nth-child(2) {
+    border-left: 1px solid var(--top-nav-box-shadow-color);
   }
 
   & > ul > li:hover {
@@ -182,12 +158,12 @@ const NavBarWrapper = styled.nav<{ theme: AppTheme }>`
 
   &.NavBar--collapsed > ul > .NavItem--active {
     box-shadow: inset 0px -1px 0px var(--top-nav-box-shadow-color),
-      inset 6px 0px 0px var(--top-nav-active-shadow-color);
+    inset 6px 0px 0px var(--top-nav-active-shadow-color);
   }
 
   &.NavBar--collapsed > .NavBar__trigger--active {
     box-shadow: inset 0px -1px 0px var(--top-nav-box-shadow-color),
-      inset 0px 4px 0px var(--top-nav-active-shadow-color);
+    inset 0px 4px 0px var(--top-nav-active-shadow-color);
     z-index: calc(var(--z-index-top-nav) + 1);
   }
 
@@ -223,7 +199,7 @@ const NavBarWrapper = styled.nav<{ theme: AppTheme }>`
       min-width: 7.125rem;
     }
   }
-}
+
 `;
 const NavBar: React.FC<NavBarProps> = ({ collapsed, children, propId, navTriggerLabel }) => {
   const navRef = useRef<HTMLElement>(null);
@@ -274,8 +250,6 @@ const NavBar: React.FC<NavBarProps> = ({ collapsed, children, propId, navTrigger
       setShowDropdown(false);
     };
     events?.on("routeChangeStart", closeDropdown);
-
-
 
     return () => {
       events?.off("routeChangeStart", closeDropdown);
