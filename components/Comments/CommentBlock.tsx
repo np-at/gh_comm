@@ -8,7 +8,6 @@ import { CompareCommentLists } from "@lib/comments/Extensions";
 import { assembleCommentRelationships } from "@lib/comments/assembleCommentRelationships";
 import dynamic from "next/dynamic";
 import { PreferOpportunisticFetch } from "@lib/GLOBALS";
-import type { Endpoints } from "@octokit/types";
 
 interface CommentBlockProps {
   slug: string;

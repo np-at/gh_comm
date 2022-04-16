@@ -1,8 +1,6 @@
 import { getContentDirectory } from "@lib/pages";
 
-export const getHighlightsSourceFiles = async (
-  returnFullPath: boolean = false
-) => {
+export const getHighlightsSourceFiles = async (returnFullPath: boolean = false) => {
   const path = await import("node:path");
 
   const fs = await import("node:fs/promises");

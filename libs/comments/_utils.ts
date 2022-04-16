@@ -1,4 +1,4 @@
-import { IComment, ICommentFile, ICommentStorage } from "@interfaces/IComment";
+import type { IComment, ICommentFile, ICommentStorage } from "@interfaces/IComment";
 import path from "path";
 import { readFileSync } from "fs";
 import { decrypt } from "@lib/encryption/crypto";

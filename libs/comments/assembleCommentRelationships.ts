@@ -1,4 +1,4 @@
-import { IComment } from "@interfaces/IComment";
+import type { IComment } from "@interfaces/IComment";
 
 const getChildrenForComment = (rootComment: IComment, comments: IComment[]) => {
   const { childrenIds } = rootComment;
@@ -19,6 +19,8 @@ export const assembleCommentRelationships = (comments: IComment[]) => {
   rootComments.forEach((comment) => getChildrenForComment(comment, comments));
   return rootComments;
 };
+
+
 export const assembleCommentRelationships_old: (
   comments: IComment[] | null,
   debug?: boolean

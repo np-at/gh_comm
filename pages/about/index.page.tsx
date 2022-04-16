@@ -1,6 +1,6 @@
 import React from "react";
 import CardComponent, { SampleCardData } from "@components/Reusable/Card/Card";
-import { NextPageWithLayout } from "../_app.page";
+import type { NextPageWithLayout } from "../_app.page";
 
 const About: NextPageWithLayout<{}> = () => {
   return (

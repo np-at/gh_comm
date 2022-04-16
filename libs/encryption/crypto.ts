@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 
 const algorithm = "aes-256-ctr";
-const iv = crypto.randomBytes(16);
+const iv = ()=> crypto.randomBytes(16);
 
 export const encrypt = (text: string): Hash => {
   const secretKey = process.env.CRYPTO_SECRET_KEY; // Random secret key
@@ -13,12 +13,12 @@ export const encrypt = (text: string): Hash => {
       .update(String(secretKey))
       .digest("base64")
       .slice(0, 32),
-    iv
+    iv()
   );
 
   const encrypted = Buffer.concat([cipher.update(text), cipher.final()]);
   return {
-    iv: iv.toString("hex"),
+    iv: iv().toString("hex"),
     content: encrypted.toString("hex")
   };
 };

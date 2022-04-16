@@ -2,9 +2,8 @@ import React, { Fragment, KeyboardEventHandler, useEffect, useRef, useState } fr
 import { useId } from "react-id-generator";
 import classNames from "classnames";
 import Icon from "./Icon/Icon";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { useRouter } from "next/router";
-import { AppTheme, AppThemeProps } from "@styles/GlobalStylesProvider";
 
 export interface NavBarProps {
   collapsed?: boolean;

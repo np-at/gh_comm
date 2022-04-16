@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactModal from "react-modal";
 import styled from "styled-components";
-import { NextPageWithLayout } from "../_app.page";
+import type { NextPageWithLayout } from "../_app.page";
 import { SRSpan } from "@components/Reusable/SROnly";
 import RowDiv from "@components/Layout/Row";
 
@@ -12,15 +12,12 @@ const Contact: NextPageWithLayout<{}> = () => {
     <div>
       <h1>Contact</h1>
       <RowDiv>
-        <h1>
-          Probably going to deprecate this page, not sure if It&apos;s worth it.
-        </h1>
+        <h1>Probably going to deprecate this page, not sure if It&apos;s worth it.</h1>
       </RowDiv>
       <button onClick={() => setModalIsOpen(true)}>Open Modal</button>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-        doloremque, quidem quisquam, quisquam quisquam quisquam quisquam
-        dignissimos.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam doloremque, quidem
+        quisquam, quisquam quisquam quisquam quisquam dignissimos.
       </p>
       <StyledModal
         isOpen={modalIsOpen}
@@ -29,8 +26,7 @@ const Contact: NextPageWithLayout<{}> = () => {
         shouldFocusAfterRender={true}
         shouldCloseOnOverlayClick={true}
         aria={{ modal: true }}
-        onRequestClose={() => setModalIsOpen(false)}
-      >
+        onRequestClose={() => setModalIsOpen(false)}>
         <ModalCloseButton onClick={() => setModalIsOpen(false)}>
           <span aria-hidden={true}>X</span>
           <SRSpan>Close Dialog</SRSpan>
@@ -38,9 +34,8 @@ const Contact: NextPageWithLayout<{}> = () => {
         <h2>Modal</h2>
         <div>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-            doloremque, quidem quisquam, quisquam quisquam quisquam quisquam
-            dignissimos.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam doloremque, quidem
+            quisquam, quisquam quisquam quisquam quisquam dignissimos.
           </p>
         </div>
       </StyledModal>

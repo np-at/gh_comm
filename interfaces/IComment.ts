@@ -1,6 +1,6 @@
 // IComment.ts
 
-import { Hash } from "@lib/encryption/crypto";
+import type { Hash } from "@lib/encryption/crypto";
 
 interface ICommentBase {
   page_name: string;

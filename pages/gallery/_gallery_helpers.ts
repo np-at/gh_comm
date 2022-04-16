@@ -8,7 +8,7 @@ const pseudoRandString = (length: number) => {
   for (let i = 0; i < arr.length; i++) {
     let as;
     while (true) {
-      as = Math.floor((Math.random() * 80) + 47);
+      as = Math.floor(Math.random() * 80 + 47);
       if (as < 48) {
         continue;
       } else if (57 < as && as < 65) {

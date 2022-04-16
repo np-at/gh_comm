@@ -1,13 +1,7 @@
-import React, {
-  forwardRef,
-  ReactSVG,
-  useEffect,
-  useRef,
-  useState
-} from "react";
+import React, { forwardRef, type ReactSVG, useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import "./index.module.css";
-import { IconType } from "@components/Layout/Icon/types";
+import type { IconType } from "@components/Layout/Icon/types";
 import { SRSpan } from "@components/Reusable/SROnly";
 import dynamic from "next/dynamic";
 

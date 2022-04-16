@@ -1,11 +1,11 @@
 //noinspection JSUnusedGlobalSymbols
 
 import React from "react";
-import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
+import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
 import { getContentDirectory, getMarkdownFileContentFromPath } from "@lib/pages";
 import { join } from "node:path";
-import { TimelineEventProps } from "./index.page";
-import { NextPageWithLayout } from "../_app.page";
+import { type TimelineEventProps } from "./index.page";
+import type { NextPageWithLayout } from "../_app.page";
 import CommentBlock from "@components/Comments/CommentBlock";
 import { getHighlightsSourceFiles } from "./utils";
 import styled from "styled-components";

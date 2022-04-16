@@ -1,4 +1,5 @@
 import { createGlobalStyle, css, ThemeProps } from "styled-components";
+
 export interface AppTheme {
   themeName: string;
   body?: string;
@@ -13,7 +14,6 @@ export interface AppTheme {
   secondaryColor?: string;
   tertiaryColor?: string;
   quaternaryColor?: string;
-
 }
 export type AppThemeProps =  ThemeProps<AppTheme>;
 

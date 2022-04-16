@@ -4,7 +4,7 @@ import { type IComment } from "@interfaces/IComment";
 import styled from "styled-components";
 
 import { getMarkdownFileContentFromSlug, type HomePageCMSFields } from "@lib/pages";
-import type {  AppThemeProps } from "@styles/GlobalStylesProvider";
+import type { AppThemeProps } from "@styles/GlobalStylesProvider";
 import { SRSpan } from "@components/Reusable/SROnly";
 
 interface HomePageProps {

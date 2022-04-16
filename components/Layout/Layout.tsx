@@ -4,15 +4,14 @@ import { useRouter } from "next/router";
 import NavLink from "@components/Reusable/AccessibleLink/AccessibleNavLink";
 import styled from "styled-components";
 import NavItem from "./NavItem";
-import { AppTheme } from "@styles/GlobalStylesProvider";
+import type { AppTheme } from "@styles/GlobalStylesProvider";
 
 const items = [
   ["Home", ""],
   ["Timeline", "timeline"],
   ["Card Testing", "about"],
   ["Contact?", "contact"],
-  ["Galerie-de-Dmitri", "gallery"],
-
+  ["Galerie-de-Dmitri", "gallery"]
 ];
 const Main_Styled = styled.main`
   display: flex;

@@ -1,8 +1,8 @@
 import config from "./_config";
 import dynamic from "next/dynamic";
-import { NextPageWithLayout } from "../_app.page";
+import type { NextPageWithLayout } from "../_app.page";
 import Script from "next/script";
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 
 const CMS = dynamic(
   //@ts-ignore
@@ -27,7 +27,6 @@ const AdminPage: NextPageWithLayout<{}> = () => {
   return (
     <Fragment>
       <Script
-        async={false}
         id={"netlify_identity"}
         src={"https://identity.netlify.com/v1/netlify-identity-widget.js"}
       />

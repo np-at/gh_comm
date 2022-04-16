@@ -72,7 +72,10 @@ const config: CmsConfig = {
                   label: "Link",
                   name: "url",
                   widget: "string",
-                  pattern: ["^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$", "Please enter a valid URL"]
+                  pattern: [
+                    "^(https?://)?([da-z.-]+).([a-z.]{2,6})([/w .-]*)*/?$",
+                    "Please enter a valid URL"
+                  ]
                 }
               ]
             }
@@ -127,7 +130,7 @@ const config: CmsConfig = {
           name: "image",
           widget: "image",
           media_folder: "/public/img/gallery",
-          public_folder: "/img/gallery",
+          public_folder: "/img/gallery"
         },
         {
           label: "Image Alt Text",

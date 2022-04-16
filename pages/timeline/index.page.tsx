@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
-import { NextPageWithLayout } from "../_app.page";
-import { GetStaticProps, InferGetStaticPropsType } from "next";
-import { ContentPageData, getMarkdownFileContentFromPath } from "@lib/pages";
-import { IComment as IComment } from "@interfaces/IComment";
+import { type NextPageWithLayout } from "../_app.page";
+import type { GetStaticProps, InferGetStaticPropsType } from "next";
+import { type ContentPageData, getMarkdownFileContentFromPath } from "@lib/pages";
+import type { IComment } from "@interfaces/IComment";
 import styled from "styled-components";
 import { getHighlightsSourceFiles } from "./utils";
 import Link from "next/link";
@@ -216,4 +216,5 @@ const Img = styled.img`
   //height: auto;
   border-radius: 7px;
 `;
+// noinspection JSUnusedGlobalSymbols
 export default Highlight;
