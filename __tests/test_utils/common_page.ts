@@ -1,4 +1,5 @@
 import { test, expect, PlaywrightTestArgs, Page } from "@playwright/test";
+import { NextPageWithLayout } from "../../pages/_app.page";
 
 // // @ts-ignore
 // export const pageTitleTest = ({ test, title
@@ -19,6 +20,10 @@ import { test, expect, PlaywrightTestArgs, Page } from "@playwright/test";
 //   })
 //
 // }
+export type PageTitleTest = {
+  title?: string;
+};
+
 export const titleNotEmptyTest: (page: Page, expectedTitle?: string) => Promise<void> = (page, expectedTitle?: string) => {
   return page.title().then(title => {
     expect(title).not.toBe("")

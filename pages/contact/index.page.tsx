@@ -4,15 +4,18 @@ import styled from "styled-components";
 import type { NextPageWithLayout } from "../_app.page";
 import { SRSpan } from "@components/Reusable/SROnly";
 import RowDiv from "@components/Layout/Row";
+import HexGrid from "@components/Layout/Backgrounds/HexGrid";
 
 const Contact: NextPageWithLayout<{}> = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  // return   <HexGrid />
 
   return (
     <div>
       <h1>Contact</h1>
       <RowDiv>
-        <h1>Probably going to deprecate this page, not sure if It&apos;s worth it.</h1>
+        <h1>Probably going to deprecate this page, not sure if it&apos;s worth it.</h1>
       </RowDiv>
       <button onClick={() => setModalIsOpen(true)}>Open Modal</button>
       <p>

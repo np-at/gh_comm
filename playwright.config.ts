@@ -1,6 +1,7 @@
 import type { PlaywrightTestConfig } from "@playwright/test";
 import { devices } from "@playwright/test";
 import path from "path";
+import { ViewPortTestOptions } from "@test/test_utils/viewports";
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -10,8 +11,8 @@ import path from "path";
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
-const config: PlaywrightTestConfig = {
-  testDir: path.join(__dirname, "./__tests"),
+const config: PlaywrightTestConfig<ViewPortTestOptions> = {
+  // testDir: path.join(__dirname, "./__tests"),
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
   expect: {
@@ -60,21 +61,21 @@ const config: PlaywrightTestConfig = {
       use: {
         ...devices["Desktop Safari"]
       }
-    }
+    },
 
     /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: {
-    //     ...devices['Pixel 5'],
-    //   },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: {
-    //     ...devices['iPhone 12'],
-    //   },
-    // },
+    {
+      name: 'Mobile Chrome',
+      use: {
+        ...devices['Pixel 5'],
+      },
+    },
+    {
+      name: 'Mobile Safari',
+      use: {
+        ...devices['iPhone 12'],
+      },
+    },
 
     /* Test against branded browsers. */
     // {
@@ -96,6 +97,7 @@ const config: PlaywrightTestConfig = {
 
   /* Run your local dev server before starting the tests */
   webServer: {
+    reuseExistingServer: !process.env.CI,
     command:( process.env.NODE_ENV === 'development' ? "npm run dev" : "npm run build && npm run start"),
     port: 3000
   }

@@ -11,6 +11,8 @@ const CMS = dynamic(
     window.CMS_MANUAL_INIT = true;
     //@ts-ignore
     await import("netlify-cms");
+    // const {open}  = await import("netlify-identity-widget")
+    // open("login")
     //@ts-ignore
     const { initCMS: init } = window;
     init({

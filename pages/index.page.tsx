@@ -170,8 +170,8 @@ const Footer = styled.footer<AppThemeProps>`
           //background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.3));
           z-index: 100;
           pointer-events: auto;
-          border-left: 2px solid white;
-          border-right: 2px solid white;
+          border-left: 2px solid var(--text-color-base);
+          border-right: 2px solid var(--text-color-base);
         }
       }
     }

@@ -5,6 +5,8 @@ import NavLink from "@components/Reusable/AccessibleLink/AccessibleNavLink";
 import styled from "styled-components";
 import NavItem from "./NavItem";
 import type { AppTheme } from "@styles/GlobalStylesProvider";
+import HexGrid from "@components/Layout/Backgrounds/HexGrid";
+import { BackgroundContainer } from "../../pages/_app.page";
 
 const items = [
   ["Home", ""],
@@ -17,7 +19,13 @@ const Main_Styled = styled.main`
   display: flex;
   justify-content: space-around;
   align-items: start;
-  width: 100vw;
+  width: 100%;
+  @media (max-width: 48rem) {
+   margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
 `;
 const Layout: React.FC<{toggleThemeCallback?: () => void}> = ({ children, toggleThemeCallback }) => {
   const router = useRouter();
@@ -34,6 +42,7 @@ const Layout: React.FC<{toggleThemeCallback?: () => void}> = ({ children, toggle
   }, []);
   return (
     <Fragment>
+
       <NavBar collapsed={isMobile}>
         {items.map((x, i) => (
           <NavItem key={`${x[0]}-${i}`} active={router.pathname == `/${x[1]}`}>

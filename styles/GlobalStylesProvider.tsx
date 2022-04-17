@@ -1,4 +1,4 @@
-import { createGlobalStyle, css, ThemeProps } from "styled-components";
+import { createGlobalStyle, css, type ThemeProps } from "styled-components";
 
 export interface AppTheme {
   themeName: string;
@@ -253,6 +253,7 @@ const GlobalStylesProvider = createGlobalStyle<ThemeProps<AppTheme>>`
   body, html {
     background: ${(t) => t.theme.background};
     color: ${({ theme }) => theme.text} ;
+    //background: transparent;
 
   }
     //* {
