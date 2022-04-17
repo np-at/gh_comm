@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { type NextPageWithLayout } from "../_app.page";
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
-import { type ContentPageData, getMarkdownFileContentFromPath } from "@lib/pages";
+import { type ContentPageData, getMarkdownFileContentFromPath } from "@lib/serverside_utils/pages";
 import type { IComment } from "@interfaces/IComment";
 import styled from "styled-components";
 import { getHighlightsSourceFiles } from "./utils";

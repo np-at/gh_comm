@@ -1,3 +1,4 @@
+
 import type { AppProps } from "next/app";
 import type { NextPage } from "next";
 import type { ReactNode } from "react";
@@ -57,4 +58,6 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   );
 }
 
+
+// noinspection JSUnusedGlobalSymbols
 export default App;

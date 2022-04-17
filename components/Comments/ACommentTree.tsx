@@ -1,5 +1,5 @@
 import React from "react";
-import { ACItem, IACom } from "@components/Comments/ACItem";
+import { ACItem, type IACom } from "@components/Comments/ACItem";
 
 const comments: IACom[] = [
   {

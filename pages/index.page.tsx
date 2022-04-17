@@ -3,16 +3,20 @@ import { type GetStaticProps } from "next";
 import { type IComment } from "@interfaces/IComment";
 import styled from "styled-components";
 
-import { getMarkdownFileContentFromSlug, type HomePageCMSFields } from "@lib/pages";
+import {
+  getMarkdownFileContentFromSlug,
+  type HomePageCMSFields
+} from "@lib/serverside_utils/pages";
 import type { AppThemeProps } from "@styles/GlobalStylesProvider";
 import { SRSpan } from "@components/Reusable/SROnly";
+import { Fragment } from "react";
+import Head from "next/head";
 
 interface HomePageProps {
   comments: IComment[] | null;
   matterData: HomePageCMSFields;
 }
 
-//noinspection JSUnusedGlobalSymbols
 export const getStaticProps: GetStaticProps<HomePageProps> = async (_) => {
   const s = getMarkdownFileContentFromSlug<HomePageCMSFields>("home");
   if (s === null) {
@@ -29,39 +33,44 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async (_) => {
 };
 
 const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (props) => (
-  <div>
-    <HomePageLayout>
-      {/*<PortraitWrapper2><NextImageFix src={props.matterData.picture} alt={""} /></PortraitWrapper2>*/}
-      <PortraitWrapper>
-        <Img src={props.matterData.picture} alt={""} />
-      </PortraitWrapper>
-      <ArticleColumn>
-        <h1>{props.matterData.title}</h1>
-        {props.matterData.body && (
-          <div dangerouslySetInnerHTML={{ __html: props.matterData.body }} />
+  <Fragment>
+    <Head>
+      <title>Dmitri Memorial - Home</title>
+    </Head>
+    <div>
+      <HomePageLayout>
+        {/*<PortraitWrapper2><NextImageFix src={props.matterData.picture} alt={""} /></PortraitWrapper2>*/}
+        <PortraitWrapper>
+          <Img src={props.matterData.picture} alt={""} />
+        </PortraitWrapper>
+        <ArticleColumn>
+          <h1>{props.matterData.title}</h1>
+          {props.matterData.body && (
+            <div dangerouslySetInnerHTML={{ __html: props.matterData.body }} />
+          )}
+        </ArticleColumn>
+      </HomePageLayout>
+      <Footer>
+        <h2>Other Suggested Links</h2>
+        {props.matterData.suggested_links && (
+          <ul>
+            {props.matterData.suggested_links.map((link) => (
+              <li key={link.title}>
+                <a
+                  href={link.url}
+                  target={"_blank"}
+                  rel={"noreferrer"}
+                  referrerPolicy={"no-referrer"}>
+                  {link.title}
+                  <SRSpan>Opens in new page</SRSpan>
+                </a>
+              </li>
+            ))}
+          </ul>
         )}
-      </ArticleColumn>
-    </HomePageLayout>
-    <Footer>
-      <h2>Other Suggested Links</h2>
-      {props.matterData.suggested_links && (
-        <ul>
-          {props.matterData.suggested_links.map((link) => (
-            <li key={link.title}>
-              <a
-                href={link.url}
-                target={"_blank"}
-                rel={"noreferrer"}
-                referrerPolicy={"no-referrer"}>
-                {link.title}
-                <SRSpan>Opens in new page</SRSpan>
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
-    </Footer>
-  </div>
+      </Footer>
+    </div>
+  </Fragment>
 );
 const Footer = styled.footer<AppThemeProps>`
   display: flex;
@@ -89,7 +98,7 @@ const Footer = styled.footer<AppThemeProps>`
 
   & > ul {
     padding: 0;
-    margin:  1rem 0;
+    margin: 1rem 0;
     list-style: none;
     height: 100%;
     display: flex;
@@ -242,4 +251,6 @@ const HomePageLayout = styled.div`
     height: 100%;
   }
 `;
+
+//noinspection JSUnusedGlobalSymbols
 export default Home;

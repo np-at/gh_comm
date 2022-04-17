@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { generateUUID } from "@lib/../../libs/utils/Utils";
+import { type SubmitHandler, useForm } from "react-hook-form";
+import { generateUUID } from "@lib/universal_utils/Utils";
 import { CommentForm } from "@components/Comments/CommentForm";
-import { IComment } from "@interfaces/IComment";
+import type { IComment } from "@interfaces/IComment";
 
 export default function AddComment({
   slug,

@@ -1,9 +1,10 @@
+
 import { Octokit } from "@octokit/core";
-import { StatusCodes } from "http-status-codes";
+import  { StatusCodes } from "http-status-codes";
 import { createAppAuth } from "@octokit/auth-app";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { ICommentFile, ICommentStorage } from "@interfaces/IComment";
-import { Endpoints } from "@octokit/types";
+import type { ICommentFile, ICommentStorage } from "@interfaces/IComment";
+import type { Endpoints } from "@octokit/types";
 import { getGithubParamsFromEnv } from "@components/Comments/utils";
 import { encrypt } from "@lib/encryption/crypto";
 //
@@ -164,4 +165,6 @@ const SaveComment: (req: NextApiRequest, res: NextApiResponse) => Promise<void> 
     }
   });
 };
+
+// noinspection JSUnusedGlobalSymbols
 export default SaveComment;

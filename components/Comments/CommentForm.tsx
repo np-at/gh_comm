@@ -1,6 +1,6 @@
-import { FieldErrors, SubmitHandler, UseFormHandleSubmit } from "react-hook-form";
+import { type FieldErrors, type SubmitHandler, UseFormHandleSubmit } from "react-hook-form";
 import React from "react";
-import { IComment } from "@interfaces/IComment";
+import type { IComment } from "@interfaces/IComment";
 import RowDiv from "@components/Layout/Row";
 
 export const CommentForm: React.FC<{

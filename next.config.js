@@ -2,6 +2,7 @@
 const nextConfig = {
   pageExtensions: ["page.tsx", "page.ts", "page.jsx", "page.js"],
   reactStrictMode: true,
+  poweredByHeader: false,
   webpack: function (config, context) {
     if (!context.isServer) {
       config.resolve.fallback.fs = false;
@@ -19,8 +20,11 @@ const nextConfig = {
     disableStaticImages: true
   },
   compiler: {
-    styledComponents: true
-  }
+    styledComponents: true,
+    minify: true
+  },
+
+
 };
 const withPlugins = require("next-compose-plugins");
 const optimizedImages = require("next-optimized-images");

@@ -22,4 +22,7 @@ const CommentPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = (
   // console.debug("comments",p.comments)
   return <CommentBlock slug={SLUG2} comments={p.comments} />;
 };
+
+
+// noinspection JSUnusedGlobalSymbols
 export default CommentPage;

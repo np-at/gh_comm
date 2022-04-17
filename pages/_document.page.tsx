@@ -1,6 +1,8 @@
 import Document, { DocumentContext, Head, Html, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
+
+// noinspection JSUnusedGlobalSymbols
 export default class MyDocument extends Document {
   render() {
     return (

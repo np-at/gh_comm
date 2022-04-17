@@ -1,4 +1,4 @@
-import { getContentDirectory } from "@lib/pages";
+import { getContentDirectory } from "@lib/serverside_utils/pages";
 
 export const getHighlightsSourceFiles = async (returnFullPath: boolean = false) => {
   const path = await import("node:path");

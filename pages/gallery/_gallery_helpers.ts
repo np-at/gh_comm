@@ -1,6 +1,6 @@
 import path from "node:path";
 import fs from "node:fs";
-import { getContentDirectory, getMarkdownFileContentFromPath } from "@lib/pages";
+import { getContentDirectory, getMarkdownFileContentFromPath } from "@lib/serverside_utils/pages";
 import { GalleryItemProps } from "./GalleryItem";
 
 const pseudoRandString = (length: number) => {

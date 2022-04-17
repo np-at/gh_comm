@@ -169,4 +169,5 @@ const GalleryCardsWrapper = styled.div`
   }
 `;
 
+// noinspection JSUnusedGlobalSymbols
 export default GalleryPage;

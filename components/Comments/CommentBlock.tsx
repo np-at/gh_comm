@@ -14,31 +14,7 @@ interface CommentBlockProps {
   comments: Array<IComment> | null;
   attemptPreemptiveFetch?: boolean;
 }
-//
-// const rootRepoTemplate =
-//   "https://raw.githubusercontent.com/np-at/gh_comm/main/content/comments/%s.json";
 
-const checkForNewer = (
-  slug: string,
-  setStateCallback: React.Dispatch<SetStateAction<IComment[]>>,
-  currentComments?: IComment[] | null
-) => {
-  console.log("testing for newer comments");
-  const remoteFile = ""// rootRepoTemplate.replace("%s", slug);
-  fetch(remoteFile)
-    .then((res) => res.json())
-    .then((remoteCommentFile: ICommentFile) => {
-      const remoteComments = remoteCommentFile.comments.map(
-        convertCommentStorageToDisplayClientSide
-      );
-      if (CompareCommentLists(remoteComments, currentComments ?? [])) {
-        console.log("No new comments");
-      } else {
-        console.log("new comments", remoteComments);
-        setStateCallback(remoteComments);
-      }
-    });
-};
 const CommentBlock: React.FC<CommentBlockProps> = ({
   slug,
   comments,
@@ -83,7 +59,9 @@ const CommentBlock: React.FC<CommentBlockProps> = ({
     //     JSON.parse<ICommentFile>(Buffer.from(data.content, "base64").toString()).comments
     //   : [];
     // const remoteComments = assembleCommentRelationships(intermediateContents.map(convertCommentStorageToDisplayClientSide)) ?? [];
-const remoteComments=    assembleCommentRelationships(data.comments.map(convertCommentStorageToDisplayClientSide)) ??      [];
+    const remoteComments =
+      assembleCommentRelationships(data.comments.map(convertCommentStorageToDisplayClientSide)) ??
+      [];
 
     console.log("remoteComments", remoteComments);
     console.log("currentComments", currentComments);
