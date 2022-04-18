@@ -6,6 +6,6 @@ tags:
   - about
 content: test
 excerpt: test
-featured_image: /public/img/rockhead-and-quarry.jpeg
+featured_image: /img/rockhead-and-quarry.jpeg
 ---
 Moving house
