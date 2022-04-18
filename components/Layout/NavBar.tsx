@@ -4,6 +4,7 @@ import classNames from "classnames";
 import Icon from "./Icon/Icon";
 import styled from "styled-components";
 import { useRouter } from "next/router";
+import { breakpoints } from "@styles/MediaBreakpoints";
 
 export interface NavBarProps {
   collapsed?: boolean;
@@ -59,7 +60,7 @@ const NavBarWrapper = styled.nav`
   height: var(--top-nav-height);
   /* allow the top bar dropdown to be higher in stacking order */
   z-index: 1;
-  width: 100%;
+  width: 100vw;
   display: flex;
   align-items: center;
   background-color: var(--top-nav-background-color);
@@ -189,7 +190,7 @@ const NavBarWrapper = styled.nav`
     margin-right: var(--space-smallest);
   }
 
-  @media (max-width: 61.25rem) {
+  @media (max-width: ${breakpoints.md}) {
     &.NavBar > ul > li {
       font-size: var(--text-size-small);
     }
@@ -216,7 +217,7 @@ const NavBar: React.FC<NavBarProps> = ({ collapsed, children, propId, navTrigger
     }
   };
 
-  const handleKeyDown: KeyboardEventHandler<HTMLUListElement> = (
+  const handleKeyUp: KeyboardEventHandler<HTMLUListElement> = (
     e: React.KeyboardEvent<HTMLUListElement>
   ) => {
     if (e.key !== "Escape") {
@@ -272,7 +273,7 @@ const NavBar: React.FC<NavBarProps> = ({ collapsed, children, propId, navTrigger
         )}
         {/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */}
         {showNavItems && (
-          <ul onKeyDown={handleKeyDown} id={menuId}>
+          <ul onKeyUp={handleKeyUp} id={menuId}>
             {children}
           </ul>
         )}

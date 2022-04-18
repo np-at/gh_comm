@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
+import { breakpoints } from "@styles/MediaBreakpoints";
 
 export interface CardData {
   title: string;
@@ -162,14 +163,15 @@ const CardsItem = styled.li`
   justify-content: space-around;
 
  
-  @media (min-width: var(--breakpoint-small)) {
+  @media (min-width: ${breakpoints.sm}) {
     
   }
-  @media (min-width: 56rem) {
+  //@media (min-width: 56rem) {
+  @media screen and (min-width: ${breakpoints.sm}) {
     width: 50%;
 
   }
-  @media (min-width: 64rem){
+  @media (min-width: ${breakpoints.lg}){
     width: calc(33.3333%);
 
   }
@@ -178,7 +180,7 @@ const CardsItem = styled.li`
   //  //padding: 2rem;
   //  max-width: 35rem;
   //}
-  @media (max-width: 44rem) {
+  @media (max-width: calc(${breakpoints.md} - 2rem)) {
     //max-width: 34rem;
     width: 100%;
   }

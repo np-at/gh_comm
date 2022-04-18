@@ -1,7 +1,8 @@
 import React, { Fragment } from "react";
-import { GetStaticProps, InferGetStaticPropsType } from "next";
-import { NextPageWithLayout } from "../_app.page";
-import GalleryItemPreview, { GalleryItemProps } from "./GalleryItem";
+import type {  GetStaticProps, InferGetStaticPropsType } from "next";
+import type {  NextPageWithLayout } from "../_app.page";
+import GalleryItemPreview from "./GalleryItem";
+import type { GalleryItemProps} from "./GalleryItem";
 import { getGalleryItems } from "./_gallery_helpers";
 import styled from "styled-components";
 import Head from "next/head";

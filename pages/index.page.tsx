@@ -1,12 +1,13 @@
 import type { InferGetStaticPropsType, NextPage } from "next";
-import { type GetStaticProps } from "next";
-import { type IComment } from "@interfaces/IComment";
+import type {  GetStaticProps } from "next";
+import type { IComment } from "@interfaces/IComment";
 import styled from "styled-components";
 
 import {
   getMarkdownFileContentFromSlug,
-  type HomePageCMSFields
+
 } from "@lib/serverside_utils/pages";
+import type {   HomePageCMSFields } from "@lib/serverside_utils/pages";
 import type { AppThemeProps } from "@styles/GlobalStylesProvider";
 import { SRSpan } from "@components/Reusable/SROnly";
 import { Fragment } from "react";
@@ -23,6 +24,7 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async (_) => {
   if (s === null) {
     throw new Error("No home page found");
   }
+  // s.picture  = path.join(process.cwd(), "public", s.picture.replace(/^\//, ""));
   const comments = null;
   return {
     notFound: false,
@@ -32,48 +34,55 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async (_) => {
     }
   };
 };
+const PageWrapper = styled.div`
+  width: 100%;
+  display: block;
+`
+const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (props) => {
+  // const resolvedImagePath  = `./../public/${props.matterData.picture.replace(/^\//, "")}`
 
-const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (props) => (
-  <Fragment>
-    <Head>
-      <title>Dmitri Memorial - Home</title>
-      <meta name="description" content="Dmitri Memorial" />
-    </Head>
-    <div>
-      <HomePageLayout>
-        {/*<PortraitWrapper2><NextImageFix src={props.matterData.picture} alt={""} /></PortraitWrapper2>*/}
-        <PortraitWrapper>
-          <Img priority={true} src={props.matterData.picture} alt={""} />
-        </PortraitWrapper>
-        <ArticleColumn>
-          <h1>{props.matterData.title}</h1>
-          {props.matterData.body && (
-            <div dangerouslySetInnerHTML={{ __html: props.matterData.body }} />
+  return (
+    <Fragment>
+      <Head>
+        <title>Dmitri Memorial - Home</title>
+        <meta name="description" content="Dmitri Memorial" />
+      </Head>
+      <PageWrapper>
+        <HomePageLayout>
+          {/*<PortraitWrapper2><NextImageFix src={props.matterData.picture} alt={""} /></PortraitWrapper2>*/}
+          <PortraitWrapper>
+            <Img priority={true} src={props.matterData.picture} alt={""} />
+          </PortraitWrapper>
+          <ArticleColumn>
+            <h1>{props.matterData.title}</h1>
+            {props.matterData.body && (
+              <div dangerouslySetInnerHTML={{ __html: props.matterData.body }} />
+            )}
+          </ArticleColumn>
+        </HomePageLayout>
+        <Footer>
+          <h2>Other Suggested Links</h2>
+          {props.matterData.suggested_links && (
+            <ul>
+              {props.matterData.suggested_links.map((link) => (
+                <li key={link.title}>
+                  <a
+                    href={link.url}
+                    target={"_blank"}
+                    rel={"noreferrer"}
+                    referrerPolicy={"no-referrer"}>
+                    {link.title}
+                    <SRSpan>Opens in new page</SRSpan>
+                  </a>
+                </li>
+              ))}
+            </ul>
           )}
-        </ArticleColumn>
-      </HomePageLayout>
-      <Footer>
-        <h2>Other Suggested Links</h2>
-        {props.matterData.suggested_links && (
-          <ul>
-            {props.matterData.suggested_links.map((link) => (
-              <li key={link.title}>
-                <a
-                  href={link.url}
-                  target={"_blank"}
-                  rel={"noreferrer"}
-                  referrerPolicy={"no-referrer"}>
-                  {link.title}
-                  <SRSpan>Opens in new page</SRSpan>
-                </a>
-              </li>
-            ))}
-          </ul>
-        )}
-      </Footer>
-    </div>
-  </Fragment>
-);
+        </Footer>
+      </PageWrapper>
+    </Fragment>
+  );
+};
 const Footer = styled.footer<AppThemeProps>`
   display: flex;
   justify-content: space-around;
@@ -83,14 +92,14 @@ const Footer = styled.footer<AppThemeProps>`
   margin-top: 1rem;
   //background-color: #fafafa;
   background-color: var(--menu-background-color);
-
+  flex-wrap: wrap;
   //border-top: 1px solid #eaeaea;
   //font-size: 0.8rem;
   color: var(--text-color-base);
   width: 100%;
   //height: 4em;
-  flex-wrap: wrap;
   //padding: 1em 1rem;
+  
   & h2 {
     font-size: 1.5rem;
     text-decoration: underline;
@@ -99,15 +108,16 @@ const Footer = styled.footer<AppThemeProps>`
   }
 
   & > ul {
-    padding: 0;
+    padding: .5rem;
     margin: 1rem 0;
     list-style: none;
     height: 100%;
     display: flex;
-
+    flex-wrap: wrap;
     width: 100%;
     justify-content: space-around;
     align-items: center;
+   
 
     & > li {
       &:last-child {
@@ -117,6 +127,14 @@ const Footer = styled.footer<AppThemeProps>`
       &:first-child {
         margin-left: 1rem;
       }
+      @media screen and (max-width: 48rem) { 
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+      &:first-child, &:last-child {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      }
 
       height: 100%;
       //border: 2px solid var(--menu-shadow);
@@ -125,7 +143,7 @@ const Footer = styled.footer<AppThemeProps>`
       flex-direction: column;
       justify-content: center;
       align-self: center;
-      padding: 0;
+      //padding: 0.5rem 1rem;
       margin: 0 auto;
       //margin-left: 1rem;
       //margin-right: 1rem;
@@ -135,6 +153,8 @@ const Footer = styled.footer<AppThemeProps>`
         font-size: var(--text-size-normal);
         margin-top: 0;
         margin-bottom: 0;
+        //margin-left: auto;
+        //margin-right: auto;
         padding: 0 1em;
         //color: #666;
         text-decoration: none;
@@ -238,13 +258,19 @@ const PortraitWrapper = styled.div`
   //padding: 1.5em;
 `;
 const HomePageLayout = styled.div`
+  margin-left:auto;
+  margin-right:auto;
   padding-top: 1em;
   width: 88vw;
   grid-gap: 1rem;
   display: grid;
+
   @media (max-width: 48rem) {
-    grid-template-columns: 1fr;
+    grid-template-columns: auto;
     width: 100%;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
   }
   @media (min-width: 48rem) {
     grid-template-columns: 66% 33%;

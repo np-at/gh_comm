@@ -1,12 +1,12 @@
 import type { AppProps } from "next/app";
 import type { NextPage } from "next";
 import type { ReactNode } from "react";
-import React, { type ReactElement, useEffect } from "react";
+import React, {  useEffect } from "react";
+import type { ReactElement} from "react";
 import Layout from "@components/Layout/Layout";
 import { setAppElement } from "react-modal";
 import GlobalStylesProvider, { darkTheme, lightTheme } from "@styles/GlobalStylesProvider";
 import styled, { ThemeProvider } from "styled-components";
-import HexGrid from "@components/Layout/Backgrounds/HexGrid";
 
 export type NextPageWithLayout<T> = NextPage<T> & {
   getLayout?: (page: ReactElement) => ReactNode;

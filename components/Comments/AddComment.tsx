@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { type SubmitHandler, useForm } from "react-hook-form";
+import {  useForm } from "react-hook-form";
+import type { SubmitHandler} from "react-hook-form";
 import { generateUUID } from "@lib/universal_utils/Utils";
 import { CommentForm } from "@components/Comments/CommentForm";
 import type { IComment } from "@interfaces/IComment";

@@ -29,6 +29,8 @@ const NextImageWrapper = styled.div`
 
   & > span {
     position: unset !important;
+    width: fit-content !important;
+    margin: 0 auto !important;
   }
 `;
 

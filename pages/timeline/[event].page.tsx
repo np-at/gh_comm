@@ -4,7 +4,7 @@ import React from "react";
 import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
 import { getContentDirectory, getMarkdownFileContentFromPath } from "@lib/serverside_utils/pages";
 import { join } from "node:path";
-import { type TimelineEventProps } from "./index.page";
+import type { TimelineEventProps } from "./index.page";
 import type { NextPageWithLayout } from "../_app.page";
 import CommentBlock from "@components/Comments/CommentBlock";
 import { getHighlightsSourceFiles } from "./utils";

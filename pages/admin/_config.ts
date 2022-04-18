@@ -5,13 +5,14 @@ const config: CmsConfig = {
   backend: {
     name: "git-gateway",
     branch: "main",
-    squash_merges: true
+    squash_merges: true,
   },
   media_folder: "/public/img",
   public_folder: "/img",
   media_folder_relative: false,
   editor: {
-    preview: false
+    preview: false,
+
   },
   collections: [
     {

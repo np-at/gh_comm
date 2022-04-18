@@ -1,4 +1,5 @@
-import React, { forwardRef, type ReactSVG, useEffect, useRef, useState } from "react";
+import React, { forwardRef, useEffect, useRef, useState } from "react";
+import type { ReactSVG} from "react";
 import classNames from "classnames";
 import "./index.module.css";
 import type { IconType } from "@components/Layout/Icon/types";
@@ -24,7 +25,7 @@ const Icon = forwardRef<HTMLDivElement, IconProps>(
       const setupIcon = async () => {
         if (isMounted.current) {
           const IC: React.ComponentType<React.ReactSVG> = dynamic<ReactSVG>(
-            () => import(`@components/Layout/Icon/icons/${name}.svg`),
+            async () => await import(`@components/Layout/Icon/icons/${name}.svg`),
             { ssr: true }
           );
           IC && setIcon(IC);

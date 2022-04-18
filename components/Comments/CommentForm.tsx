@@ -1,4 +1,5 @@
-import { type FieldErrors, type SubmitHandler, UseFormHandleSubmit } from "react-hook-form";
+import { UseFormHandleSubmit } from "react-hook-form";
+import type { FieldErrors, SubmitHandler } from "react-hook-form";
 import React from "react";
 import type { IComment } from "@interfaces/IComment";
 import RowDiv from "@components/Layout/Row";

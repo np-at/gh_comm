@@ -1,4 +1,6 @@
-import { createGlobalStyle, css, type ThemeProps } from "styled-components";
+import { createGlobalStyle, css } from "styled-components";
+import type {ThemeProps} from "styled-components";
+import { breakpoints } from "@styles/MediaBreakpoints";
 
 export interface AppTheme {
   themeName: string;
@@ -153,10 +155,10 @@ const global_vars = css`
 
 const base_css = css`
   :root {
-    --breakpoint-small: 30rem;
-    --breakpoint-medium: 48rem;
-    --breakpoint-large: 64rem;
-    --breakpoint-xlarge: 75rem;
+    --breakpoint-small: ${breakpoints.sm};
+    --breakpoint-medium: ${breakpoints.md};
+    --breakpoint-large: ${breakpoints.lg};
+    --breakpoint-xlarge: ${breakpoints.xl};
   }
 
   html,

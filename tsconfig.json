@@ -21,6 +21,9 @@
     "incremental": true,
     "baseUrl": "./",
     "paths": {
+      "@public/*": [
+        "./public/*"
+      ],
       "@test/*": [
         "./__tests/*"
       ],
