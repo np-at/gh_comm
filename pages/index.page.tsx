@@ -37,12 +37,13 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (props) =
   <Fragment>
     <Head>
       <title>Dmitri Memorial - Home</title>
+      <meta name="description" content="Dmitri Memorial" />
     </Head>
     <div>
       <HomePageLayout>
         {/*<PortraitWrapper2><NextImageFix src={props.matterData.picture} alt={""} /></PortraitWrapper2>*/}
         <PortraitWrapper>
-          <Img src={props.matterData.picture} alt={""} />
+          <Img priority={true} src={props.matterData.picture} alt={""} />
         </PortraitWrapper>
         <ArticleColumn>
           <h1>{props.matterData.title}</h1>
@@ -194,7 +195,9 @@ const ArticleColumn = styled.div`
     padding: 1rem;
   }
 `;
-const Img = styled(NextImageFix)``
+const Img = styled(NextImageFix)`
+  min-width: 1rem;
+`;
 //
 // const Img = styled.img`
 //   //object-fit: contain;

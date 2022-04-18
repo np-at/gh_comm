@@ -3,14 +3,17 @@ import React from "react";
 import Image, { ImageProps } from "next/image";
 import styled from "styled-components";
 
-const NextImageFix: React.FC<ImageProps> = ({ layout, alt, ...others }) => {
+interface NextImageFixProps extends ImageProps {
+
+}
+const NextImageFix: React.FC<ImageProps> = ({ layout, alt, priority, ...others }) => {
   if (layout) {
     console.warn("NextImageFix: layout prop is will be overwritten");
   }
 
   return (
     <NextImageWrapper>
-      <Img layout={"fill"} alt={alt} {...others} />
+      <Img priority={priority} layout={"fill"} alt={alt} {...others} />
     </NextImageWrapper>
   );
 };

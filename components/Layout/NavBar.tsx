@@ -198,7 +198,6 @@ const NavBarWrapper = styled.nav`
       min-width: 7.125rem;
     }
   }
-
 `;
 const NavBar: React.FC<NavBarProps> = ({ collapsed, children, propId, navTriggerLabel }) => {
   const navRef = useRef<HTMLElement>(null);

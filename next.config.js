@@ -3,6 +3,7 @@ const nextConfig = {
   pageExtensions: ["page.tsx", "page.ts", "page.jsx", "page.js"],
   reactStrictMode: true,
   poweredByHeader: false,
+  swcMinify: true,
   webpack: function (config, context) {
     if (!context.isServer) {
       config.resolve.fallback.fs = false;
@@ -15,9 +16,6 @@ const nextConfig = {
 
     return config;
   },
-  images: {
-    domains: ["www.rockheadandquarry.com"]
-  },
   // images: {
   //   loader: "custom",
   //   disableStaticImages: true
@@ -25,7 +23,7 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
     minify: true
-  },
+  }
 
 
 };
