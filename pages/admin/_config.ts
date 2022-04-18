@@ -8,7 +8,8 @@ const config: CmsConfig = {
     squash_merges: true
   },
   media_folder: "/public/img",
-  // public_folder: "/img",
+  public_folder: "/img",
+  media_folder_relative: false,
   editor: {
     preview: false
   },

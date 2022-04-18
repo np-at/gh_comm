@@ -11,6 +11,7 @@ import type { AppThemeProps } from "@styles/GlobalStylesProvider";
 import { SRSpan } from "@components/Reusable/SROnly";
 import { Fragment } from "react";
 import Head from "next/head";
+import NextImageFix from "@components/Reusable/NextImageFix";
 
 interface HomePageProps {
   comments: IComment[] | null;
@@ -193,15 +194,16 @@ const ArticleColumn = styled.div`
     padding: 1rem;
   }
 `;
-
-const Img = styled.img`
-  //object-fit: contain;
-  width: 100% !important;
-  //position: relative !important;
-  //height: unset !important;
-  //border-radius: 11px;
-  padding-top: 2rem;
-`;
+const Img = styled(NextImageFix)``
+//
+// const Img = styled.img`
+//   //object-fit: contain;
+//   width: 100% !important;
+//   //position: relative !important;
+//   //height: unset !important;
+//   //border-radius: 11px;
+//   padding-top: 2rem;
+// `;
 const PortraitWrapper2 = styled.div`
   display: flex;
   flex-direction: column;

@@ -10,6 +10,7 @@ import parse from "react-html-parser";
 import { niceDateDisplay } from "./FormattingUtils";
 import Head from "next/head";
 import RowDiv from "@components/Layout/Row";
+import NextImageFix from "@components/Reusable/NextImageFix";
 
 export interface TimelineEventProps extends ContentPageData {
   path?: string;
@@ -273,7 +274,7 @@ const EventCard = styled.article`
     }
   }
 `;
-const Img = styled.img`
+const Img = styled(NextImageFix)`
   //display: flex;
   //flex-shrink: 1;
   aspect-ratio: auto;

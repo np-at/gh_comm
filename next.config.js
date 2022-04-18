@@ -16,9 +16,12 @@ const nextConfig = {
     return config;
   },
   images: {
-    loader: "custom",
-    disableStaticImages: true
+    domains: ["www.rockheadandquarry.com"]
   },
+  // images: {
+  //   loader: "custom",
+  //   disableStaticImages: true
+  // },
   compiler: {
     styledComponents: true,
     minify: true
