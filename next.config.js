@@ -3,7 +3,6 @@ const nextConfig = {
   pageExtensions: ["page.tsx", "page.ts", "page.jsx", "page.js"],
   reactStrictMode: true,
   poweredByHeader: false,
-  swcMinify: true,
   webpack: function (config, context) {
     if (!context.isServer) {
       config.resolve.fallback.fs = false;
@@ -26,8 +25,7 @@ const nextConfig = {
   //   disableStaticImages: true
   // },
   compiler: {
-    styledComponents: true,
-    minify: true
+    styledComponents: true
   }
 };
 module.exports = nextConfig;

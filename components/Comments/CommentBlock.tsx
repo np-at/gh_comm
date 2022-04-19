@@ -1,4 +1,4 @@
-import React, { SetStateAction, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IComment, ICommentFile } from "@interfaces/IComment";
 import styled from "styled-components";
 import { sanitizeSlug } from "@components/Comments/utils";
@@ -71,7 +71,7 @@ const CommentBlock: React.FC<CommentBlockProps> = ({
       console.debug("new comments", remoteComments);
       setCurrentComments(remoteComments);
     }
-  }, [isLoading, data, error]);
+  }, [isLoading, data, error, attemptPreemptiveFetch, currentComments]);
 
   return (
     <CommentsBlockWrapper>

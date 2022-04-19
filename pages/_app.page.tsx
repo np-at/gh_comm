@@ -1,8 +1,8 @@
 import type { AppProps } from "next/app";
 import type { NextPage } from "next";
-import type { ReactNode } from "react";
-import React, {  useEffect } from "react";
-import type { ReactElement} from "react";
+import { Fragment, ReactNode } from "react";
+import React, { useEffect } from "react";
+import type { ReactElement } from "react";
 import Layout from "@components/Layout/Layout";
 import { setAppElement } from "react-modal";
 import GlobalStylesProvider, { darkTheme, lightTheme } from "@styles/GlobalStylesProvider";
@@ -33,22 +33,27 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
     theme === "light" ? setTheme("dark") : setTheme("light");
   };
 
-  useEffect(() => {
-    setAppElement("#__next");
+  useEffect(
+    () => {
+      setAppElement("#__next");
+      // @ts-ignore
+      window.netlifyIdentity?.on("init", (user) => {
+        if (!user) {
+          // @ts-ignore
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    },
     // @ts-ignore
-    window.netlifyIdentity?.on("init", (user) => {
-      if (!user) {
-        // @ts-ignore
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
-        });
-      }
-    });
-  }, []);
+    []
+  );
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout;
   return (
-    <ThemeProvider theme={themeSwitcher(theme)}>
+    <Fragment>
+      <ThemeProvider theme={themeSwitcher(theme)}>
       <GlobalStylesProvider />
 
       {(getLayout && getLayout(<Component {...pageProps} />)) || (
@@ -56,8 +61,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           <Component {...pageProps} />
         </Layout>
       )}
-
-    </ThemeProvider>
+    </ThemeProvider></Fragment>
   );
 }
 
