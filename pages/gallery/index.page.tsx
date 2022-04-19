@@ -155,7 +155,7 @@ const GalleryCardsWrapper = styled.div`
     }
   }
 
-  article img {
+  article img, article span {
     flex-basis: 200px;
     flex-grow: 0;
     flex-shrink: 0;
@@ -165,7 +165,7 @@ const GalleryCardsWrapper = styled.div`
     box-shadow: 10px 10px #000000;
   }
 
-  article.black img {
+  article.black span, article.black img {
     box-shadow: 10px 10px #ffffff;
   }
 `;
