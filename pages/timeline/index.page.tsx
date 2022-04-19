@@ -13,6 +13,7 @@ import { niceDateDisplay } from "./FormattingUtils";
 import Head from "next/head";
 import RowDiv from "@components/Layout/Row";
 import NextImageFix from "@components/Reusable/NextImageFix";
+import { sanitizeSlug } from "@components/Comments/utils";
 
 export interface TimelineEventProps extends ContentPageData {
   path?: string;
@@ -39,7 +40,11 @@ export const getStaticProps: GetStaticProps<TimelinePageProps> = async () => {
   const hlightsSourceFiles = await getHighlightsSourceFiles();
   const timelineEvents: TimelineEventProps[] = await Promise.all(
     hlightsSourceFiles.map(async (file) => {
-      return (await getMarkdownFileContentFromPath(file)) as TimelineEventProps;
+      const evProps  =  (await getMarkdownFileContentFromPath(file)) as TimelineEventProps;
+
+      // kludge
+      evProps.path = sanitizeSlug(file.replace(/^content[\/\\]events/, "timeline").replace(/\.md$/, "").replaceAll(/(\.md$)|(timeline[\/\\])/gim, ""));
+      return evProps;
     })
   );
   timelineEvents.sort(sortByDate);
@@ -102,7 +107,7 @@ const Highlight: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProp
                 <div>{parse(event.body)}</div>
                 {event.featured_image && (
                   <div>
-                    <Link passHref={true} href={`/timeline/${event.title}`}>
+                    <Link passHref={true} href={`/timeline/${event.path}`}>
                       <a>
                         <Img src={event.featured_image} alt={event.title ?? ""} />
                       </a>

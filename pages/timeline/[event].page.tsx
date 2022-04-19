@@ -13,15 +13,17 @@ import RowDiv, { CenteredRow } from "@components/Layout/Row";
 import { getCommentsFromStatic } from "@lib/comments/_utils";
 import { sanitizeSlug } from "@components/Comments/utils";
 import { niceDateDisplay } from "./FormattingUtils";
+import NextImageFix from "@components/Reusable/NextImageFix";
 
 // TODO: make this less awful
 export const getStaticPaths: GetStaticPaths = async () => {
   const highlights = await getHighlightsSourceFiles(false);
   const paths = highlights.map((highlight) => {
+    // kludgy
     const ev = highlight.replace(/^content[\/\\]events/, "timeline").replace(/\.md$/, "");
     return {
       params: {
-        event: ev.replaceAll(/(\.md$)|(timeline[\/\\])/gim, ""),
+        event: sanitizeSlug(ev.replaceAll(/(\.md$)|(timeline[\/\\])/gim, "")),
         pth: ev
       }
     };
@@ -72,7 +74,7 @@ const Highlight: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProp
     </div>
   );
 };
-const BannerImage = styled.img`
+const BannerImage = styled(NextImageFix)`
   height: auto;
   aspect-ratio: initial;
   max-height: 400px;
