@@ -1,1 +1,1 @@
-export const PreferOpportunisticFetch = true;
+export const PreferOpportunisticFetch = false;
