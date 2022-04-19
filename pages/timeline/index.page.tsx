@@ -190,6 +190,7 @@ const EventCardContainer = styled.div`
   }
 
   & > article {
+   
     @media screen and (max-width: 720px) {
       margin: 1rem 0;
       text-align: center;
@@ -238,10 +239,11 @@ const EventCard = styled.article`
     max-height: 100%;
     flex-wrap: nowrap;
     //min-width: 26vw;
-    //height: 100%;
+    height: 100%;
     max-width: 40vw;
+    width: auto;
     //overflow-y: auto;
-    display: block;
+    //display: block;
 
     &:first-child {
       margin: 1rem;
@@ -256,7 +258,8 @@ const EventCard = styled.article`
     }
 
     &:last-child {
-      margin: 0;
+      margin-right: 0;
+      //margin: 0;
       min-height: 13vh;
       max-height: var(--row-height);
     }
@@ -279,12 +282,13 @@ const EventCard = styled.article`
 const Img = styled(NextImageFix)`
   //display: flex;
   //flex-shrink: 1;
-  aspect-ratio: auto;
+  aspect-ratio: 1.33;
   //width: 100%;
 
   //min-width: 25em;
   width: 100%;
   height: auto;
+  //height: 100%;
   max-height: var(--row-height);
   //height: auto;
   border-radius: 7px;
