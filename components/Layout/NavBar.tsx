@@ -56,6 +56,7 @@ const NavBarWrapper = styled.nav`
   --top-nav-height: 3rem;
   --top-nav-text-color: var(--text-color-base);
   --top-nav-background-color: var(--menu-background-color);
+  --top-nav-active-shadow-color: var(--accent-primary);
 
   height: var(--top-nav-height);
   /* allow the top bar dropdown to be higher in stacking order */
