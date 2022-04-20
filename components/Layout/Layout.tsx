@@ -32,6 +32,7 @@ const Layout: React.FC<{ toggleThemeCallback?: () => void }> = ({
   toggleThemeCallback
 }) => {
   const {pathname} = useRouter();
+  console.log(pathname);
   const [isMobile, setIsMobile] = React.useState(false);
   useEffect(() => {
     const handleResize = () => {
