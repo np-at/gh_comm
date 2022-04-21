@@ -5,8 +5,8 @@
 const Constants =  {
   // Left and right are used to control the direciton in which we want to translate our
   // timeline
-  LEFT: 'left',
-  RIGHT: 'right',
+  LEFT: 'ArrowLeft',
+  RIGHT: 'ArrowRight',
 
   // The keycodes of all the arrow keys (used for keyboard navigation)
   LEFT_KEY: 37,
@@ -29,8 +29,8 @@ const Constants =  {
 
   // which events to trigger based on the left or the right arrow key on the keyboard is pressed
   KEYMAP: {
-    37: 'left',
-    39: 'right'
+    37: 'ArrowLeft',
+    39: 'ArrowRight'
   }
 };
 

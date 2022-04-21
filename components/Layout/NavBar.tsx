@@ -13,6 +13,7 @@ export interface NavBarProps {
   initialActiveIndex?: number;
   navTriggerLabel?: string;
 }
+
 // TODO: remove this if not used
 //
 // const darkThemeTopBarCss = css<AppThemeProps>`
@@ -45,7 +46,6 @@ export interface NavBarProps {
 //   --top-nav-text-color: var(--top-bar-text-color);
 // `;
 const NavBarWrapper = styled.nav`
-  
   --top-bar-accent-primary: var(--accent-info);
   --top-bar-accent-warning: var(--accent-warning);
   --top-bar-accent-error: var(--accent-danger);
@@ -57,6 +57,7 @@ const NavBarWrapper = styled.nav`
   --top-nav-text-color: var(--text-color-base);
   --top-nav-background-color: var(--menu-background-color);
   --top-nav-active-shadow-color: var(--accent-primary);
+  --top-nav-box-shadow-color: var(--accent-secondary);
 
   height: var(--top-nav-height);
   /* allow the top bar dropdown to be higher in stacking order */
@@ -66,7 +67,21 @@ const NavBarWrapper = styled.nav`
   align-items: center;
   background-color: var(--top-nav-background-color);
   color: var(--top-nav-text-color);
-  border-bottom: 1px solid var(--menu-border);
+  //border-bottom: 2px solid var(--menu-border);
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    //background-color: transparent;
+    pointer-events: none;
+    //transform: translateY(1%);
+    border-bottom: 1px solid var(--menu-border);
+  }
 
   & > ul {
     width: 100%;
@@ -96,7 +111,7 @@ const NavBarWrapper = styled.nav`
   }
 
   & > ul > li:first-child:not(.NavBar__trigger) {
-    border-left: 1px solid var(--top-nav-box-shadow-color);
+    border-left: 1px solid var(--menu-shadow);
     margin-left: 0;
     margin-right: auto;
     left: 0;
@@ -104,7 +119,7 @@ const NavBarWrapper = styled.nav`
   }
 
   & > ul > li:nth-child(2) {
-    border-left: 1px solid var(--top-nav-box-shadow-color);
+    border-left: 1px solid var(--menu-shadow);
   }
 
   & > ul > li:hover {
@@ -159,12 +174,12 @@ const NavBarWrapper = styled.nav`
 
   &.NavBar--collapsed > ul > .NavItem--active {
     box-shadow: inset 0px -1px 0px var(--top-nav-box-shadow-color),
-    inset 6px 0px 0px var(--top-nav-active-shadow-color);
+      inset 6px 0px 0px var(--top-nav-active-shadow-color);
   }
 
   &.NavBar--collapsed > .NavBar__trigger--active {
     box-shadow: inset 0px -1px 0px var(--top-nav-box-shadow-color),
-    inset 0px 4px 0px var(--top-nav-active-shadow-color);
+      inset 0px 4px 0px var(--top-nav-active-shadow-color);
     z-index: calc(var(--z-index-top-nav) + 1);
   }
 
@@ -184,7 +199,7 @@ const NavBarWrapper = styled.nav`
 
   &.NavBar--collapsed > ul > li > a:focus,
   &.NavBar--collapsed > .NavBar__trigger:focus {
-    outline-offset: calc(var(--space-quarter) * -1);
+    //outline-offset: calc(var(--space-quarter) * -1);
   }
 
   &.NavBar--collapsed > .NavBar__trigger .Icon {

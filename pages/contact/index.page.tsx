@@ -36,7 +36,9 @@ const Contact: NextPageWithLayout<{}> = () => {
       <RowDiv>
         <h1>Probably going to deprecate this page, not sure if it&apos;s worth it.</h1>
       </RowDiv>
-      <button onClick={() => setModalIsOpen(true)}>Open Modal</button>
+      <RowDiv style={{textAlign: "center"}}>
+        <button type={"button"} data-test={"modal_button"} onClick={() => setModalIsOpen(true)}>Open Modal</button>
+      </RowDiv>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam doloremque, quidem
         quisquam, quisquam quisquam quisquam quisquam dignissimos.

@@ -85,7 +85,7 @@ const HorizontalTimelineButtons: React.FC<HorizontalTimelineButtonsProps> = (pro
       <li
         className={`button-back ${buttonBackEnabled ? "enabled" : "disabled"}`}
         key={Constants.LEFT}
-        onClick={() => props.updateSlide(Constants.LEFT)}
+        onClick={() => props.updateSlide("ArrowLeft")}
         // @ts-ignore
         style={[
           buttonStyles.link(props.styles),
@@ -103,7 +103,7 @@ const HorizontalTimelineButtons: React.FC<HorizontalTimelineButtonsProps> = (pro
       <li
         className={`button-forward ${buttonForwardEnabled ? "enabled" : "disabled"}`}
         key={Constants.RIGHT}
-        onClick={() => props.updateSlide(Constants.RIGHT)}
+        onClick={() => props.updateSlide("ArrowRight")}
         // @ts-ignore
         style={[
           buttonStyles.link(props.styles),

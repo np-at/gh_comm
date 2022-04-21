@@ -7,7 +7,7 @@ test.beforeEach(async ({ page }) => {
 
 test("Contact page", async ({ page }) => {
   // const browser = await t.createBrowser()
-  const modaButton = page.locator("button", {
+  const modaButton = page.locator('button[data-test="modal_button"]', {
     hasText: "Open Modal"
   });
   await modaButton.click({ button: "left" });

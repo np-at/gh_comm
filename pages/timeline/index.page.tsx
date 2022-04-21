@@ -320,6 +320,7 @@ const EventCard = styled.article`
         margin-right: auto;
         margin-left: auto;
         grid-row: 1 / span 3;
+        
       }
     }
   }
@@ -364,10 +365,14 @@ const EventCard = styled.article`
       //margin: 0;
       min-height: 13vh;
       max-height: var(--row-height);
+      &:focus-within {
+        outline: 2px solid var(--focus-active);
+        //outline-offset: 2px;
+      }
     }
   }
 
-  &:hover {
+  &:hover,&:focus-within {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   }
 
@@ -394,6 +399,7 @@ const Img = styled(NextImageFix)`
   max-height: var(--row-height);
   //height: auto;
   border-radius: 7px;
+
 `;
 // noinspection JSUnusedGlobalSymbols
 export default TimelinePage;

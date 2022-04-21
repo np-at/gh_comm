@@ -1,16 +1,24 @@
-import React from 'react';
+import React from "react";
 
-import TimelineDot from './TimelineDot';
+import TimelineDot from "./TimelineDot";
+
+interface EventsProps {
+  events: TimelineEvent[],
+  selectedIndex: number,
+  styles?: object,
+  handleDateClick: (index: number) => any,
+  labelWidth: number
+}
 
 /**
  * The markup Information for all the events on the horizontal timeline.
  *
  */
-const Events: React.FC<{events: TimelineEvent[], selectedIndex?: number, styles?: object, handleDateClick?: (index: number)=>any, labelWidth: number}> = ({ events, selectedIndex, styles, handleDateClick, labelWidth }) => (
+const Events: React.FC<EventsProps> = ({ events, selectedIndex, styles, handleDateClick, labelWidth }) => (
   <ol
-    className='events-bar'
+    className="events-bar"
     style={{
-      listStyle: 'none'
+      listStyle: "none"
     }}
   >
     {events.map((event, index) =>
@@ -28,11 +36,13 @@ const Events: React.FC<{events: TimelineEvent[], selectedIndex?: number, styles?
     )}
   </ol>
 );
+
 export interface TimelineEvent {
   distance: number;
   label: string;
   date: string;
 }
+
 /**
  * The styles that parent will provide
  * @type {Object}
