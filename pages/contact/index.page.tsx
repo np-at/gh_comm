@@ -4,20 +4,41 @@ import styled from "styled-components";
 import type { NextPageWithLayout } from "../_app.page";
 import { SRSpan } from "@components/Reusable/SROnly";
 import RowDiv from "@components/Layout/Row";
-import HexGrid from "@components/Layout/Backgrounds/HexGrid";
+import HorizontalTimeline from "@components/TimelineView/Parts/HorizontalTimeline";
+import { useDimensions } from "react-hook-dimensions";
 
+const VALUES = [
+  "2008-06-01",
+  "2010-06-01",
+  "2013-06-01",
+  "2015-03-01",
+  "2019-01-01",
+  "2019-06-17",
+  "2019-08-01"
+];
 const Contact: NextPageWithLayout<{}> = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   // return   <HexGrid />
-
+  const [timelineValue, setTimelineValue] = useState(0);
+  const [timelinePreviousValue, setTimelinePreviousValue] = useState(0);
+  const [elementRef, elementDimensions, updateElementDimensions] = useDimensions<HTMLDivElement>({
+    dependencies: [],
+    layoutEffect: true,
+    defaults: {
+      width: 500,
+      height: 300
+    }
+  });
   return (
     <div>
       <h1>Contact</h1>
       <RowDiv>
         <h1>Probably going to deprecate this page, not sure if it&apos;s worth it.</h1>
       </RowDiv>
-      <button onClick={() => setModalIsOpen(true)}>Open Modal</button>
+      <RowDiv style={{textAlign: "center"}}>
+        <button type={"button"} data-test={"modal_button"} onClick={() => setModalIsOpen(true)}>Open Modal</button>
+      </RowDiv>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam doloremque, quidem
         quisquam, quisquam quisquam quisquam quisquam dignissimos.
@@ -42,6 +63,21 @@ const Contact: NextPageWithLayout<{}> = () => {
           </p>
         </div>
       </StyledModal>
+      <RowDiv>
+        {/* Bounding box for the Timeline */}
+        <div ref={elementRef} style={{ width: "60%", height: "100px", margin: "0 auto" }}>
+          <HorizontalTimeline
+            width={elementDimensions.width}
+            height={elementDimensions.height}
+            index={timelineValue}
+            indexClick={(index) => {
+              setTimelinePreviousValue(timelineValue);
+              setTimelineValue(index);
+            }}
+            values={VALUES}
+          />
+        </div>
+      </RowDiv>
     </div>
   );
 };

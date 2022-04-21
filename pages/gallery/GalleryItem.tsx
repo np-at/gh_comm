@@ -1,5 +1,4 @@
 import React from "react";
-import parse from "react-html-parser";
 import NextImageFix from "@components/Reusable/NextImageFix";
 
 export interface GalleryItemProps {
@@ -33,7 +32,7 @@ const GalleryItemPreview: React.FC<GalleryItemProps> = ({
     <article aria-labelledby={id} className={card_type ?? "white"}>
       <div className="content">
         <h2 id={id}>{title}</h2>
-        {parse(body)}
+        {body && <div dangerouslySetInnerHTML={{__html: body}}></div>}
       </div>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <NextImageFix src={image} alt={imageAlt} />

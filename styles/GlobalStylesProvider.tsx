@@ -1,5 +1,5 @@
 import { createGlobalStyle, css } from "styled-components";
-import type {ThemeProps} from "styled-components";
+import type { ThemeProps } from "styled-components";
 import { breakpoints } from "@styles/MediaBreakpoints";
 
 export interface AppTheme {
@@ -7,6 +7,7 @@ export interface AppTheme {
   body?: string;
   text?: string;
   toggleBorder?: string;
+  focus: string;
   background?: string;
   menuBackground: string;
   menuBorder: string;
@@ -17,7 +18,8 @@ export interface AppTheme {
   tertiaryColor?: string;
   quaternaryColor?: string;
 }
-export type AppThemeProps =  ThemeProps<AppTheme>;
+
+export type AppThemeProps = ThemeProps<AppTheme>;
 
 export const lightTheme: AppTheme = {
   themeName: "light",
@@ -28,8 +30,8 @@ export const lightTheme: AppTheme = {
   accentColor: "var(--accent-light)",
   menuBackground: "rgba(255, 255, 255, 0.9)",
   menuBorder: "black",
-  menuShadow: "rgba(0, 0, 0, 0.2)"
-
+  menuShadow: "rgba(0, 0, 0, 0.2)",
+  focus: "rgba(0, 0, 0, 1)"
 };
 export const darkTheme: AppTheme = {
   themeName: "dark",
@@ -40,8 +42,8 @@ export const darkTheme: AppTheme = {
   menuBackground: "rgb(23,23,23)",
   menuBorder: "white",
   accentColor: "var(--accent-dark)",
-  menuShadow: "rgba(255, 255, 255, 0.2)"
-
+  menuShadow: "rgba(255, 255, 255, 0.2)",
+  focus: "rgba(255, 255, 255, 1)"
 };
 const global_vars = css`
   :root {
@@ -166,7 +168,7 @@ const base_css = css`
     padding: 0;
     margin: 0;
     //font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
-      //Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    //Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     font-family: "EB Garamond", serif;
     font-size: 16pt;
     color: var(--text-color-base);
@@ -212,9 +214,15 @@ const base_css = css`
     margin-top: -1px;
   }
 
+  *:focus-visible {
+    outline: 3px solid var(--focus-active);
+    outline-offset: unset !important;
+
+  }
+
   *:focus {
-    outline: 2px solid var(--focus);
-    outline-offset: var(--space-quarter);
+    //outline: 2px solid var(--focus);
+    //outline-offset: var(--space-quarter);
   }
 `;
 const themedVars = (theme: AppTheme) => css`
@@ -225,43 +233,48 @@ const themedVars = (theme: AppTheme) => css`
     --menu-background-color: ${theme.menuBackground};
     --menu-border: ${theme.menuBorder};
     --menu-shadow: ${theme.menuShadow};
+    --focus-active: ${theme.focus};
   }
 `;
 const GlobalStylesProvider = createGlobalStyle<ThemeProps<AppTheme>>`
   ${global_vars}
+
   @media (prefers-color-scheme: dark),(prefers-color-scheme: no-preference) {
     ${themedVars(darkTheme)}
   }
+
   @media (prefers-color-scheme: light) {
     ${themedVars(lightTheme)}
   }
+
   // If the user has selected a color theme via the theme picker, use that instead of the
   // preference supplied by "prefers-color-scheme".
-  ${({theme}) => {
+  ${({ theme }) => {
     if (theme) {
       return themedVars(theme);
     }
     return undefined;
   }}
   ${base_css}
-//  :root {
-//      
-//      //--white: #fff;
-//      --body-color: ${(props) => props.theme.body};
-//      --text-color: ${(props) => props.theme.text};
-//      --toggle-border-color: ${(props) => props.theme.toggleBorder};
-//      --background-color: ${(props) => props.theme.background};
-//    }
+    //  :root {
+    //      
+    //      //--white: #fff;
+      //      --body-color: ${(props) => props.theme.body};
+      //      --text-color: ${(props) => props.theme.text};
+      //      --toggle-border-color: ${(props) => props.theme.toggleBorder};
+      //      --background-color: ${(props) => props.theme.background};
+    //    }
   body, html {
     background: ${(t) => t.theme.background};
-    color: ${({ theme }) => theme.text} ;
+    color: ${({ theme }) => theme.text};
     //background: transparent;
 
   }
-    //* {
-    //  transition: all 0.50s linear;
-    //
-    //}
+
+  //* {
+  //  transition: all 0.50s linear;
+  //
+  //}
 
 `;
 export default GlobalStylesProvider;

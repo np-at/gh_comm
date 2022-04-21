@@ -1,19 +1,19 @@
 import React, { Fragment, useMemo } from "react";
-import type {ReactEventHandler} from "react";
-import type {  NextPageWithLayout } from "../_app.page";
+import type { ReactEventHandler } from "react";
+import type { NextPageWithLayout } from "../_app.page";
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import { getMarkdownFileContentFromPath } from "@lib/serverside_utils/pages";
-import type { ContentPageData} from "@lib/serverside_utils/pages";
+import type { ContentPageData } from "@lib/serverside_utils/pages";
 import type { IComment } from "@interfaces/IComment";
 import styled from "styled-components";
 import { getHighlightsSourceFiles } from "./utils";
 import Link from "next/link";
-import parse from "react-html-parser";
 import { niceDateDisplay } from "./FormattingUtils";
 import Head from "next/head";
 import RowDiv from "@components/Layout/Row";
 import NextImageFix from "@components/Reusable/NextImageFix";
 import { sanitizeSlug } from "@components/Comments/utils";
+import { breakpoints } from "@styles/MediaBreakpoints";
 
 export interface TimelineEventProps extends ContentPageData {
   path?: string;
@@ -40,10 +40,15 @@ export const getStaticProps: GetStaticProps<TimelinePageProps> = async () => {
   const hlightsSourceFiles = await getHighlightsSourceFiles();
   const timelineEvents: TimelineEventProps[] = await Promise.all(
     hlightsSourceFiles.map(async (file) => {
-      const evProps  =  (await getMarkdownFileContentFromPath(file)) as TimelineEventProps;
+      const evProps = (await getMarkdownFileContentFromPath(file)) as TimelineEventProps;
 
       // kludge
-      evProps.path = sanitizeSlug(file.replace(/^content[\/\\]events/, "timeline").replace(/\.md$/, "").replaceAll(/(\.md$)|(timeline[\/\\])/gim, ""));
+      evProps.path = sanitizeSlug(
+        file
+          .replace(/^content[\/\\]events/, "timeline")
+          .replace(/\.md$/, "")
+          .replaceAll(/(\.md$)|(timeline[\/\\])/gim, "")
+      );
       return evProps;
     })
   );
@@ -56,7 +61,8 @@ export const getStaticProps: GetStaticProps<TimelinePageProps> = async () => {
     }
   };
 };
-const Highlight: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> = ({
+
+const TimelinePage: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> = ({
   timelineEvents
 }) => {
   const [sortBy, setSortBy] = React.useState("date");
@@ -104,12 +110,14 @@ const Highlight: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProp
                   <h2>{event.title}</h2>
                   <div>{niceDateDisplay(event.date)}</div>
                 </div>
-                <div>{parse(event.body)}</div>
+                {(event.body && <div dangerouslySetInnerHTML={{ __html: event.body }}></div>) ?? (
+                  <div />
+                )}
                 {event.featured_image && (
                   <div>
                     <Link passHref={true} href={`/timeline/${event.path}`}>
                       <a>
-                        <Img src={event.featured_image} alt={event.title ?? ""} />
+                        <Img src={event.featured_image} alt={""} />
                       </a>
                     </Link>
                   </div>
@@ -125,6 +133,8 @@ const ExpandWrapper = styled.div`
   width: 100%;
 `;
 const EventCardContainer = styled.div`
+  --row-height: 30rem;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -142,13 +152,84 @@ const EventCardContainer = styled.div`
     height: 100%;
   }
 
-  & > article:nth-child(even) {
-    flex-direction: row-reverse;
-    @media screen and (max-width: 720px) {
-      flex-direction: column;
-    }
-    //background-color: rgba(108, 44, 175, 0.3);
+  // & > article:nth-child(even) {
+  //   flex-direction: row-reverse;
+  //   @media screen and (max-width: 720px) {
+  //     flex-direction: column;
+  //   }
+  //   //background-color: rgba(108, 44, 175, 0.3);
+  //
+  //   background: linear-gradient(
+  //     to right,
+  //     rgba(108, 44, 175, 0.1) 0%,
+  //     rgba(108, 44, 175, 0.3) 50%,
+  //     rgba(108, 44, 175, 0.5) 100%
+  //   );
+  //
+  //   @media screen and (min-width: 720px) {
+  //     & > div:first-child {
+  //       margin: 1.5rem;
+  //       //margin-right: 1rem;
+  //       //margin-left: 1rem;
+  //       text-align: right;
+  //
+  //       & h2 {
+  //         text-align: right;
+  //       }
+  //     }
+  //   }
+  // }
+  //
+  // & > article:nth-child(odd) {
+  //   @media screen and (max-width: 720px) {
+  //     flex-direction: column;
+  //   }
+  //   //background-color: rgba(255, 0, 0, 0.3);
+  //
+  //
+  //   @media screen and (min-width: ${breakpoints.md}) {
+  //     & > div:first-child {
+  //       margin-left: 1rem;
+  //       text-align: left;
+  //
+  //       & h2 {
+  //         text-align: left;
+  //       }
+  //     }
+  //   }
+  // }
+  //
+  // & > article {
+  //   @media screen and (max-width: ${breakpoints.md}) {
+  //     margin: 1rem 0;
+  //     text-align: center;
+  //     & > div > h2 {
+  //       text-align: center;
+  //     }
+  //
+  //     & > div:last-child {
+  //       // this pushes the image wrapper to the top
+  //       // visually but maintains heading structure
+  //       // for accessibility purposes
+  //       order: -1;
+  //     }
+  //   }
+  // }
+`;
+// noinspection CssReplaceWithShorthandSafely
+const EventCard = styled.article`
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-auto-flow: dense;
 
+  & > div {
+    // title and date cell
+    &:first-child {
+      text-align: center;
+    }
+  }
+
+  &:nth-child(even) {
     background: linear-gradient(
       to right,
       rgba(108, 44, 175, 0.1) 0%,
@@ -156,25 +237,30 @@ const EventCardContainer = styled.div`
       rgba(108, 44, 175, 0.5) 100%
     );
 
-    @media screen and (min-width: 720px) {
-      & > div:first-child {
-        margin: 1.5rem;
-        //margin-right: 1rem;
-        //margin-left: 1rem;
-        text-align: right;
+    & > div {
+      display: inline-block;
+      grid-row: 1 / span 1;
 
-        & h2 {
-          text-align: right;
-        }
+      // Title / date cell
+      &:first-child {
+        text-align: center;
+
+        grid-column: 1 / span 2;
+      }
+
+      // Card body cell
+      &:nth-child(2) {
+        grid-column: 3 / span 4;
+      }
+
+      // Image cell
+      &:nth-child(3) {
+        grid-column: 7 / span 3;
       }
     }
   }
 
-  & > article:nth-child(odd) {
-    @media screen and (max-width: 720px) {
-      flex-direction: column;
-    }
-    //background-color: rgba(255, 0, 0, 0.3);
+  &:nth-child(odd) {
     background: linear-gradient(
       to left,
       rgba(255, 0, 0, 0.1) 0%,
@@ -182,51 +268,63 @@ const EventCardContainer = styled.div`
       rgba(255, 0, 0, 0.5) 100%
     );
 
-    @media screen and (min-width: 720px) {
-      & > div:first-child {
-        margin-left: 1rem;
-        text-align: left;
+    & > div {
+      &:nth-child(1) {
+        grid-column: 8 / span 2;
+      }
 
-        & h2 {
-          text-align: left;
-        }
+      &:nth-child(2) {
+        grid-column: 4 / span 4;
+      }
+
+      &:nth-child(3) {
+        left: 0;
+        margin-right: auto;
+        grid-column: 1 / span 3;
       }
     }
   }
 
-  & > article {
-   
-    @media screen and (max-width: 720px) {
-      margin: 1rem 0;
-      text-align: center;
-      & > div > h2 {
-        text-align: center;
-      }
-
-      & > div:last-child {
-        // this pushes the image wrapper to the top
-        // visually but maintains heading structure
-        // for accessibility purposes
-        order: -1;
-      }
-    }
-  }
-`;
-// noinspection CssReplaceWithShorthandSafely
-const EventCard = styled.article`
-  --row-height: 30rem;
-
-  display: flex;
-  flex-direction: row;
+  //display: flex;
+  //flex-direction: row;
   align-items: flex-start;
   flex-wrap: nowrap;
   justify-content: flex-start;
 
   width: 100%;
   min-height: 12rem;
-  @media screen and (min-width: 720px) {
+  @media screen and (min-width: ${breakpoints.md}) {
     max-height: var(--row-height);
   }
+  @media screen and (max-width: ${breakpoints.md}) {
+    max-height: unset;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(9, 1fr);
+    & > div {
+      width: 100%;
+      display: block;
+      grid-column: unset !important;
+
+      &:nth-child(1) {
+        grid-row: span 2;
+        width: 100%;
+        height: auto;
+      }
+
+      &:nth-child(2) {
+        grid-row: span 4;
+      }
+
+      &:nth-child(3) {
+        left: unset;
+        margin-right: auto;
+        margin-left: auto;
+        grid-row: 1 / span 3;
+        
+      }
+    }
+  }
+
   //max-height: 50vh;
   //background-color: var(--card-background-color);
   //color: var(--card-text-color);
@@ -267,10 +365,14 @@ const EventCard = styled.article`
       //margin: 0;
       min-height: 13vh;
       max-height: var(--row-height);
+      &:focus-within {
+        outline: 2px solid var(--focus-active);
+        //outline-offset: 2px;
+      }
     }
   }
 
-  &:hover {
+  &:hover,&:focus-within {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   }
 
@@ -297,6 +399,7 @@ const Img = styled(NextImageFix)`
   max-height: var(--row-height);
   //height: auto;
   border-radius: 7px;
+
 `;
 // noinspection JSUnusedGlobalSymbols
-export default Highlight;
+export default TimelinePage;
