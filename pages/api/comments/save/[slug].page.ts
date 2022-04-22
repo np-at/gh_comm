@@ -1,15 +1,12 @@
-
 import { Octokit } from "@octokit/core";
-import  { StatusCodes } from "http-status-codes";
+import { StatusCodes } from "http-status-codes";
 import { createAppAuth } from "@octokit/auth-app";
 import type { NextApiRequest, NextApiResponse } from "next";
 import type { ICommentFile, ICommentStorage } from "@interfaces/IComment";
 import type { Endpoints } from "@octokit/types";
 import { getGithubParamsFromEnv } from "@components/Comments/utils";
 import { encrypt } from "@lib/encryption/crypto";
-//
-// type repoContentsRequestParameters =
-//   Endpoints["GET /repos/{owner}/{repo}/contents/{path}"]["parameters"];
+
 type repoContentsRequestResponse =
   Endpoints["GET /repos/{owner}/{repo}/contents/{path}"]["response"];
 
@@ -80,7 +77,7 @@ const SaveComment: (req: NextApiRequest, res: NextApiResponse) => Promise<void> 
       childrenIds: req.body.childrenIds ?? []
     };
 
-    //    const { slug } = req.query;
+
     const slug = req.body.page_name || req.query.slug;
 
     try {

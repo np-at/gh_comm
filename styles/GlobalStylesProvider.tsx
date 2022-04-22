@@ -1,5 +1,5 @@
-import { createGlobalStyle, css } from "styled-components";
 import type { ThemeProps } from "styled-components";
+import { createGlobalStyle, css } from "styled-components";
 import { breakpoints } from "@styles/MediaBreakpoints";
 
 export interface AppTheme {
@@ -154,15 +154,54 @@ const global_vars = css`
   //  }
   //}
 `;
+const css_reset = css`
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  * {
+    position: relative;
+  }
+  /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+  ul[role='list'],
+  ol[role='list'] {
+    list-style: none;
+  }
+  /* Inherit fonts for inputs and buttons */
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
 
+  /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+  @media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+`
 const base_css = css`
+  ${css_reset}
   :root {
     --breakpoint-small: ${breakpoints.sm};
     --breakpoint-medium: ${breakpoints.md};
     --breakpoint-large: ${breakpoints.lg};
     --breakpoint-xlarge: ${breakpoints.xl};
   }
-
+  
   html,
   body {
     padding: 0;
@@ -267,6 +306,7 @@ const GlobalStylesProvider = createGlobalStyle<ThemeProps<AppTheme>>`
   body, html {
     background: ${(t) => t.theme.background};
     color: ${({ theme }) => theme.text};
+    --mod-width: calc(100vw - (100vw - 100%));
     //background: transparent;
 
   }

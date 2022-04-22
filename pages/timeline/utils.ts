@@ -12,7 +12,6 @@ export const getHighlightsSourceFiles = async (returnFullPath: boolean = false) 
     : path.join(getContentDirectory(true), "events");
 
   const eventFiles = await fs.readdir(eventsDirectory, { encoding: "utf-8" });
-  // console.warn("eventFiles", eventFiles);
   const timelineEvents: string[] = [];
   for (let i = eventFiles.length - 1; i >= 0; i--) {
     const file = eventFiles[i];

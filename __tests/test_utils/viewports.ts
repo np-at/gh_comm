@@ -1,18 +1,19 @@
 import { ViewportSize } from "playwright-core";
-import { test as base} from "@playwright/test"
+import { test as base } from "@playwright/test";
+
 export const viewports: ViewportSize[] = [
-    {
-        width: 320,
-        height: 480,
-    },
-    {
-        width: 768,
-        height: 1024,
-    },
-    {
-        width: 1280,
-        height: 800,
-    },
+  {
+    width: 320,
+    height: 480
+  },
+  {
+    width: 768,
+    height: 1024
+  },
+  {
+    width: 1280,
+    height: 800
+  }
 ];
 export type ViewPortTestOptions = {
     viewportSize: ViewportSize;

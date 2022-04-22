@@ -18,7 +18,7 @@ const Main_Styled = styled.main`
   display: flex;
   justify-content: space-around;
   align-items: start;
-  width: 100vw;
+  width: var(--mod-width);
   overflow-x: clip;
   @media (max-width: ${breakpoints.md}) {
     margin-left: 0;
@@ -32,7 +32,7 @@ const Layout: React.FC<{ toggleThemeCallback?: () => void }> = ({
   toggleThemeCallback
 }) => {
   const {pathname} = useRouter();
-  console.log(pathname);
+
   const [isMobile, setIsMobile] = React.useState(false);
   useEffect(() => {
     const handleResize = () => {
@@ -41,11 +41,7 @@ const Layout: React.FC<{ toggleThemeCallback?: () => void }> = ({
         const remConversion = parseFloat(window.getComputedStyle(document.documentElement).fontSize);
         // breakpoint is the number of navigation items that fit in the viewport (~ 9 rem each)
         const isMobileSize = window.innerWidth < (remConversion * 9  * (items.length));
-        // isMobileSize ? setIsMobile(true) : setIsMobile(false);
-        // const mobileSizeSet = () =>
-        //   (isMobile && !isMobileSize && setIsMobile(false) && true) || false;
-        // const mobileSizeUnset = () =>
-        //   (!isMobile && isMobileSize && setIsMobile(true) && true) || false;
+     
         if (isMobile && !isMobileSize) {
           setIsMobile(false)
         } else if (!isMobile && isMobileSize) {
@@ -57,10 +53,10 @@ const Layout: React.FC<{ toggleThemeCallback?: () => void }> = ({
 
     };
     handleResize();
+
     if (window)
       window.addEventListener("resize", handleResize, { passive: true });
 
-    // handleResize();
     return () => {
       if (window) {
         window.removeEventListener("resize", handleResize);

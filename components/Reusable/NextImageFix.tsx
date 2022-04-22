@@ -3,9 +3,7 @@ import React from "react";
 import Image, { ImageProps } from "next/image";
 import styled from "styled-components";
 
-interface NextImageFixProps extends ImageProps {
-
-}
+interface NextImageFixProps extends ImageProps {}
 const NextImageFix: React.FC<ImageProps> = ({ layout, alt, priority, ...others }) => {
   if (layout) {
     console.warn("NextImageFix: layout prop is will be overwritten");

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { IComment } from "@interfaces/IComment";
-//import AddComment from "@components/Comments/AddComment";
+import type { IComment } from "@interfaces/IComment";
 import dynamic from "next/dynamic";
 import styled from "styled-components";
 

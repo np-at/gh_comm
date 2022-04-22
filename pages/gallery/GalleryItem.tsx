@@ -7,7 +7,7 @@ export interface GalleryItemProps {
   body: string;
   image: string;
   imageAlt: string;
-  card_type?: "white" | "black" | undefined;
+  card_type?: "white" | "black";
 }
 
 const GalleryItemPreview: React.FC<GalleryItemProps> = ({
@@ -18,15 +18,7 @@ const GalleryItemPreview: React.FC<GalleryItemProps> = ({
   imageAlt,
   card_type
 }) => {
-  // return (
-  //   <div className="gallery-item">
-  //     <img src={image} alt={title} />
-  //     <div className="gallery-item-info">
-  //       <h3>{title}</h3>
-  //       <p>{description}</p>
-  //     </div>
-  //   </div>
-  // );
+
 
   return (
     <article aria-labelledby={id} className={card_type ?? "white"}>

@@ -1,10 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useEffect } from "react";
 
 // Decorators
-
 // Components
-
 // Helpers and constansts
 import { cummulativeSeperation } from "../helpers";
 import Constants from "../Constants";
@@ -27,7 +24,7 @@ const defaultGetLabel = (date: string, _index?: number) =>
  * clicked passing that index along
  */
 const HorizontalTimeline: React.FC<HorizontalTimelineProps> = (props) => {
-
+  console.log("width", props.containerWidth);
   // Convert the date strings to actual date objects
   const dates = props.values.map((value) => new Date(value ?? ""));
   // Calculate the distances for all events
@@ -45,8 +42,11 @@ const HorizontalTimeline: React.FC<HorizontalTimelineProps> = (props) => {
     label: (getLabel && getLabel(props.values[index], index)) ?? "invalid label",
     date: props.values[index],
   }));
+  const [visibleWidth, setVisibleWidth] = React.useState<number>(props.containerWidth - 80);
+  useEffect(() => {
+    setVisibleWidth(props.containerWidth - 80);
+  }, [props.containerWidth]);
 
-  const visibleWidth = props.width - 80;
 
   const totalWidth = Math.max(events[events.length - 1].distance + props.linePadding!!, visibleWidth);
 
@@ -58,11 +58,10 @@ const HorizontalTimeline: React.FC<HorizontalTimelineProps> = (props) => {
   if (!props.isOpenBeginning) {
     barPaddingLeft = events[0].distance;
   }
-  console.log("events", events);
   return (
     <EventsBar2
-      width={props.width}
-      height={props.height}
+      width={props.containerWidth}
+      height={props.containerHeight}
       events={events}
       isTouchEnabled={props.isTouchEnabled ?? defaultProps.isTouchEnabled}
       totalWidth={totalWidth}
@@ -101,40 +100,9 @@ interface HorizontalTimelineProps  {
 
   isTouchEnabled?: boolean;
   isKeyboardEnabled?: boolean;
-  width: number;
-  height: number;
+  containerWidth: number;
+  containerHeight: number;
 }
-
-const propTypes = {
-  // --- EVENTS ---
-  // Selected index
-  index: PropTypes.number,
-  // Array containing the sorted date strings
-  values: PropTypes.arrayOf(PropTypes.string).isRequired,
-  // Function that takes the index of the array as argument
-  indexClick: PropTypes.func,
-  // Function to calculate the label based on the date string
-  getLabel: PropTypes.func,
-  // --- POSITIONING ---
-  // the minimum padding between events
-  minEventPadding: PropTypes.number,
-  // The maximum padding between events
-  maxEventPadding: PropTypes.number,
-  // Padding at the front and back of the line
-  linePadding: PropTypes.number,
-  // The width of the label
-  labelWidth: PropTypes.number,
-  // --- STYLING ---
-  styles: PropTypes.object,
-  fillingMotion: PropTypes.object,
-  slidingMotion: PropTypes.object,
-  isOpenEnding: PropTypes.bool,
-  isOpenBeginning: PropTypes.bool,
-  // --- INTERACTION ---
-  isTouchEnabled: PropTypes.bool,
-  isKeyboardEnabled: PropTypes.bool
-};
-
 /**
  * The values that the properties will take if they are not provided
  * by the user.
@@ -171,3 +139,4 @@ const propTypes = {
  HorizontalTimeline.defaultProps = defaultProps
 export default HorizontalTimeline;
 // export default Radium(dimensions({elementResize: true})(HorizontalTimeline));
+//export default Radium(HorizontalTimeline);

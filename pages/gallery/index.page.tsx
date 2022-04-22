@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
-import type {  GetStaticProps, InferGetStaticPropsType } from "next";
-import type {  NextPageWithLayout } from "../_app.page";
+import type { GetStaticProps, InferGetStaticPropsType } from "next";
+import type { NextPageWithLayout } from "../_app.page";
+import type { GalleryItemProps } from "./GalleryItem";
 import GalleryItemPreview from "./GalleryItem";
-import type { GalleryItemProps} from "./GalleryItem";
 import { getGalleryItems } from "./_gallery_helpers";
 import styled from "styled-components";
 import Head from "next/head";
@@ -13,7 +13,6 @@ interface GalleryPageProps {
 
 export const getStaticProps: GetStaticProps<GalleryPageProps> = async () => {
   const galleryItems = getGalleryItems();
-  // console.debug("galleryItems", galleryItems);
   return {
     props: {
       title: "Gallery",

@@ -15,10 +15,20 @@ const Row = styled.div`
 interface RowDivProps {
   alignment?: "center" | "left" | "right";
 }
-const RowDiv = styled.div<RowDivProps>`
+export const RowDiv = styled.div<RowDivProps>`
   width: 100%;
   display: block;
   text-align: ${props =>props.alignment ? props.alignment : "left"};
+`;
+export const FlexRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+//  max-width: ${(props) => props.theme.maxWidth};
+  padding: 0 1.0875rem;
 `;
 export const CenteredRow = styled(RowDiv)`
   width: 100%;

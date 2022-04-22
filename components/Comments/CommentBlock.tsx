@@ -29,20 +29,11 @@ const CommentBlock: React.FC<CommentBlockProps> = ({
 
   const { data, error, isLoading } = useFetch<ICommentFile>(
     `https://raw.githubusercontent.com/np-at/gh_comm/main/content/comments/${slug}.json`,
-    {}
+    {
+
+    }
   );
-  // const { data, error, isLoading } = useFetch<
-  //   Endpoints["GET /repos/{owner}/{repo}/contents/{path}"]["response"]
-  // >(
-  //   `https://api.github.com/repos/np-at/gh_comm/contents/content/comments/${sanitizedSlug}.json?ref=main`,
-  //
-  //   {
-  //     headers: {
-  //       // Accept: "application/vnd.github.v3.raw"
-  //     },
-  //     method: "GET"
-  //   }
-  // );
+
 
   useEffect(() => {
     if (!attemptPreemptiveFetch) {
@@ -53,12 +44,7 @@ const CommentBlock: React.FC<CommentBlockProps> = ({
     }
     if (!data) return;
     console.debug("content fetched", data);
-    // // @ts-ignore
-    // const intermediateContents = data.content
-    //   ? // @ts-ignore
-    //     JSON.parse<ICommentFile>(Buffer.from(data.content, "base64").toString()).comments
-    //   : [];
-    // const remoteComments = assembleCommentRelationships(intermediateContents.map(convertCommentStorageToDisplayClientSide)) ?? [];
+
     const remoteComments =
       assembleCommentRelationships(data.comments.map(convertCommentStorageToDisplayClientSide)) ??
       [];

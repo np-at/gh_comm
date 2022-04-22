@@ -1,9 +1,9 @@
-import React, { Fragment, useMemo } from "react";
 import type { ReactEventHandler } from "react";
+import React, { Fragment, useMemo } from "react";
 import type { NextPageWithLayout } from "../_app.page";
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
-import { getMarkdownFileContentFromPath } from "@lib/serverside_utils/pages";
 import type { ContentPageData } from "@lib/serverside_utils/pages";
+import { getMarkdownFileContentFromPath } from "@lib/serverside_utils/pages";
 import type { IComment } from "@interfaces/IComment";
 import styled from "styled-components";
 import { getHighlightsSourceFiles } from "./utils";

@@ -1,6 +1,9 @@
 import type { IComment } from "@interfaces/IComment";
 
-export const CompareCommentLists: (a: IComment[], b: IComment[]) => (boolean) = (a: IComment[], b: IComment[]) => {
+export const CompareCommentLists: (a: IComment[], b: IComment[]) => boolean = (
+  a: IComment[],
+  b: IComment[]
+) => {
   if (a.length !== b.length) {
     return false;
   }

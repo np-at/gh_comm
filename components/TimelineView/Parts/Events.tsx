@@ -3,11 +3,11 @@ import React from "react";
 import TimelineDot from "./TimelineDot";
 
 interface EventsProps {
-  events: TimelineEvent[],
-  selectedIndex: number,
-  styles?: object,
-  handleDateClick: (index: number) => any,
-  labelWidth: number
+  events: TimelineEvent[];
+  selectedIndex: number;
+  styles?: object;
+  handleDateClick: (index: number) => any;
+  labelWidth: number;
 }
 
 /**

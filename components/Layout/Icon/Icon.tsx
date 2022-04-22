@@ -1,5 +1,5 @@
+import type { ReactSVG } from "react";
 import React, { forwardRef, useEffect, useRef, useState } from "react";
-import type { ReactSVG} from "react";
 import classNames from "classnames";
 import "./index.module.css";
 import type { IconType } from "@components/Layout/Icon/types";
@@ -34,9 +34,7 @@ const Icon = forwardRef<HTMLDivElement, IconProps>(
       isMounted.current = true;
 
 
-      setupIcon()
-        .then((r) => console.log(r))
-        .catch((e) => console.error(e));
+      setupIcon().catch((e) => console.error(e));
 
       return () => {
         isMounted.current = false;

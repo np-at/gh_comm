@@ -4,12 +4,10 @@ import Events from "@components/TimelineView/Parts/Events";
 import Faders from "@components/TimelineView/Parts/Faders";
 import HorizontalTimelineButtons from "@components/TimelineView/Parts/HorizontalTimelineButtons";
 
-// @ts-ignore
-import { Motion, spring } from "@korbav/react-motion";
-import { EventsBarProps } from "@components/TimelineView/Parts/EventsBarProps";
+import type { EventsBarProps } from "@components/TimelineView/Parts/EventsBarProps";
 
 const EventsBar2: React.FC<EventsBarProps> = (props) => {
-  let [touch, setTouch] = useState({
+  const [touch, setTouch] = useState({
     coors: {
       x: 0,
       y: 0
@@ -23,21 +21,23 @@ const EventsBar2: React.FC<EventsBarProps> = (props) => {
     Math.min(props.visibleWidth - props.totalWidth, 0)
   );
 
-  const slideToPosition = useCallback(
-    (position: number) => {
+  const slideToPosition: (pos: number) => void = useCallback(
+    (pos: number) => {
       // Never scroll to the right
-      const maxPosition = Math.min(props.visibleWidth - props.totalWidth, 0);
-      setPosition(Math.max(Math.min(0, position), maxPosition));
-      setMaxPosition(maxPosition);
+      const maxPos = Math.min(props.visibleWidth - props.totalWidth, 0);
+      setPosition(Math.max(Math.min(0, pos), maxPos));
+      setMaxPosition(maxPos);
     },
     [props.totalWidth, props.visibleWidth]
   );
   const updateSlide = useCallback(
     (direction: string) => {
-      if (direction === "ArrowRight") {
+      if (direction === "ArrowRight" || direction === "right") {
         slideToPosition(position - props.visibleWidth + props.labelWidth);
-      } else if (direction === "ArrowLeft") {
+      } else if (direction === "ArrowLeft" || direction === "left") {
         slideToPosition(position + props.visibleWidth - props.labelWidth);
+      } else {
+        console.error("bad direction of : ", direction)
       }
     },
     [position, props.labelWidth, props.visibleWidth, slideToPosition]
@@ -94,10 +94,7 @@ const EventsBar2: React.FC<EventsBarProps> = (props) => {
     }
     if (!isSwiping) return;
   };
-  // useCallback<React.TouchEventHandler>((event) => {
-  //}, []);
-  // const handleTouchEnd = useCallback<React.TouchEventHandler>((event) => {
-  // }, []);
+
   const handleTouchEnd: React.TouchEventHandler = (_) => {
     slideToPosition(position);
     setTouch({
@@ -155,7 +152,7 @@ const EventsBar2: React.FC<EventsBarProps> = (props) => {
     : {};
 
   // filled value = distane from origin to the selected event
-  if (!props.index || !props.events[props.index]) {
+  if (props.index < 0 || !props.events[props.index]) {
     console.warn("index is invalid!!!", props.index);
     console.warn("selected event is invalid!!!", props.events[props.index]);
   }
@@ -180,44 +177,38 @@ const EventsBar2: React.FC<EventsBarProps> = (props) => {
               margin: "0 40px",
               overflow: "hidden"
             }}>
-            <Motion
-              style={{
-                X: spring(position, "slidingMotion")
-              }}>
-              {({ X }: { X: number }) => (
-                <div
-                  className="events"
-                  style={{
-                    position: "absolute",
-                    left: 0,
-                    top: 49,
-                    height: 2,
-                    width: props.totalWidth,
-                    WebkitTransform: `translate3d(${X}, 0, 0)px`,
-                    transform: `translate3d(${X}px, 0, 0)`
-                  }}>
-                  <EventLine
-                    left={props.barPaddingLeft}
-                    width={eventLineWidth}
-                    fillingMotion={props.fillingMotion}
-                    backgroundColor={props.styles?.outline}
-                  />
-                  <EventLine
-                    left={props.barPaddingLeft}
-                    width={filledValue}
-                    fillingMotion={props.fillingMotion}
-                    backgroundColor={props.styles?.foreground}
-                  />
-                  <Events
-                    events={props.events}
-                    selectedIndex={props.index}
-                    styles={props.styles}
-                    handleDateClick={props.indexClick}
-                    labelWidth={props.labelWidth}
-                  />
-                </div>
-              )}
-            </Motion>
+
+
+              <div
+                className="events"
+                style={{
+                  position: "absolute",
+                  left: 0,
+                  top: 49,
+                  height: 2,
+                  width: props.totalWidth,
+                  transition: "ease-in-out .3s transform",
+                  WebkitTransform: `translate3d(${position}, 0, 0)px`,
+                  transform: `translate3d(${position}px, 0, 0)`
+                }}>
+                <EventLine
+                  left={props.barPaddingLeft}
+                  width={eventLineWidth}
+                  backgroundColor={props.styles?.outline}
+                />
+                <EventLine
+                  left={props.barPaddingLeft}
+                  width={filledValue}
+                  backgroundColor={props.styles?.foreground}
+                />
+                <Events
+                  events={props.events}
+                  selectedIndex={props.index}
+                  styles={props.styles}
+                  handleDateClick={props.indexClick}
+                  labelWidth={props.labelWidth}
+                />
+              </div>
           </div>
           <Faders styles={props.styles} />
           <HorizontalTimelineButtons

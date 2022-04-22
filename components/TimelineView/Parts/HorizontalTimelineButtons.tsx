@@ -78,10 +78,10 @@ interface HorizontalTimelineButtonsProps {
 const HorizontalTimelineButtons: React.FC<HorizontalTimelineButtonsProps> = (props) => {
   const buttonBackEnabled = Math.round(props.position) < 0;
   const buttonForwardEnabled = Math.round(props.position) > Math.round(props.maxPosition);
-  const baseStyles = [buttonStyles.link(props.styles)];
+//  const baseStyles = [buttonStyles.link(props.styles)];
 
   return (
-    <ul className="buttons">
+    <ul className="buttons" style={{position: "static"}}>
       <li
         className={`button-back ${buttonBackEnabled ? "enabled" : "disabled"}`}
         key={Constants.LEFT}
@@ -121,18 +121,7 @@ const HorizontalTimelineButtons: React.FC<HorizontalTimelineButtonsProps> = (pro
   );
 };
 
-//
-// // Expected propteries
-// HorizontalTimelineButtons.propTypes = {
-//   // The function to update the slide
-//   updateSlide: PropTypes.func.isRequired,
-//   // Information about what portion of the timeline is visible between buttons
-//   position: PropTypes.number.isRequired,
-//   // The user passed styles (has fields like foreground, background color etc.)
-//   styles: PropTypes.object,
-//   // The maximum position that the timeline component can acuire, (on initial load will be null)
-//   maxPosition: PropTypes.number
-// };
+
 
 // Wrapping the buttons with Radium (so we get all the styling goodness)
 export default Radium(HorizontalTimelineButtons);

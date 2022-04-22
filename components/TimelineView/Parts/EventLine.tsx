@@ -1,6 +1,4 @@
-import React from 'react';
-// @ts-ignore
-import { Motion, spring, SpringHelperConfig } from "@korbav/react-motion";
+import React from "react";
 
 
 /**
@@ -12,29 +10,24 @@ import { Motion, spring, SpringHelperConfig } from "@korbav/react-motion";
 export interface EventLineProps {
   left: number;
   width: number;
-  fillingMotion: SpringHelperConfig;
   backgroundColor: string;
 }
-const EventLine: React.FC<EventLineProps> = ({left, width, fillingMotion, backgroundColor}) => (
-  <Motion style={{
-    tWidth: spring(width, fillingMotion),
-    tLeft: spring(left, fillingMotion),
-  }}>{({tWidth, tLeft}: {tWidth: number, tLeft: number}) =>
-    <span
-      aria-hidden='true'
-      className='timeline-eventline'
-      style={{
-        position: 'absolute',
-        left: `${tLeft}px`,
-        top: 0,
-        height: '100%',
-        width: `${tWidth}px`,
-        transformOrigin: 'left center',
-        backgroundColor
-      }}
-    />
-  }</Motion>
-);
+const EventLine: React.FC<EventLineProps> = ({left, width, backgroundColor}) => (<span
+  aria-hidden='true'
+  className='timeline-eventline'
+  style={{
+    transition: "left 0.2s ease-in-out, width 0.2s ease-in-out",
+    position: 'absolute',
+    left: `${left}px`,
+    top: 0,
+    height: '100%',
+    width: `${width}px`,
+    transformOrigin: 'left center',
+    backgroundColor
+  }}
+/>)
+
+;
 
 //
 // EventLine.propTypes = {

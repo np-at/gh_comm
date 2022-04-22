@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import config from "./_config";
 
-export const Comp: React.FC<{ NetlifyIdentity: any; NetlifyCMS: any, children?: never }> = ({
-                                                                            NetlifyIdentity,
-                                                                            NetlifyCMS
-                                                                          }) => {
+export const Comp: React.FC<{ NetlifyIdentity: any; NetlifyCMS: any; children?: never }> = ({
+  NetlifyIdentity,
+  NetlifyCMS
+}) => {
   const { reload } = useRouter();
   useEffect(() => {
     NetlifyIdentity.init();

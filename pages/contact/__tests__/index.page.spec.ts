@@ -1,5 +1,4 @@
-import { test, expect } from "@playwright/test";
-import { viewports } from "@test/test_utils/viewports";
+import { expect, test } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("http://localhost:3000/contact", { waitUntil: "domcontentloaded" });

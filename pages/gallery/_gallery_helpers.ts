@@ -9,13 +9,7 @@ const pseudoRandString = (length: number) => {
     let as;
     while (true) {
       as = Math.floor(Math.random() * 80 + 47);
-      if (as < 48) {
-        continue;
-      } else if (57 < as && as < 65) {
-        continue;
-      } else if (90 < as && as < 97) {
-        continue;
-      } else if (122 < as && as < 127) {
+      if (as < 48 || (57 < as && as < 65) || (90 < as && as < 97) || (122 < as && as < 127)) {
         continue;
       }
       break;
@@ -26,8 +20,7 @@ const pseudoRandString = (length: number) => {
 };
 const contentDir = path.join(getContentDirectory(true), "gallery");
 const getGalleryFile = (galleryName: string) => path.join(contentDir, galleryName);
-// const getGalleryImage = (galleryName: string, imageName: string) =>
-//   path.join(contentDir, "media", imageName);
+
 
 const getGalleryItem: (galleryName: string) => GalleryItemProps | undefined = (
   galleryName: string

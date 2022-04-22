@@ -1,13 +1,9 @@
-import type { InferGetStaticPropsType, NextPage } from "next";
-import type {  GetStaticProps } from "next";
+import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import type { IComment } from "@interfaces/IComment";
 import styled from "styled-components";
 
-import {
-  getMarkdownFileContentFromSlug,
-
-} from "@lib/serverside_utils/pages";
-import type {   HomePageCMSFields } from "@lib/serverside_utils/pages";
+import type { HomePageCMSFields } from "@lib/serverside_utils/pages";
+import { getMarkdownFileContentFromSlug } from "@lib/serverside_utils/pages";
 import type { AppThemeProps } from "@styles/GlobalStylesProvider";
 import { SRSpan } from "@components/Reusable/SROnly";
 import { Fragment } from "react";
@@ -24,7 +20,6 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async (_) => {
   if (s === null) {
     throw new Error("No home page found");
   }
-  // s.picture  = path.join(process.cwd(), "public", s.picture.replace(/^\//, ""));
   const comments = null;
   return {
     notFound: false,
@@ -39,7 +34,6 @@ const PageWrapper = styled.div`
   display: block;
 `
 const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (props) => {
-  // const resolvedImagePath  = `./../public/${props.matterData.picture.replace(/^\//, "")}`
 
   return (
     <Fragment>
@@ -218,24 +212,7 @@ const ArticleColumn = styled.div`
 const Img = styled(NextImageFix)`
   min-width: 1rem;
 `;
-//
-// const Img = styled.img`
-//   //object-fit: contain;
-//   width: 100% !important;
-//   //position: relative !important;
-//   //height: unset !important;
-//   //border-radius: 11px;
-//   padding-top: 2rem;
-// `;
-const PortraitWrapper2 = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-  margin-bottom: auto;
-`;
+
 const PortraitWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -249,13 +226,6 @@ const PortraitWrapper = styled.div`
     position: unset !important;
   }
 
-  //& > .image {
-  //  object-fit: contain;
-  //  width: 100% !important;
-  //  position: relative !important;
-  //  height: unset !important;
-  //}
-  //padding: 1.5em;
 `;
 const HomePageLayout = styled.div`
   margin-left:auto;

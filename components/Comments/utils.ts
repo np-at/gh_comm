@@ -18,7 +18,6 @@ export const getGithubParamsFromEnv: () => {
 
   if (err.length > 0) {
     err.forEach((x) => console.error(x));
-    // throw Error("env params not present")
   }
 
   return { owner, repo, ref };

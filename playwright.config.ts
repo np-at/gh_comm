@@ -1,6 +1,5 @@
 import type { PlaywrightTestConfig } from "@playwright/test";
 import { devices } from "@playwright/test";
-import path from "path";
 import { ViewPortTestOptions } from "@test/test_utils/viewports";
 /**
  * Read environment variables from file.

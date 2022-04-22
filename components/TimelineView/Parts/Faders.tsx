@@ -1,8 +1,7 @@
-import React from 'react';
-import PropTypes from "prop-types";
-import Radium from 'radium';
+import React from "react";
+import Radium from "radium";
 
-import Color from 'color';
+import Color from "color";
 
 const LEFT = 'left';
 const RIGHT = 'right';
@@ -63,17 +62,6 @@ const Faders: React.FC<FaderProps> = (props) => (
 );
 
 
-/**
- * The styles that parent will provide
- * @type {Object}
- */
-// const propTypes = {
-//   styles: PropTypes.shape({
-//     foreground: PropTypes.string.isRequired,
-//     background: PropTypes.string.isRequired,
-//     outline: PropTypes.string.isRequired
-//   })
-// };
 
 
 export default Radium(Faders);

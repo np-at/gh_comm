@@ -5,8 +5,8 @@
 const Constants =  {
   // Left and right are used to control the direciton in which we want to translate our
   // timeline
-  LEFT: 'ArrowLeft',
-  RIGHT: 'ArrowRight',
+  LEFT: 'left',
+  RIGHT: 'right',
 
   // The keycodes of all the arrow keys (used for keyboard navigation)
   LEFT_KEY: 37,
