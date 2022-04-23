@@ -68,7 +68,7 @@ const NavBarWrapper = styled.nav`
   background-color: var(--top-nav-background-color);
   color: var(--top-nav-text-color);
   //border-bottom: 2px solid var(--menu-border);
-  position: relative;
+  //position: relative;
 
   &::after {
     content: "";
@@ -79,7 +79,7 @@ const NavBarWrapper = styled.nav`
     height: 100%;
     //background-color: transparent;
     pointer-events: none;
-    //transform: translateY(1%);
+    transform: translateY(1%);
     border-bottom: 1px solid var(--menu-border);
   }
 

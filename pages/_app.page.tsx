@@ -9,6 +9,7 @@ import styled, { ThemeProvider } from "styled-components";
 
 export type NextPageWithLayout<T> = NextPage<T> & {
   getLayout?: (page: ReactElement) => ReactNode;
+  dontUseGlobalStyles?: boolean;
 };
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout<any>;
@@ -45,18 +46,20 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
     []
   );
   // Use the layout defined at the page level, if available
-  const getLayout = Component.getLayout;
+  const { getLayout, dontUseGlobalStyles } = Component;
+
   return (
     <Fragment>
       <ThemeProvider theme={themeSwitcher(theme)}>
-      <GlobalStylesProvider />
+        {!dontUseGlobalStyles && <GlobalStylesProvider />}
 
-      {(getLayout && getLayout(<Component {...pageProps} />)) || (
-        <Layout toggleThemeCallback={themeToggler}>
-          <Component {...pageProps} />
-        </Layout>
-      )}
-    </ThemeProvider></Fragment>
+        {(getLayout && getLayout(<Component {...pageProps} />)) || (
+          <Layout toggleThemeCallback={themeToggler}>
+            <Component {...pageProps} />
+          </Layout>
+        )}
+      </ThemeProvider>
+    </Fragment>
   );
 }
 

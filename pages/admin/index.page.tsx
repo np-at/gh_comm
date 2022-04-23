@@ -1,6 +1,7 @@
 import config from "./_config";
 import type { NextPageWithLayout } from "../_app.page";
 import React, { Fragment, useEffect } from "react";
+import styled from "styled-components";
 
 const AdminPage: NextPageWithLayout<{}> = () => {
   useEffect(() => {
@@ -49,11 +50,18 @@ const AdminPage: NextPageWithLayout<{}> = () => {
   return (
     <Fragment>
       <div id={"nc-id"} />
+      <CMSRootDiv id={"nc-root"} style={{position:"static"}} />
     </Fragment>
   );
 };
+const CMSRootDiv = styled.div`
+  position: static;
+& * {
+  position: initial;
+}`
+
 
 AdminPage.getLayout = (page) => page;
-
+AdminPage.dontUseGlobalStyles = true;
 // noinspection JSUnusedGlobalSymbols
 export default AdminPage;

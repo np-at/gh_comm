@@ -30,7 +30,6 @@ export const CommentForm: React.FC<{
             type={"text"}
             name={"username"}
             {...p.register("username", { required: true })}
-            defaultValue={""}
           />
         </label>
       </RowDiv>

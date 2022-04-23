@@ -154,6 +154,7 @@ const global_vars = css`
   //  }
   //}
 `;
+
 const css_reset = css`
   *,
   *::before,
@@ -263,6 +264,7 @@ const base_css = css`
     //outline: 2px solid var(--focus);
     //outline-offset: var(--space-quarter);
   }
+
 `;
 const themedVars = (theme: AppTheme) => css`
   :root {
