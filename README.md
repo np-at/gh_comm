@@ -1,5 +1,17 @@
 This repo contains the source for the memorial site of Dmitri Belser.
 
+## TODO:
+
+Add ability to create / view slideshow
+
+Add ability to create / embed audio
+
+Youtube embedding
+
+Remove contact page
+
+
+
 ## Overview
 
 The site is built using [NextJS](https://nextjs.org/docs).

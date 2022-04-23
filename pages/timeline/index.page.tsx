@@ -92,7 +92,7 @@ const TimelinePage: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticP
       </Head>
 
       <ExpandWrapper>
-        <h1>Highlights</h1>
+        <h1>Timeline</h1>
         <RowDiv alignment={"center"}>
           <label>
             Sort By:{" "}
