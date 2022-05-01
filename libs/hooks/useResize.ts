@@ -7,15 +7,17 @@ export interface UseResizeProps<T extends HTMLElement | undefined> {
   };
   existingRef?: React.RefObject<T>;
   onResize?: ({ width, height: height }: { width: number; height: number }) => void;
+  onResizeDeps?: any[];
 }
 
 
 export default function useResize<T extends HTMLElement | undefined>(props?: UseResizeProps<T>) {
   const [currentSize, setCurrentSize] = useState(props?.default ?? { width: 0, height: 0 });
   const ref = useRef<T>(props?.existingRef?.current ?? null);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const onResize = useCallback(props?.onResize ?? (()=>{
     // do nothing
-  }), [props?.onResize]);
+  }), [props?.onResize, ...props?.onResizeDeps ?? []]);
 
   useEffect(() => {
     const observer = new ResizeObserver((entries) => {

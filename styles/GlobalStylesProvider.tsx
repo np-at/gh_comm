@@ -279,7 +279,9 @@ const themedVars = (theme: AppTheme) => css`
 `;
 const GlobalStylesProvider = createGlobalStyle<ThemeProps<AppTheme>>`
   ${global_vars}
-
+  :root {
+    scroll-behavior: smooth;
+  }
   @media (prefers-color-scheme: dark),(prefers-color-scheme: no-preference) {
     ${themedVars(darkTheme)}
   }

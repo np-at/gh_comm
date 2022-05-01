@@ -72,9 +72,9 @@ const Layout: React.FC<{ toggleThemeCallback?: () => void }> = ({
           </NavItem>
         ))}
       </NavBar>
-      {toggleThemeCallback && (
-        <ThemeToggleButton onClick={toggleThemeCallback}>T</ThemeToggleButton>
-      )}
+      {/*{toggleThemeCallback && (*/}
+      {/*  <ThemeToggleButton onClick={toggleThemeCallback}>T</ThemeToggleButton>*/}
+      {/*)}*/}
 
       <Main_Styled>{children}</Main_Styled>
     </Fragment>
