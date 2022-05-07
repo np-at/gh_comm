@@ -1,49 +1,71 @@
-import type {
-  TimelineItemDistributionProps,
-  TimelineItempProps
-} from "@components/Timeline/Timeline";
+import type { TimelineItemDistributionProps } from "@components/Timeline/Timeline";
+import { TimelineItempProps } from "@components/Timeline/TimelineItem";
 
-export const calculateSpacing: (
+type CalculateSpacingProps = (
   items: TimelineItemDistributionProps[],
   totalWidth: number,
   startPadding?: number,
   endPadding?: number,
-  itemHeight?: number
-) => { size: number | null; content?: string; id?: string }[] = (
+  itemHeight?: number,
+  minEventPadding?: number,
+  maxEventPadding?: number,
+  labelWidth?: number
+) => { size: number | null; content?: string; id?: string }[];
+
+//
+export const calculateSpacing: CalculateSpacingProps = (
   items,
-  totalWidth,
+  totalHeight,
   startPadding,
   endPadding,
-  itemHeight
+  itemHeight,
+  _minEventPadding,
+  _maxEventPadding,
+  _labelWidth
 ) => {
   const spacing: { size: number | null; content?: string; id?: string }[] = [];
   const availableSpace: number =
-    totalWidth - (startPadding ?? 0) - (endPadding ?? 0) - (itemHeight ?? 0) * items.length;
+    totalHeight - (startPadding ?? 0) - (endPadding ?? 0) - (itemHeight ?? 0) * items.length;
   // 1 month
-  const divheight = (totalWidth - (startPadding ?? 0) - (endPadding ?? 0))  / (Math.max(new Date(items[items.length - 1].date).getTime() - (new Date(items[0].date )).getTime(), 0) / (1000 * 60 * 60 * 24));
-  console.log("divheight", divheight);
-  // if (startPadding) spacing.push({ size: startPadding });
+  const divheight =
+    (totalHeight - (startPadding ?? 0) - (endPadding ?? 0)) /
+    (Math.max(
+      new Date(items[items.length - 1].date).getTime() - new Date(items[0].date).getTime(),
+      0
+    ) /
+      (1000 * 60 * 60 * 24));
+
+  const padSpace = (size: number) => {
+    let currentSpace = 0;
+    while (currentSpace < size) {
+      const remaining = size - currentSpace;
+      if (remaining < divheight) {
+        spacing.push({ size: remaining });
+        break;
+      }
+      spacing.push({ size: divheight });
+      currentSpace += divheight;
+    }
+  };
+  if (startPadding) padSpace(startPadding);
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
-    if (i == 0) {
-      if (startPadding) {
-        spacing.push({ size: startPadding });
-      }
-    } else if (i == items.length - 1 && endPadding) spacing.push({ size: endPadding });
-    else {
-      let currentSpace = 0
-      const targetSpacing = (item.distribution - items[i - 1].distribution) * availableSpace;
-      while (currentSpace < targetSpacing) {
-        currentSpace += divheight;
-        spacing.push({ size: divheight });
-      }
-      // spacing.push({
-      //   size: (item.distribution - items[i - 1]?.distribution) * availableSpace
-      // });
-    }
+
+    // let currentSpace = 0;
+    const targetSpacing = (item.distribution - (items[i - 1]?.distribution ?? 0)) * availableSpace;
+    // while (currentSpace < targetSpacing) {
+    //   currentSpace += divheight;
+    //   spacing.push({ size: divheight });
+    // }
+    padSpace(targetSpacing);
+    // spacing.push({
+    //   size: (item.distribution - items[i - 1]?.distribution) * availableSpace
+    // });
+
     spacing.push({ size: itemHeight ?? null, content: item.label, id: item.id });
   }
-  if (endPadding) spacing.push({ size: endPadding });
+  if (endPadding) padSpace(endPadding);
+  // if (endPadding) spacing.push({ size: endPadding });
   return spacing;
 };
 

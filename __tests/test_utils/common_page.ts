@@ -1,6 +1,5 @@
 import { expect, Page } from "@playwright/test";
 
-
 export type PageTitleTest = {
   title?: string;
 };

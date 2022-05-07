@@ -1,5 +1,5 @@
-import Document, { DocumentContext, Head, Html, Main, NextScript } from "next/document";
-import { ServerStyleSheet } from "styled-components";
+import Document, {DocumentContext, Head, Html, Main, NextScript} from "next/document";
+import {ServerStyleSheet} from "styled-components";
 
 
 // noinspection JSUnusedGlobalSymbols

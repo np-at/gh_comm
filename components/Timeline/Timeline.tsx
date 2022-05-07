@@ -1,54 +1,18 @@
-import React, { useCallback, useMemo, useState } from "react";
-import type { MouseEventHandler } from "react";
+import React, { useLayoutEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { calculateDistribution } from "@components/Timeline/utils";
 import useResize from "@lib/hooks/useResize";
 import TimelineGuideO from "@components/Timeline/TimelineGuide0";
+import TimelineItemP, { TimelineItempProps } from "@components/Timeline/TimelineItem";
 
 export interface TimelineProps {
   items?: TimelineItempProps[];
 }
 
-export interface TimelineItempProps {
-  id?: string;
-  isFirst?: boolean;
-  isLast?: boolean;
-  title: string;
-  date: string;
-  description: string;
-  onHoverCallback?: MouseEventHandler<HTMLDivElement>;
-}
-
-const TimelineItemP: React.FC<TimelineItempProps> = ({
-  title,
-  date,
-  description,
-  onHoverCallback,
-  id
-}) => {
-  const hoverHandler: MouseEventHandler<HTMLDivElement> = useCallback(
-    (e) => {
-      if (onHoverCallback) {
-        onHoverCallback(e);
-      }
-    },
-    [onHoverCallback]
-  );
-  return (
-    <TimelineItem id={id} tabIndex={-1} onMouseOver={hoverHandler}>
-      <TimelineItemContent>
-        <TimelineItemTitle>
-          <TimelineItemTitleText>{title}</TimelineItemTitleText>
-          <TimelineItemTitleDate>{date}</TimelineItemTitleDate>
-        </TimelineItemTitle>
-        <TimelineItemDescription>
-          <TimelineItemDescriptionText>{description}</TimelineItemDescriptionText>
-        </TimelineItemDescription>
-      </TimelineItemContent>
-    </TimelineItem>
-  );
-};
 const Timeline: React.FC<TimelineProps> = ({ items }) => {
+  useLayoutEffect(() => {
+    items?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  }, [items]);
   const [elementDimensions, setElementDimensions] = useState({ width: 500, height: 600 });
 
   const { ref: wrapperRef } = useResize<HTMLDivElement>({
@@ -63,34 +27,38 @@ const Timeline: React.FC<TimelineProps> = ({ items }) => {
     return calculateDistribution(items);
   }, [items]);
   const [pointerIndex, setPointerIndex] = useState(0);
-  let lastUpdateTime = 0;
   const updatePointerIndex = (index: number) => {
-    if (pointerIndex !== index) {
-      setPointerIndex(index);
-      lastUpdateTime = Date.now();
-    }
+    if (pointerIndex !== index) setPointerIndex(index);
   };
   return (
     <TimelineOuterWrapper ref={wrapperRef}>
-      <TimelineGuideO
-        containerHeight={elementDimensions.height}
-        itemDistribution={itemDist}
-        currentIndex={pointerIndex}
-      />
+      <GuideWrapper>
+        {itemDist && (
+          <TimelineGuideO
+            containerHeight={elementDimensions.height * 2}
+            itemDistribution={itemDist}
+            currentIndex={pointerIndex}
+          />
+        )}
+      </GuideWrapper>
       <TimelineInnerWrapper>
-        {itemDist &&
-          itemDist.map((item, index) => {
-            return <TimelineItemP
-              id={item.id}
-              onHoverCallback={() => updatePointerIndex(index)}
-              key={`${item.title}-${index}`}
-              isFirst={index === 0}
-              isLast={index === itemDist.length - 1}
-              title={item.title}
-              date={item.date}
-              description={item.description}
-            />;
-          })}
+        <div>
+          {itemDist &&
+            itemDist.map((item, index) => {
+              return (
+                <TimelineItemP
+                  id={item.id}
+                  onHoverCallback={() => updatePointerIndex(index)}
+                  key={`${item.title}-${index}`}
+                  isFirst={index === 0}
+                  isLast={index === itemDist.length - 1}
+                  title={item.title}
+                  date={item.date}
+                  description={item.description}
+                />
+              );
+            })}
+        </div>
       </TimelineInnerWrapper>
     </TimelineOuterWrapper>
   );
@@ -107,106 +75,55 @@ export interface TimelineGuideDProps {
   currentIndex: number;
 }
 
+const GuideWrapper = styled.div`
+  top: 0;
+  margin-top: 0;
+  flex: none;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 10vw;
+  display: block;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  scroll-behavior: smooth;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
 const TimelineOuterWrapper = styled.div`
   margin-right: 1rem;
   margin-left: 0;
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: auto 1fr;
 `;
 const TimelineInnerWrapper = styled.div`
-  box-sizing: content-box;
-  //margin-top: 3rem;
-  margin-bottom: 5rem;
-  margin-left: 8rem;
-  margin-right: auto;
-  //padding: 3rem 5rem 10rem;
-  width: 80%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  //position: static;
+  display: block;
 
-`;
-const TimelineItem = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  
-  align-items: center;
-  justify-content: center;
-  margin: 20px auto 1rem auto;
-  padding-left: 4em;
-  padding-right: 4em;
-
-`;
-const TimelineItemContent = styled.div`
-  outline: 1px solid black;
-
-
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  //margin-right: 3rem;
-  //margin: 20px 13em 20px 3em;
-  margin: 20px auto;
-  padding-bottom: 1em;
-  &:hover,&:focus,&:focus-within {
-    outline: 3px solid black;
+  & > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    //height: 100%;
+    padding-bottom: 5rem;
   }
-`;
-const TimelineItemTitle = styled.div`
+
+  box-sizing: border-box;
+
+  padding-top: 2em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
-`;
-const TimelineItemTitleText = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
-`;
-const TimelineItemTitleDate = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
-`;
-const TimelineItemDescription = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
-`;
-const TimelineItemDescriptionText = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
+  outline: 3px purple solid;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
 `;
 
 export default Timeline;

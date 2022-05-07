@@ -1,18 +1,18 @@
 //noinspection JSUnusedGlobalSymbols
 
 import React from "react";
-import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
-import { getContentDirectory, getMarkdownFileContentFromPath } from "@lib/serverside_utils/pages";
-import { join } from "node:path";
-import type { TimelineEventProps } from "./index.page";
-import type { NextPageWithLayout } from "../_app.page";
+import type {GetStaticPaths, GetStaticProps, InferGetStaticPropsType} from "next";
+import {getContentDirectory, getMarkdownFileContentFromPath} from "@lib/serverside_utils/pages";
+import {join} from "node:path";
+import type {TimelineEventProps} from "./index.page";
+import type {NextPageWithLayout} from "../_app.page";
 import CommentBlock from "@components/Comments/CommentBlock";
-import { getHighlightsSourceFiles } from "./utils";
+import {getHighlightsSourceFiles} from "./utils";
 import styled from "styled-components";
-import RowDiv, { CenteredRow } from "@components/Layout/Row";
-import { getCommentsFromStatic } from "@lib/comments/_utils";
-import { sanitizeSlug } from "@components/Comments/utils";
-import { niceDateDisplay } from "./FormattingUtils";
+import RowDiv, {CenteredRow} from "@components/Layout/Row";
+import {getCommentsFromStatic} from "@lib/comments/_utils";
+import {sanitizeSlug} from "@components/Comments/utils";
+import {niceDateDisplay} from "./FormattingUtils";
 import NextImageFix from "@components/Reusable/NextImageFix";
 
 // TODO: make this less awful

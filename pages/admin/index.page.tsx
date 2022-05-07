@@ -50,7 +50,7 @@ const AdminPage: NextPageWithLayout<{}> = () => {
   return (
     <Fragment>
       <div id={"nc-id"} />
-      <CMSRootDiv id={"nc-root"} style={{position:"static"}} />
+      <CMSRootDiv id={"nc-root"} style={{ position: "static" }} />
     </Fragment>
   );
 };

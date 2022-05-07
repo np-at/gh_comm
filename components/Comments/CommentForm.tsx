@@ -26,11 +26,7 @@ export const CommentForm: React.FC<{
       <RowDiv>
         <label>
           <span>Display Name</span>
-          <input
-            type={"text"}
-            name={"username"}
-            {...p.register("username", { required: true })}
-          />
+          <input type={"text"} name={"username"} {...p.register("username", { required: true })} />
         </label>
       </RowDiv>
       <RowDiv>

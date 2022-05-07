@@ -3,7 +3,7 @@ import Radium from "radium";
 
 import Color from "color";
 
-const LEFT = 'left';
+const LEFT = "left";
 const RIGHT = 'right';
 
 

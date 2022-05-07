@@ -14,7 +14,8 @@ const items = [
   ["Contact?", "contact"],
   ["Galerie-de-Dmitri", "gallery"]
 ];
-const Main_Styled = styled.main`
+const Main_Styled = styled.main<{fixedHeight?: string|number}>`
+  height: ${({ fixedHeight }) => fixedHeight ?? "auto"};
   display: flex;
   justify-content: space-around;
   align-items: start;
@@ -27,56 +28,56 @@ const Main_Styled = styled.main`
     padding-right: 0;
   }
 `;
-const Layout: React.FC<{ toggleThemeCallback?: () => void }> = ({
+const Layout: React.FC<{ toggleThemeCallback?: () => void, fixedPageSize?: string|number }> = ({
   children,
-  toggleThemeCallback
+  toggleThemeCallback,
+    fixedPageSize
 }) => {
-  const {pathname} = useRouter();
+  const { pathname } = useRouter();
 
   const [isMobile, setIsMobile] = React.useState(false);
+  console.log("page size",fixedPageSize)
   useEffect(() => {
     const handleResize = () => {
       // calculate width of 1 rem in pixels
-      if (window && document){
-        const remConversion = parseFloat(window.getComputedStyle(document.documentElement).fontSize);
+      if (window && document) {
+
+        const remConversion = parseFloat(
+          window.getComputedStyle(document.documentElement).fontSize
+        );
         // breakpoint is the number of navigation items that fit in the viewport (~ 9 rem each)
-        const isMobileSize = window.innerWidth < (remConversion * 9  * (items.length));
-     
+        const isMobileSize = window.innerWidth < remConversion * 9 * items.length;
+
         if (isMobile && !isMobileSize) {
-          setIsMobile(false)
+          setIsMobile(false);
         } else if (!isMobile && isMobileSize) {
           setIsMobile(true);
         }
-
       }
-
-
     };
     handleResize();
 
-    if (window)
-      window.addEventListener("resize", handleResize, { passive: true });
+    window?.addEventListener("resize", handleResize, { passive: true });
 
     return () => {
-      if (window) {
-        window.removeEventListener("resize", handleResize);
-      }
+      window?.removeEventListener("resize", handleResize);
     };
   }, [isMobile]);
   return (
     <Fragment>
       <NavBar collapsed={isMobile} navTriggerLabel={"menu"}>
-        {items && items.map((x, i) => (
-          <NavItem key={`${x[0]}-${i}`} active={pathname == `/${x[1]}`}>
-            <NavLink href={`/${x[1]}`}>{x[0]}</NavLink>
-          </NavItem>
-        ))}
+        {items &&
+          items.map((x, i) => (
+            <NavItem key={`${x[0]}-${i}`} active={pathname == `/${x[1]}`}>
+              <NavLink href={`/${x[1]}`}>{x[0]}</NavLink>
+            </NavItem>
+          ))}
       </NavBar>
       {/*{toggleThemeCallback && (*/}
       {/*  <ThemeToggleButton onClick={toggleThemeCallback}>T</ThemeToggleButton>*/}
       {/*)}*/}
 
-      <Main_Styled>{children}</Main_Styled>
+      <Main_Styled fixedHeight={fixedPageSize}>{children}</Main_Styled>
     </Fragment>
   );
 };

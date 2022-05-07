@@ -37,7 +37,7 @@ const EventsBar2: React.FC<EventsBarProps> = (props) => {
       } else if (direction === "ArrowLeft" || direction === "left") {
         slideToPosition(position + props.visibleWidth - props.labelWidth);
       } else {
-        console.error("bad direction of : ", direction)
+        console.error("bad direction of : ", direction);
       }
     },
     [position, props.labelWidth, props.visibleWidth, slideToPosition]
@@ -106,8 +106,6 @@ const EventsBar2: React.FC<EventsBarProps> = (props) => {
       started: false,
       threshold: touch.threshold
     });
-
-
   };
   useEffect(() => {
     document.body.addEventListener("keydown", handleKeyDown);
@@ -177,38 +175,36 @@ const EventsBar2: React.FC<EventsBarProps> = (props) => {
               margin: "0 40px",
               overflow: "hidden"
             }}>
-
-
-              <div
-                className="events"
-                style={{
-                  position: "absolute",
-                  left: 0,
-                  top: 49,
-                  height: 2,
-                  width: props.totalWidth,
-                  transition: "ease-in-out .3s transform",
-                  WebkitTransform: `translate3d(${position}, 0, 0)px`,
-                  transform: `translate3d(${position}px, 0, 0)`
-                }}>
-                <EventLine
-                  left={props.barPaddingLeft}
-                  width={eventLineWidth}
-                  backgroundColor={props.styles?.outline}
-                />
-                <EventLine
-                  left={props.barPaddingLeft}
-                  width={filledValue}
-                  backgroundColor={props.styles?.foreground}
-                />
-                <Events
-                  events={props.events}
-                  selectedIndex={props.index}
-                  styles={props.styles}
-                  handleDateClick={props.indexClick}
-                  labelWidth={props.labelWidth}
-                />
-              </div>
+            <div
+              className="events"
+              style={{
+                position: "absolute",
+                left: 0,
+                top: 49,
+                height: 2,
+                width: props.totalWidth,
+                transition: "ease-in-out .3s transform",
+                WebkitTransform: `translate3d(${position}, 0, 0)px`,
+                transform: `translate3d(${position}px, 0, 0)`
+              }}>
+              <EventLine
+                left={props.barPaddingLeft}
+                width={eventLineWidth}
+                backgroundColor={props.styles?.outline}
+              />
+              <EventLine
+                left={props.barPaddingLeft}
+                width={filledValue}
+                backgroundColor={props.styles?.foreground}
+              />
+              <Events
+                events={props.events}
+                selectedIndex={props.index}
+                styles={props.styles}
+                handleDateClick={props.indexClick}
+                labelWidth={props.labelWidth}
+              />
+            </div>
           </div>
           <Faders styles={props.styles} />
           <HorizontalTimelineButtons

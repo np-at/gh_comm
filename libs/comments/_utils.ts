@@ -1,8 +1,8 @@
-import type { IComment, ICommentFile, ICommentStorage } from "@interfaces/IComment";
+import type {IComment, ICommentFile, ICommentStorage} from "@interfaces/IComment";
 import path from "path";
-import { readFileSync } from "fs";
-import { decrypt } from "@lib/encryption/crypto";
-import { assembleCommentRelationships } from "@lib/comments/assembleCommentRelationships";
+import {readFileSync} from "fs";
+import {decrypt} from "@lib/encryption/crypto";
+import {assembleCommentRelationships} from "@lib/comments/assembleCommentRelationships";
 
 // export const getComments = async (slug: string): Promise<Array<IComment> | null> => {
 //     const {ref, repo, owner} = getGithubParamsFromEnv()

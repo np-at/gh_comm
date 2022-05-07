@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 
 // Decorators
 // Components
 // Helpers and constansts
-import { cummulativeSeperation } from "../helpers";
+import {cummulativeSeperation} from "../helpers";
 import Constants from "../Constants";
-import { TimelineEvent } from "@components/TimelineView/Parts/Events";
+import {TimelineEvent} from "@components/TimelineView/Parts/Events";
 import EventsBar2 from "@components/TimelineView/Parts/EventsBar2";
 
 /**
