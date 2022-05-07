@@ -10,9 +10,38 @@ type CalculateSpacingProps = (
   minEventPadding?: number,
   maxEventPadding?: number,
   labelWidth?: number
-) => { size: number | null; content?: string; id?: string }[];
+) => SpacingBlock[];
 
-//
+export enum SpacingType {
+  Unlabeled,
+  Link,
+  Labeled
+}
+
+interface SpacingBlock {
+  size: number | null;
+  content?: string;
+  id?: string;
+  type: SpacingType;
+  key: string;
+}
+const day: number = 24 * 60 * 60 * 1000;
+const week: number = 7 * day;
+const month: number = 4 * week;
+const year: number = 365 * day;
+const divTimeIncrement = (timeSpanTotal: number) => {
+  if (timeSpanTotal < 9 * month) {
+    return day;
+  }
+  if (timeSpanTotal < 1.5 * year) {
+    return week;
+  }
+  if (timeSpanTotal < 3 * year) {
+    return month;
+  }
+  return year;
+};
+// Calculate the spacing between each item
 export const calculateSpacing: CalculateSpacingProps = (
   items,
   totalHeight,
@@ -23,27 +52,34 @@ export const calculateSpacing: CalculateSpacingProps = (
   _maxEventPadding,
   _labelWidth
 ) => {
-  const spacing: { size: number | null; content?: string; id?: string }[] = [];
+  let keyCounter = 0;
+  const nextKey: () => string = () => {
+    keyCounter++;
+    return `sp-${keyCounter}`;
+  }
+  const spacing: SpacingBlock[] = [];
   const availableSpace: number =
     totalHeight - (startPadding ?? 0) - (endPadding ?? 0) - (itemHeight ?? 0) * items.length;
   // 1 month
+
+
+  const timeSpan = Math.max(
+    new Date(items[items.length - 1].date).getTime() - new Date(items[0].date).getTime(),
+    1
+  );
   const divheight =
     (totalHeight - (startPadding ?? 0) - (endPadding ?? 0)) /
-    (Math.max(
-      new Date(items[items.length - 1].date).getTime() - new Date(items[0].date).getTime(),
-      0
-    ) /
-      (1000 * 60 * 60 * 24));
+    (timeSpan / divTimeIncrement(timeSpan));
 
   const padSpace = (size: number) => {
     let currentSpace = 0;
     while (currentSpace < size) {
       const remaining = size - currentSpace;
       if (remaining < divheight) {
-        spacing.push({ size: remaining });
+        spacing.push({ size: remaining, type: SpacingType.Unlabeled, key: nextKey() });
         break;
       }
-      spacing.push({ size: divheight });
+      spacing.push({ size: divheight, type: SpacingType.Unlabeled, key: nextKey() });
       currentSpace += divheight;
     }
   };
@@ -51,21 +87,19 @@ export const calculateSpacing: CalculateSpacingProps = (
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
 
-    // let currentSpace = 0;
     const targetSpacing = (item.distribution - (items[i - 1]?.distribution ?? 0)) * availableSpace;
-    // while (currentSpace < targetSpacing) {
-    //   currentSpace += divheight;
-    //   spacing.push({ size: divheight });
-    // }
-    padSpace(targetSpacing);
-    // spacing.push({
-    //   size: (item.distribution - items[i - 1]?.distribution) * availableSpace
-    // });
 
-    spacing.push({ size: itemHeight ?? null, content: item.label, id: item.id });
+    padSpace(targetSpacing);
+
+    spacing.push({
+      size: itemHeight ?? null,
+      content: item.label,
+      id: item.id,
+      type: SpacingType.Link,
+      key: nextKey()
+    });
   }
   if (endPadding) padSpace(endPadding);
-  // if (endPadding) spacing.push({ size: endPadding });
   return spacing;
 };
 

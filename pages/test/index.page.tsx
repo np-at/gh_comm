@@ -6,7 +6,7 @@ import type {TimelineItempProps} from "@components/Timeline/TimelineItem";
 
 const testItems: TimelineItempProps[] = [
   {
-    date: "2020-01-01",
+    date: "2019-01-20",
     title: "test",
     description: "test"
   },

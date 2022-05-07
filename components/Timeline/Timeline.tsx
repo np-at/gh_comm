@@ -10,9 +10,6 @@ export interface TimelineProps {
 }
 
 const Timeline: React.FC<TimelineProps> = ({ items }) => {
-  useLayoutEffect(() => {
-    items?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-  }, [items]);
   const [elementDimensions, setElementDimensions] = useState({ width: 500, height: 600 });
 
   const { ref: wrapperRef } = useResize<HTMLDivElement>({
@@ -80,8 +77,9 @@ const GuideWrapper = styled.div`
   margin-top: 0;
   flex: none;
   overflow-y: scroll;
-  overflow-x: hidden;
+  overflow-x: clip;
   width: 10vw;
+  min-width: 8em;
   display: block;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
