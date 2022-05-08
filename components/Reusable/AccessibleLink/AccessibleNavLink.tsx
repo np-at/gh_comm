@@ -4,6 +4,7 @@ import Link, { LinkProps } from "next/link";
 import styled from "styled-components";
 
 export interface NavLinkProps extends LinkProps {
+  children?: React.ReactNode;
   _stripStyling?: boolean;
 }
 

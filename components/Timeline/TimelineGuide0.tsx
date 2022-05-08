@@ -19,7 +19,6 @@ const TimelineGuideO: React.FC<TimelineGuideDProps> = ({
     () => calculateSpacing(itemDistribution, containerHeight, 0, 20, emHeight),
     [itemDistribution, containerHeight, emHeight]
   );
-  // console.warn("itemSpacing", itemSpacing);
   const guideRef = useRef<HTMLDivElement>(null);
   const [pointerPosition, setPointerPosition] = useState(0);
   const pointerPositions = useMemo(() => {
@@ -70,7 +69,6 @@ const TimelineGuideO: React.FC<TimelineGuideDProps> = ({
     <TimelineGuide
       pointerHeight={pointerPosition}
       viewStartOffset={0}
-      viewHeight={800}
       ref={guideRef}>
       <div>
         {itemSpacing.map((v) => {
@@ -116,7 +114,6 @@ const TimelineGuideItem = styled.div`
 const TimelineGuide = styled.div<{
   pointerHeight: number;
   viewStartOffset: number;
-  viewHeight: number;
 }>`
   //margin-top: 1em;
   pointer-events: none;
@@ -125,7 +122,6 @@ const TimelineGuide = styled.div<{
   top: 0;
   left: 0;
   width: 100%;
-  height: ${(props) => props.viewHeight}px;
   background-color: transparent;
   z-index: 1;
   border-left: 5px solid red;

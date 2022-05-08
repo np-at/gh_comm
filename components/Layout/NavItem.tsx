@@ -2,7 +2,7 @@ import React from "react";
 import classNames from "classnames";
 
 interface NavItemProps extends React.HTMLAttributes<HTMLLIElement> {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   active: boolean;
 }
 

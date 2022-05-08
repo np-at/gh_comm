@@ -28,9 +28,9 @@ const Main_Styled = styled.main<{fixedHeight?: string|number}>`
     padding-right: 0;
   }
 `;
-const Layout: React.FC<{ toggleThemeCallback?: () => void, fixedPageSize?: string|number }> = ({
+const Layout: React.FC<{ children?: React.ReactNode ,toggleThemeCallback?: () => void, fixedPageSize?: string|number }> = ({
   children,
-  toggleThemeCallback,
+
     fixedPageSize
 }) => {
   const { pathname } = useRouter();

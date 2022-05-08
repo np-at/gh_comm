@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { breakpoints } from "@styles/MediaBreakpoints";
 
 export interface NavBarProps {
+  children: React.ReactNode;
   collapsed?: boolean;
   propId?: string;
   className?: string;
@@ -255,20 +256,14 @@ const NavBar: React.FC<NavBarProps> = ({ collapsed, children, propId, navTrigger
     return undefined;
   }, [collapsed, showDropdown]);
 
-  const handleTriggerClick = () => {
-    setShowDropdown(!showDropdown);
-  };
+  const handleTriggerClick = () => setShowDropdown(!showDropdown);
   const { events } = useRouter();
 
   useEffect(() => {
-    const closeDropdown = () => {
-      setShowDropdown(false);
-    };
+    const closeDropdown = () => setShowDropdown(false);
     events?.on("routeChangeStart", closeDropdown);
 
-    return () => {
-      events?.off("routeChangeStart", closeDropdown);
-    };
+    return () => events?.off("routeChangeStart", closeDropdown);
   });
 
   return (

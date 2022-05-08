@@ -1,8 +1,8 @@
-import Document, {DocumentContext, Head, Html, Main, NextScript} from "next/document";
-import {ServerStyleSheet} from "styled-components";
+import Document, { DocumentContext, Head, Html, Main, NextScript } from "next/document";
+import { ServerStyleSheet } from "styled-components";
+import { DocumentInitialProps } from "next/dist/pages/_document";
 
-
-// noinspection JSUnusedGlobalSymbols
+// noinspection JSUnusedGlobalSymbols,HtmlRequiredTitleElement
 export default class MyDocument extends Document {
   render() {
     return (
@@ -40,15 +40,11 @@ export default class MyDocument extends Document {
         });
 
       const initialProps = await Document.getInitialProps(ctx);
-      return {
+      const docProps: DocumentInitialProps = {
         ...initialProps,
-        styles: (
-          <>
-            {initialProps.styles}
-            {sheet.getStyleElement()}
-          </>
-        )
+        styles: [...(initialProps.styles || []), ...sheet.getStyleElement()]
       };
+      return docProps;
     } finally {
       sheet.seal();
     }

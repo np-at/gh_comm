@@ -44,7 +44,7 @@ const EventsBar2: React.FC<EventsBarProps> = (props) => {
   );
 
   const handleKeyDown = useCallback(
-    (event) => {
+    (event: KeyboardEvent) => {
       if (props.isKeyboardEnabled) {
         if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
           updateSlide(event.key);
