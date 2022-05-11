@@ -69,7 +69,7 @@ const Highlight: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProp
         <div dangerouslySetInnerHTML={{ __html: body }} />
       </RowDiv>
       <RowDiv>
-        <CommentBlock slug={path ?? fullPath} comments={comments} attemptPreemptiveFetch={true} />
+        <CommentBlock slug={path ?? fullPath} comments={comments} attemptPreemptiveFetch={false} />
       </RowDiv>
     </div>
   );

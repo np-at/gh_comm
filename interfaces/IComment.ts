@@ -13,6 +13,7 @@ interface ICommentBase {
   // These are optionals, based on one's needs
   username: string;
   date: Date;
+  approved: boolean;
 }
 
 export interface ICommentStorage extends ICommentBase {

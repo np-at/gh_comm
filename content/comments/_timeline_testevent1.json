@@ -10,6 +10,7 @@
         "iv": "dd021fddd647dae979962c7d2b32e79d",
         "content": "f3b382a7ceccc326dafee2"
       },
+      "approved": true,
       "content": "testing",
       "children": [],
       "page_name": "_timeline_testevent1",
@@ -30,13 +31,15 @@
       "content": "asdf",
       "children": [],
       "page_name": "_timeline_testevent1",
-      "childrenIds": []
+      "childrenIds": [],
+      "approved": true
     },
     {
       "date": "2022-04-11T19:14:19.579Z",
       "parentCommentId": "b5c2eb8f-de79-41d9-8a1c-3b9ca89ed12b",
       "id": "328a283e-a310-4e1d-bf7a-2da5f67a0e40",
       "username": "tset",
+      "approved": true,
       "email": {
         "iv": "4e53fd3458a5e7d1912e30aca40bb592",
         "content": "539462439257fe062b2b"

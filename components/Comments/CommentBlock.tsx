@@ -29,12 +29,9 @@ const CommentBlock: React.FC<CommentBlockProps> = ({
 
   const { data, error, isLoading } = useFetch<ICommentFile>(
     `https://raw.githubusercontent.com/np-at/gh_comm/main/content/comments/${slug}.json`,
-    {
-
-    }
+    {}
   );
-
-
+  console.log("comments",comments)
   useEffect(() => {
     if (!attemptPreemptiveFetch) {
       return;

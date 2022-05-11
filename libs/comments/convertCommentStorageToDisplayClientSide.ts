@@ -3,6 +3,7 @@ import type { IComment, ICommentStorage } from "@interfaces/IComment";
 export const convertCommentStorageToDisplayClientSide: (comment: ICommentStorage) => IComment = (
   comment
 ) => ({
+  approved: comment.approved ?? false,
   id: comment.id,
   parentCommentId: comment.parentCommentId ? comment.parentCommentId : null,
   content: comment.content,

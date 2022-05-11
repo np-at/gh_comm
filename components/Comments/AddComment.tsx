@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { generateUUID } from "@lib/universal_utils/Utils";
 import { CommentForm } from "@components/Comments/CommentForm";
 import type { IComment } from "@interfaces/IComment";
+import {CommentsRequireApproval} from "@lib/GLOBALS";
 
 export default function AddComment({
   slug,
@@ -21,6 +22,7 @@ export default function AddComment({
 
     // Prepare the new comment data
     const newComment: IComment = {
+      approved: CommentsRequireApproval,
       page_name: slug,
       date: new Date(), // p
       parentCommentId: parentCommentId || null, // If this new comment has a parent, put the id here

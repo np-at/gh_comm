@@ -6,6 +6,7 @@ import type { ICommentFile, ICommentStorage } from "@interfaces/IComment";
 import type { Endpoints } from "@octokit/types";
 import { getGithubParamsFromEnv } from "@components/Comments/utils";
 import { encrypt } from "@lib/encryption/crypto";
+import {CommentsRequireApproval} from "@lib/GLOBALS";
 
 type repoContentsRequestResponse =
   Endpoints["GET /repos/{owner}/{repo}/contents/{path}"]["response"];
@@ -65,6 +66,7 @@ const SaveComment: (req: NextApiRequest, res: NextApiResponse) => Promise<void> 
 
   return new Promise(async (resolve) => {
     const newComment: ICommentStorage = {
+      approved: CommentsRequireApproval,
       date: req.body.date,
       parentCommentId: req.body.parentCommentId,
       id: req.body.id,
