@@ -2,8 +2,10 @@ import config from "./_config";
 import type { NextPageWithLayout } from "../_app.page";
 import React, { Fragment, useEffect } from "react";
 import styled from "styled-components";
+import Script from "next/script";
 
 const AdminPage: NextPageWithLayout<{}> = () => {
+
   useEffect(() => {
     // @ts-ignore
     window.CMS_MANUAL_INIT = true;
@@ -17,6 +19,9 @@ const AdminPage: NextPageWithLayout<{}> = () => {
       });
       if (!NetlifyIdentityWidget.currentUser()) {
         NetlifyIdentityWidget.open("login");
+        console.log("no current user")
+      } else {
+        console.log("current user ", NetlifyIdentityWidget.currentUser())
       }
 
       return () => {
@@ -47,9 +52,12 @@ const AdminPage: NextPageWithLayout<{}> = () => {
       }
     });
   }, []);
+
   return (
     <Fragment>
+      <Script src={"https://identity.netlify.com/v1/netlify-identity-widget.js"} />
       <div id={"nc-id"} />
+      {/*<div data-netlify-identity-button></div>*/}
       <CMSRootDiv id={"nc-root"} style={{ position: "static" }} />
     </Fragment>
   );
