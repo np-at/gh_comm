@@ -6,7 +6,7 @@ export interface UseResizeProps<T extends HTMLElement | undefined> {
     height: number;
   };
   existingRef?: React.RefObject<T>;
-  onResize?: ({ width, height: height }: { width: number; height: number }) => void;
+  onResize?: (resizeProps:{ width: number; height: number }) => void;
   onResizeDeps?: any[];
 }
 

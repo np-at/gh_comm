@@ -29,7 +29,7 @@ export default class MyDocument extends Document {
     );
   }
 
-  static async getInitialProps(ctx: DocumentContext) {
+  static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
 
@@ -40,11 +40,19 @@ export default class MyDocument extends Document {
         });
 
       const initialProps = await Document.getInitialProps(ctx);
-      const docProps: DocumentInitialProps = {
+      if (initialProps.styles === undefined)
+        return {
+          ...initialProps,
+          styles: sheet.getStyleElement()
+        };
+
+      return {
         ...initialProps,
-        styles: [...(initialProps.styles || []), ...sheet.getStyleElement()]
+        styles: [
+          Symbol.iterator in initialProps.styles ? [...initialProps.styles] : [],
+          ...sheet.getStyleElement()
+        ]
       };
-      return docProps;
     } finally {
       sheet.seal();
     }
